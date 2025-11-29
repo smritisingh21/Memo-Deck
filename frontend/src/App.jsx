@@ -1,20 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React from 'react'
 import './App.css'
-import {Route, Router, RouterProvider} from "react-router"
+import {Routes, Route} from "react-router-dom"
+import Home from './pages/Home'
+import NotePage from './pages/NotePage'
+import CreateNote from './pages/CreateNote'
 
 function App() {
 
-
   return (
-
-    <RouterProvider>
-      <Router>
-        <Route></Route>
-      </Router>
-    </RouterProvider>
+    <div data-theme="forest">
+        <Routes>
+        <Route path= '/' element={<Home/>}/>
+        <Route path= '/note/:id' element={<NotePage/>}/>
+        <Route  path= '/create' element={<CreateNote/>}/>
+      </Routes>
+    </div>
+    
   )
 }
 
-export default App
+export default App;

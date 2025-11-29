@@ -6,13 +6,16 @@ import "dotenv/config";
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-connectDB();
 app.use(express.json());
 
 
 app.use("/api/v1/notes" , notesRoutes);
 
 
-app.listen(PORT , () =>{
+connectDB().then(() =>{
+   app.listen(PORT , () =>{
     console.log(`Server Running at port`,PORT);
 })
+}
+ 
+)

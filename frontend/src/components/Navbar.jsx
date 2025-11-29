@@ -1,0 +1,20 @@
+import React from 'react'
+import {  PlusIcon } from 'lucide-react'
+import { Link } from 'react-router'
+
+export default function Navbar() {
+  return (
+    <header className='bg-black-300 h-12 w-50 border-b border-base-content/10'>
+        <div className='mx-auto mx-w-6xl p-4'>
+            <div className='flex items-center justify-between'>
+                <h1 className='text-2xl font-bold text-primary font-mono tracking-tight'>Memo-Deck : for all your notes</h1>
+                <div className='flex items-center gap-4'>
+                    <Link to={"/create"} className='btn btn-primary'>
+                    <PlusIcon className='size-4'/><span>New note</span>
+                    </Link>
+                </div>
+            </div>
+        </div>
+    </header>
+  )
+}
