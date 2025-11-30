@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [
     react(), // Enable React support
   ],
+  
   css: {
     // Configure PostCSS to run Tailwind CSS and Autoprefixer
     postcss: {
