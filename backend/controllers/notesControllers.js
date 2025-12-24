@@ -1,4 +1,4 @@
-import Note from "../../backend/models/notesSchema.js"
+import Note from "../models/notesSchema.js"
 
 export async function getAllNotes( req , res ) {
     try{

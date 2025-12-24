@@ -23,11 +23,10 @@ export default function Note({note, setNotes}) {
   return (
     <Link
       to={`/note`}
-      className="card bg-base-100 hover:shadow-lg transition-all duration-200 
-      border-t-4 border-solid border-[#00FF9D]"
+      className=""
     >
-      <div className="card-body">
-        <h3 className="card-title text-base-content">{note.title}</h3>
+      <div className=" card-body card-border p-3">
+        <h3 className="card-title text-base-content  ">{note.title}</h3>
         <p className="text-base-content/70 line-clamp-3">{note.content}</p>
         <div className="card-actions justify-between items-center mt-4">
           <span className="text-sm text-base-content/60">

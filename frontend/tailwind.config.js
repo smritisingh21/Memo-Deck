@@ -11,10 +11,8 @@ export default {
     extend: {},
   },
   // DaisyUI is listed as a plugin for Tailwind
-  plugins: [
-     daisyui,
-  ],
+  plugins: [daisyui],
   daisyui:{
-    themes:["forest"],
+    themes:["retro"],
   }
 }
