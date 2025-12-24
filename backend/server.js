@@ -8,7 +8,6 @@ import cors from "cors"
 const app = express();
 const PORT = process.env.PORT || 4040;
 
-console.log("🔥 SERVER.JS FILE IS EXECUTING");
 
 app.use(cors({
   origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
@@ -40,9 +39,6 @@ connectDB()
   });
 ;
 
-setInterval(() => {
-  console.log("⏱ still alive");
-}, 5000);
 
 
 
