@@ -46,7 +46,7 @@ const CreateNote = () => {
           <div className="card-dark bg-base-100">
             <div className="card-body">
               
-              <h2 className="card-title text-2xl mb-4">Create New Note</h2>
+              <h2 className="card-title card-actions text-primary-content text-2xl mb-4">Create New Note</h2>
               <form onSubmit={handleSubmit}>
                 <div className="form-control mb-4">
                   <label className="label">
@@ -55,7 +55,7 @@ const CreateNote = () => {
                   <input
                     type="text"
                     placeholder="Note Title"
-                    className="input input-bordered"
+                    className="input input-bordered text-primary-content"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                   />

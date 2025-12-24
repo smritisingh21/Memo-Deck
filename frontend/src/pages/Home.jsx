@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import toast from 'react-hot-toast';
 import Note from '../components/Note';
 import axiosInstance from '../lib/axios';
+import Menubar from '../components/Menubar';
 
 
 export default function Home() {
@@ -13,7 +14,6 @@ export default function Home() {
         const fetchNotes = async() => {
             try{
                 const res = await axiosInstance.get('/notes');
-                console.log("checking from frontend :",res.data);
                 setNotes(res.data)
 
             }catch(err){
@@ -30,8 +30,9 @@ export default function Home() {
     },[])
   return (
 
-    <div className='min-h-screen from-primary to-primary via-primary '>
+    <div className='min-h-screen bg-ghost ml-60 '>
         <Navbar/>
+        <Menubar/>
         <div className=' max-w-7xl mx-auto p-4 mt-6'>
         {loading && <div className='text-center text-base-100 py-10'>Loading notes...</div>}
        {notes.length > 0 ? (
