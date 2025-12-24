@@ -24,26 +24,25 @@ export default function Menubar() {
           md:translate-x-0
         `}
       >
-        <div className="p-4 font-bold text-lg text-primary">
+        <div className="p-4 mt-10 font-bold text-lg text-primary">
           Memo Deck
         </div>
 
         <nav className="flex flex-col gap-2 p-4">
-  {SIDE_MENU_DATA.map((item) => {
-    const Icon = item.icon;
+        {SIDE_MENU_DATA.map((item) => {
+        const Icon = item.icon;
 
-    return (
-      <a
+        return (
+         <a
         key={item.id}
         href={item.path}
         className="flex items-center gap-3 rounded-lg p-3 
-                   hover:bg-base-200 transition"
-      >
+        hover:bg-base-200 transition"
+         >
         <Icon size={18} className="text-primary" />
         <span className="text-base-content">{item.name}</span>
       </a>
-    );
-     })}
+        )})}
     </nav>
 
       </aside>

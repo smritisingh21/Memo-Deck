@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 
 export default function Navbar() {
   return (
-    <div className='bg'>
+    <div className='border border-b-accent'>
         <header className='h-5rem w-50 border-b border-separate'>
         <div className='mx-auto mx-w-6xl p-4'>
 
