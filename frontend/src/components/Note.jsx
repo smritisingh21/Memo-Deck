@@ -23,23 +23,22 @@ export default function Note({note, setNotes}) {
   return (
     <Link
       to={`/note`}
-      className="card bg-base-100 hover:shadow-lg transition-all duration-200 
-      border-t-4 border-solid border-[#00FF9D]"
+      className=""
     >
-      <div className="card-body">
-        <h3 className="card-title text-base-content">{note.title}</h3>
-        <p className="text-base-content/70 line-clamp-3">{note.content}</p>
+      <div className=" card-body border border-b card-actions rounded-box bg-base-content/10 border-accent-content p-4 shadow-sm shadow-white">
+        <h3 className="card-title text-actions text-content-secondary mb-4 ">{note.title}</h3>
+        <p className="text-base-content/50 line-clamp-6">{note.content}</p>
         <div className="card-actions justify-between items-center mt-4">
           <span className="text-sm text-base-content/60">
             {formatDate(new Date(note.createdAt))}
           </span>
           <div className="flex items-center gap-1">
-            <PenSquareIcon className="size-4" />
+            <PenSquareIcon className="size-4 btn-ghost" />
             <button
-              className="btn btn-ghost btn-xs text-error"
+              className="btn btn-xs text-warning"
               onClick={(e) => handleDelete(e, note._id)}
             >
-              <Trash2Icon className="size-4" />
+              <Trash2Icon className="size-4 btn-ghost" />
             </button>
           </div>
         </div>

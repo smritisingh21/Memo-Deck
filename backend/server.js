@@ -6,21 +6,39 @@ import cors from "cors"
 // import rateLimiter from "./middlewares/rateLimiter.js";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4040;
+
+
+app.use(cors({
+  origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+  credentials: true,
+  methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"]
+}));
+app.use((req, _, next) => {
+  console.log("HIT:", req.method, req.url);
+  next();
+});
 
 app.use(express.json());
-app.use(cors())
 // app.use(rateLimiter);
 
 
 app.use("/api/v1" , notesRoutes);
-console.log("ENV TEST:", process.env.MONGODB_URI);
 
-console.log("before listen");
-
-connectDB().then(() => {
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server Running at port ${PORT}`);
+connectDB()
+  .then(() => {
+    console.log("Connected to database");
+  })
+  .catch(err => {
+    console.error("DB connection failed:", err);
   });
-});
+
+
+  app.listen(PORT,"0.0.0.0", () => { 
+    console.log(`Server Running at http://localhost:${PORT}`);
+  });
+;
+
+
+
 

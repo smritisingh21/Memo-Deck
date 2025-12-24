@@ -2,3 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+
+.color-primary-dark{
+    @apply bg-zinc-900
+}
+.color-primary{
+    @apply bg-lime-100
+}
+.btn-primary {
+    @apply bg-zinc-900 text-white px-4 py-2 rounded-lg hover:bg-zinc-800;
+  }
+
+.card {
+    @apply bg-white rounded-xl shadow p-2 text-gray-700 hover:shadow-lg transition-all duration-200 border-b border-spacing-1 border-[#246049];
+}
+.card-dark{
+    @apply bg-zinc-900 rounded-xl shadow p-2 text-amber-100  hover:shadow-lg transition-all duration-200 border border-spacing-1 border-[#246049];
+}
+  
+}
+

@@ -8,7 +8,7 @@ import NoteDetail from './pages/NoteDetail'
 function App() {
 
   return (
-    <div data-theme="forest">
+    <div  className="min-h-screen">
         <Routes>
         <Route path= '/notes' element={<Home/>}/>
         <Route path= '/' element={<Home/>}/>

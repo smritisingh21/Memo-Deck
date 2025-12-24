@@ -1,12 +1,13 @@
 import Note from "../models/notesSchema.js"
 
-export async function getAllNotes(_, res ) {
+export async function getAllNotes( req , res ) {
     try{
         const notes = await Note.find().sort({createdAt : -1});//newestFirst
-        res.status(200).json({message:"loaded"});
+        console.log("Data from server:", notes);
+        res.status(200).json(notes);
 
     }catch(err){
-        console.error("Could not fetch notes.\n\n" , err);
+        console.error("Could not fetch notes.\n\n" , err)
         res.status(500).json({message : "Internal server error"})
     }
 }
@@ -32,8 +33,9 @@ export async function createNote(req , res) {
              title : title, 
              content: content,
             });
+            
         const savedNote = await note.save();
-        res.status(200).json({message:"created"});
+        res.status(201).json(savedNote);
     }catch(err){
         console.error("Could not create note.\n\n" , err);
         if (err.name === 'ValidationError') {

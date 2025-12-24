@@ -35,7 +35,7 @@ const CreateNote = () => {
   };
 
   return (
-    <div className="min-h-screen bg-base-200">
+    <div className="min-h-screen from-primary to-primary ">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           <Link to={"/"} className="btn btn-ghost mb-6">
@@ -43,9 +43,10 @@ const CreateNote = () => {
             Back to Notes
           </Link>
 
-          <div className="card bg-base-100">
+          <div className="card-dark bg-base-100">
             <div className="card-body">
-              <h2 className="card-title text-2xl mb-4">Create New Note</h2>
+              
+              <h2 className="card-title card-actions text-primary-content text-2xl mb-4">Create New Note</h2>
               <form onSubmit={handleSubmit}>
                 <div className="form-control mb-4">
                   <label className="label">
@@ -54,7 +55,7 @@ const CreateNote = () => {
                   <input
                     type="text"
                     placeholder="Note Title"
-                    className="input input-bordered"
+                    className="input input-bordered text-primary-content"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                   />

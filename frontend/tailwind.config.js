@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import { all } from 'axios';
 import daisyui from 'daisyui'; // DaisyUI is imported here as a Tailwind plugin
 
 export default {
@@ -11,10 +12,8 @@ export default {
     extend: {},
   },
   // DaisyUI is listed as a plugin for Tailwind
-  plugins: [
-     daisyui,
-  ],
+  plugins: [daisyui],
   daisyui:{
-    themes:["forest"],
+    themes: ['forest' , 'caramellatte' , 'retro'],
   }
 }
