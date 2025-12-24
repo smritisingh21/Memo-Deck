@@ -5,6 +5,7 @@ import {
   Star,
   Trash2,
   Settings,
+  Folder,
 } from "lucide-react";
 
 export const SIDE_MENU_DATA = [
@@ -16,8 +17,8 @@ export const SIDE_MENU_DATA = [
   },
   {
     id: "02",
-    name: "All Notes",
-    icon: FileText,
+    name: "All Folders",
+    icon: Folder,
     path: "/notes",
   },
   {
