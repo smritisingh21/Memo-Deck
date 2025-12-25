@@ -1,80 +1,57 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axiosInstance from "../lib/axios";
+import axios from "../lib/axios";
 
-export default function CreateFolder() {
-
-  const { parentId } = useParams(); // current folder
-  const navigate = useNavigate();
-
+export default function CreateFolder({ parentId, onClose, onCreated }) {
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function createFolder() {
+  async function handleCreate() {
     if (!title.trim()) return;
 
-    try {
-      setLoading(true);
-      await axiosInstance.post(`/folder/${parentId}`, {
-        title,
-        parent : parentId || null,
-      });
+    setLoading(true);
+    if(parentId){
+      await axios.post(`/folder/${parentId}`, {
+      title,
+      parent: parentId || null,
+    });
+    setLoading(false);
+    onCreated(); // refresh folder
+    onClose();
 
-      if (parentId) {
-        navigate(`/folder/${parentId}`);
-      } else {
-        navigate("/");
-      }
+    }else{
+        await axios.post(`/folder`, {
+      title,
+      parent: null,
+    });
+    setLoading(false);
+    onCreated(); 
+    onClose();
 
-    } catch (err) {
-      console.error("Failed to create folder", err);
-    } finally {
-      setLoading(false);
     }
+   
   }
 
   return (
-    <div className="min-h-screen flex items-start justify-center p-20 bg-backdrop-blur-sm/30">
+    <div className="flex-col ">
+      <h2 className="text-lg font-semibold mb-4 ">Create Folder</h2>
+      <input
+        className="input input-bordered w-full mb-4"
+        placeholder="Folder name"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
 
-      <div className="w-full max-w-md bg-base-200 rounded-sm shadow-lg p-7 space-y-2">
-
-        <h1 className="text-xl font-bold tracking-tight text-primary-content">
-          Create New Folder
-        </h1>
-
-        <div className="space-y-4 ">
-
-          <label className="text-sm font-bold text-base-content/50">
-            Folder Title
-          </label>
-
-          <input
-            type="text"
-            placeholder="e.g. Study Notes"
-            className="input input-bordered w-full mt-5"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            autoFocus
-          />
-        </div>
-
-        <div className="flex justify-end gap-3 pt-4">
-          <button
-            className="btn btn-ghost"
-            onClick={() => navigate(-1)}
-          >
-            Cancel
-          </button>
-
-          <button
-            className="btn btn-primary"
-            onClick={createFolder}
-            disabled={loading}
-          >
-            {loading ? "Creating..." : "Create Folder"}
-          </button>
-        </div>
-
+      <div className="flex justify-end gap-2">
+        <button className="btn btn-glass" onClick={onClose}>
+          Cancel
+        </button>
+        <button
+          className="btn btn-primary"
+          onClick={handleCreate}
+          disabled={loading}
+        >
+          Create
+        </button>
       </div>
     </div>
   );

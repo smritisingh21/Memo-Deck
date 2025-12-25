@@ -24,18 +24,6 @@ export const SIDE_MENU_DATA = [
     path: "/folders",
   },
   {
-    id: "03",
-    name: "Create Note",
-    icon: PlusSquare,
-    path: "/create-note",
-  },
-  {
-    id: "04",
-    name: "Create Folder",
-    icon: FolderPlus,
-    path: "/create-folder",
-  },
-  {
     id: "05",
     name: "Favourites",
     icon: Star,

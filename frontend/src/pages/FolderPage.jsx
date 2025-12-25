@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import axios from "../lib/axios";
 import FolderCard from "../components/FolderCard";
 import NoteCard from "../components/Notecard";
+import PopUp from "../layouts/PopUp"
+import CreateFolder from "./CreateFolder";
+import FullScreenPopUp from "../layouts/FullScreenPopUp"
+import CreateNote from "./CreateNote";
 
 export default function FolderPage() {
   const { id } = useParams(); // undefined at root
@@ -11,19 +15,18 @@ export default function FolderPage() {
   const [subfolders, setSubfolders] = useState([]);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showCreateFolder, setShowCreateFolder] = useState(false);
+  const [showCreateNote, setShowCreateNote] = useState(false);
 
-  useEffect(() => {
+
     async function fetchData() {
       setLoading(true);
-
       if (id) {
-        // 🔹 inside a folder
         const res = await axios.get(`/folder/${id}`);
         setFolder(res.data.folder);
         setSubfolders(res.data.subfolders);
         setNotes(res.data.notes);
       } else {
-        // 🔹 root folder (parent === null)
         const res = await axios.get("/root");
         setFolder(null);
         setSubfolders(res.data.folders);
@@ -32,6 +35,8 @@ export default function FolderPage() {
 
       setLoading(false);
     }
+    
+  useEffect(() => {
 
     fetchData();
   }, [id]);
@@ -48,19 +53,19 @@ export default function FolderPage() {
         </h1>
 
         <div className="flex gap-2">
-          <Link
-            to={folder ? `/folder/${id}/create` : `/create-folder`}
+          <button
             className="btn btn-sm"
+            onClick={() => setShowCreateFolder(true)}
           >
             New Folder
-          </Link>
+          </button>
 
-          <Link
-            to={folder ? `/folder/${id}/create-note` : `/create-note`}
+           <button
             className="btn btn-sm btn-primary"
-          >
+            onClick={() => setShowCreateNote(true)}
+            >
             New Note
-          </Link>
+          </button>
         </div>
       </header>
 
@@ -99,6 +104,26 @@ export default function FolderPage() {
           This folder is empty
         </p>
       )}
+      {showCreateFolder && (
+    <PopUp onClose={() => setShowCreateFolder(false)}>
+    <CreateFolder
+      parentId={id}
+      onClose={() => setShowCreateFolder(false)}
+      onCreated={() => fetchData()}
+    />
+   </PopUp>
+)}
+
+{showCreateNote && (
+  <FullScreenPopUp onClose={() => setShowCreateNote(false)}>
+    <CreateNote
+      parentId={id}
+      onClose={() => setShowCreateNote(false)}
+      onCreated={() => fetchData()}
+    />
+  </FullScreenPopUp>
+)}
+
     </div>
   );
 }

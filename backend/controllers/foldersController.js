@@ -52,6 +52,23 @@ export async function createFolder(req , res) {
     }
 
 }
+export async function createRootFolder(req, res) {
+  try {
+    const { title } = req.body;
+
+    const folder = new Folder({
+      title,
+      parent: null,
+    });
+
+    const savedFolder = await folder.save();
+    res.status(201).json(savedFolder);
+
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
 
 export async function editFolder(req , res) {
     try{

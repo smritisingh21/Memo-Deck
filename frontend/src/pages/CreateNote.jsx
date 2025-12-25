@@ -1,102 +1,75 @@
-import { ArrowLeftIcon } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 import { useState } from "react";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router";
-import axiosInstance from "../lib/axios";
-import { useParams } from "react-router";
+import axios from "../lib/axios";
 
-const CreateNote = () => {
+export default function CreateNote({ parentId, onClose,onCreated}) {
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
-  const { parentId } = useParams(); // current folder
 
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!title.trim() || !content.trim()) {
-      toast.error("All fields are required");
-      return;
-    }
+  async function handleCreate() {
+    if (!title.trim()) return;
 
     setLoading(true);
-    try {
-      await axiosInstance.post(`/note/${parentId}`, { 
-        title ,
-        content ,
-        parent: parentId || null,
-      });
+    await axios.post(`/note/${parentId}`, {
+      title,
+      content,
+      parent: parentId || null,
+    });
 
-      toast.success("Note created successfully!");
-      navigate(`/folder/${parentId}`);
-    } catch (error) {
-      console.log("Error creating note", error);
-    } finally {
-      setLoading(false); 
-    }
-  };
+    setLoading(false);
+    onCreated();
+    onClose();
+  }
 
   return (
-    <div className="min-h-screen from-primary to-primary ">
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
-          <Link to={"/"} className="btn btn-ghost border-primary-content mb-6">
-            <ArrowLeftIcon className="size-5" />
-            Back
-          </Link>
+    <div className="h-screen flex flex-col ml-40 mr-40 ">
 
-          <div className="card-dark bg-base-100">
-            <div className="card-body">
-              
-              <h2 className="card-title card-actions text-primary-content text-2xl mb-4">
-                Create New Note
-              </h2>
+      <div className="flex items-center justify-between px-6 py-4 border-b">
+        <button
+          onClick={onClose}
+          className="btn btn-ghost btn-sm gap-2"
+        >
+          <ArrowLeft size={18} />
+          Back
+        </button>
 
-              <form onSubmit={handleSubmit}>
-                <div className="form-control mb-4">
-                  <label className="label">
-                    <span className="label-text">
-                      Title
-                    </span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Note Title"
-                    className="input input-bordered text-primary-content"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleCreate}
+            disabled={loading}
+            className="btn btn-primary btn-sm"
+          >
+            {loading ? "Creating…" : "Create"}
+          </button>
 
-                <div className="form-control mb-4">
-                  <label className="label">
-                    <span className="label-text">
-                      Content
-                    </span>
-                  </label>
-
-                  <textarea
-                    placeholder="Write your note here..."
-                    className="textarea textarea-bordered h-32"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                  />
-                </div>
-
-                <div className="card-actions justify-end">
-                  <button type="submit" className="btn btn-primary" disabled={loading}>
-                    {loading ? "Creating..." : "Create Note"}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+          <button
+            onClick={onClose}
+            className="btn btn-ghost btn-sm"
+          >
+            <X size={18} />
+          </button>
         </div>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 p-8 overflow-y-visible space-y-2">
+        <input
+          type="text"
+          placeholder="Note title"
+          className="w-full text-3xl mb-5 font-bold outline-none line- bg-transparent"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+
+        <textarea
+          placeholder="Start writing your note…"
+          className="w-full h-full resize-none outline-none bg-transparent text-base leading-relaxed"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
       </div>
     </div>
   );
-};
-
-export default CreateNote;
+}
