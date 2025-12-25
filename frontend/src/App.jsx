@@ -4,6 +4,8 @@ import {Routes, Route} from "react-router-dom"
 import Home from './pages/Home'
 import CreateNote from './pages/CreateNote'
 import NoteDetail from './pages/NoteDetail'
+import CreateFolder from './pages/CreateFolder'
+import Folders from './pages/Folders'
 
 function App() {
 
@@ -15,7 +17,7 @@ function App() {
         <Route  path= '/createNote' element={<CreateNote/>}/>
         <Route  path= '/createFolder' element={<CreateFolder/>}/>
         <Route  path= '/note/:id' element={<NoteDetail/>}/>
-        <Route path="/folders/:folderId" element={<FolderPage />} />
+        <Route path="/folders/:folderId" element={<Folders />} />
       </Routes>
     </div>
     
