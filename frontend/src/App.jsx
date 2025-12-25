@@ -12,8 +12,10 @@ function App() {
         <Routes>
         <Route path= '/notes' element={<Home/>}/>
         <Route path= '/' element={<Home/>}/>
-        <Route  path= '/create' element={<CreateNote/>}/>
+        <Route  path= '/createNote' element={<CreateNote/>}/>
+        <Route  path= '/createFolder' element={<CreateFolder/>}/>
         <Route  path= '/note/:id' element={<NoteDetail/>}/>
+        <Route path="/folders/:folderId" element={<FolderPage />} />
       </Routes>
     </div>
     
