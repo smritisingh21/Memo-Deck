@@ -27,9 +27,10 @@ export async function getNote(req , res ) {
 
 export async function createNote(req , res) {
     try{
-        const{ title, content, parent } = req.body;
+        const {parentId} = req.params;
+        const{ title, content} = req.body;
         const note = new Note({
-             parent :parent || null,
+             parent :parentId || null,
              title : title, 
              content: content,
             });

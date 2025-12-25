@@ -21,29 +21,29 @@ export default function Home() {
                 console.log("error fetching notes");
                 console.log(err);
                 toast.error("Loading failed ! Please try again after sometime.",{
-                    duration:700,
+                    duration:300,
                 })
             }finally { 
                 setLoading(false);
             }
         }
+
         const fetchFolders = async() => {
             try{
                 const foldersData = await axiosInstance.get('/folders');
                 setFolders(foldersData.data)
 
             }catch(err){
-                console.log("error fetching notes");
+                console.log("error fetching Folders");
                 console.log(err);
                 toast.error("Loading failed ! Please try again after sometime.",{
-                    duration:700,
+                    duration:300,
                 })
             }finally { 
                 setLoading(false);
             }
         }
 
-        
         fetchFolders();
         fetchNotes();
     },[])
@@ -53,18 +53,20 @@ export default function Home() {
 
         <div className=' max-w-7xl mx-auto p-4 mt-6'>
       
-        {loading && <div className='text-center text-base-100 py-10'>Loading...</div>}
+        {loading
+         && <div className='text-center text-base-100 py-10'>Loading...</div>}
         
         {folders.length > 0 ? (
 
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6'>
+
         {folders.map((folder) => (
             <FolderCard key={folder._id} id={folder._id} title={folder.title} notes={folder.notes}/>
         ))}
          </div>
         ) :
         (
-         !loading && <div className='text-center py-10'>No notes found. Create one!</div>
+         !loading && <div className='text-center py-10'>No folders found. Create one!</div>
         )}
         
        {notes.length > 0 ? (

@@ -1,6 +1,6 @@
 import Folder from "../models/folderSchema.js"
 import Note from "../models/notesSchema.js";
-
+import mongoose from "mongoose";
 export async function getAllFolders( _, res ) {
     try{
         const folders = await Folder.find().sort({createdAt : -1});
@@ -20,7 +20,6 @@ export async function getFolder(req , res ) {
         const folder = await Folder.findById(id);
 
         if(!folder) return res.status(404).json({message : "Folder not found."})
-            
             const subfolders = await Folder.find({ parent: id });
             const notes = await Note.find({ parent: id });
             res.status(200).json({folder , subfolders ,notes});
@@ -34,12 +33,11 @@ export async function getFolder(req , res ) {
 export async function createFolder(req , res) {
     try{
         const {parentId} = req.params;
-        const{ title, content} = req.body;
+        const{ title} = req.body;
 
         const folder = new Folder({
-            parentId :parentId,
+            parent :parentId,
             title : title, 
-            content: content,
             });
             
         const savedFolder = await folder.save();
@@ -54,6 +52,7 @@ export async function createFolder(req , res) {
     }
 
 }
+
 export async function editFolder(req , res) {
     try{
         const {folderId}= req.params;

@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axiosInstance from "../lib/axios";
 
 export default function CreateFolder() {
-  
+
   const { parentId } = useParams(); // current folder
   const navigate = useNavigate();
 
@@ -15,9 +15,9 @@ export default function CreateFolder() {
 
     try {
       setLoading(true);
-      await axiosInstance.post("/folder", {
+      await axiosInstance.post(`/folder/${parentId}`, {
         title,
-        parent: parentId || null,
+        parent : parentId || null,
       });
 
       if (parentId) {
@@ -34,21 +34,24 @@ export default function CreateFolder() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
-      <div className="w-full max-w-md bg-base-100 rounded-xl shadow-lg p-6 space-y-6">
+    <div className="min-h-screen flex items-start justify-center p-20 bg-backdrop-blur-sm/30">
 
-        <h1 className="text-xl font-bold tracking-tight text-primary">
+      <div className="w-full max-w-md bg-base-200 rounded-sm shadow-lg p-7 space-y-2">
+
+        <h1 className="text-xl font-bold tracking-tight text-primary-content">
           Create New Folder
         </h1>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-base-content">
+        <div className="space-y-4 ">
+
+          <label className="text-sm font-bold text-base-content/50">
             Folder Title
           </label>
+
           <input
             type="text"
             placeholder="e.g. Study Notes"
-            className="input input-bordered w-full"
+            className="input input-bordered w-full mt-5"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             autoFocus

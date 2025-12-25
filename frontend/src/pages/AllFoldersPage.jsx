@@ -40,11 +40,11 @@ export default function FoldersPage() {
       </header>
 
       {!folders? (
-        <p className="text-base-content/60">No folders yet</p>
+        <p className="text-base-content/60">-----No folders yet-----</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {folders.map((folder) => (
-            <FolderCard key={folder._id} title={folder.title} />
+            <FolderCard key={folder._id} title={folder.title} notes={notes} />
           ))}
         </div>
       )}

@@ -9,7 +9,7 @@ const CreateNote = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
-    const { parentId } = useParams(); // current folder
+  const { parentId } = useParams(); // current folder
 
   const navigate = useNavigate();
 
@@ -23,15 +23,14 @@ const CreateNote = () => {
 
     setLoading(true);
     try {
-      await axiosInstance.post("/note", { 
+      await axiosInstance.post(`/note/${parentId}`, { 
         title ,
         content ,
         parent: parentId || null,
       });
 
       toast.success("Note created successfully!");
-      navigate("/");
-
+      navigate(`/folder/${parentId}`);
     } catch (error) {
       console.log("Error creating note", error);
     } finally {
@@ -77,7 +76,7 @@ const CreateNote = () => {
                       Content
                     </span>
                   </label>
-                  
+
                   <textarea
                     placeholder="Write your note here..."
                     className="textarea textarea-bordered h-32"

@@ -19,12 +19,12 @@ function App() {
         <Route path= '/' element={<Home/>}/>
         <Route  path= '/note/:id' element={<NoteDetail/>}/>
         <Route  path= '/create-note' element={<CreateNote/>}/> 
-        <Route  path= '/note/:parentId/create' element={<CreateNote/>}/> {/*note inside folder */}
+        <Route  path= '/folder/:parentId/create-note' element={<CreateNote/>}/> {/*note inside folder */}
 
         <Route  path= '/folders' element={<AllFoldersPage/>}/> {/*root folder */}
         <Route path="/folder/:id" element={<FolderPage />} />
         <Route  path= '/create-folder' element={<CreateFolder/>}/> {/*root folder */}
-         <Route path="/folder/:parentId/create" element={<CreateFolder />} />{/*sub-folder */}
+         <Route path="/folder/:parentId/create-folder" element={<CreateFolder />} />{/*sub-folder */}
 
       </Routes>
       </AppLayout>
