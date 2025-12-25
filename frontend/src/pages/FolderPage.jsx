@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "../lib/axios";
+import axios from "../lib/axios"; // your axios instance
 import NoteCard from "../components/Notecard";
 
 export default function FolderPage() {
-  const { folderId } = useParams();
+  const { id } = useParams();
 
   const [folder, setFolder] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -13,7 +13,7 @@ export default function FolderPage() {
   useEffect(() => {
     async function fetchFolder() {
       try {
-        const res = await axios.get(`/folders/${folderId}`);
+        const res = await axios.get(`/folders/${id}`);
         setFolder(res.data);
       } catch (err) {
         setError("Failed to load folder");
@@ -23,9 +23,8 @@ export default function FolderPage() {
     }
 
     fetchFolder();
-  }, [folderId]);
+  }, [id]);
 
-  // 1️⃣ Loading state
   if (loading) {
     return <div className="p-6">Loading folder...</div>;
   }
@@ -40,21 +39,23 @@ export default function FolderPage() {
 
   return (
     <div className="p-6 space-y-6">
+      {/* Folder title */}
       <header>
         <h1 className="text-2xl font-bold tracking-tight text-primary">
           {folder.title}
         </h1>
-        <p className="text-sm text-base-content/60">
+        <p className="text-sm text-base-content/70">
           {folder.notes.length} notes
         </p>
       </header>
 
+      {/* Notes list */}
       {folder.notes.length === 0 ? (
         <p className="text-base-content/50">
-          This folder is empty
+          Empty folder !
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {folder.notes.map((note) => (
             <NoteCard key={note._id} note={note} />
           ))}

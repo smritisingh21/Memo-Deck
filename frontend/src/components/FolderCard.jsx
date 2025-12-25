@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { FolderCheck } from "lucide-react";
-import NoteCard from "./Notecard";
 
 export default function Folder({ id, title, notes }) {
 

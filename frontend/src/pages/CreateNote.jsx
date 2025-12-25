@@ -3,11 +3,13 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 import axiosInstance from "../lib/axios";
+import { useParams } from "react-router";
 
 const CreateNote = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
+    const { parentId } = useParams(); // current folder
 
   const navigate = useNavigate();
 
@@ -23,10 +25,13 @@ const CreateNote = () => {
     try {
       await axiosInstance.post("/note", { 
         title ,
-        content });
+        content ,
+        parent: parentId || null,
+      });
 
       toast.success("Note created successfully!");
       navigate("/");
+
     } catch (error) {
       console.log("Error creating note", error);
     } finally {
@@ -38,9 +43,9 @@ const CreateNote = () => {
     <div className="min-h-screen from-primary to-primary ">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
-          <Link to={"/"} className="btn btn-ghost mb-6">
+          <Link to={"/"} className="btn btn-ghost border-primary-content mb-6">
             <ArrowLeftIcon className="size-5" />
-            Back to Notes
+            Back
           </Link>
 
           <div className="card-dark bg-base-100">

@@ -4,24 +4,24 @@ import { Link } from 'react-router'
 
 export default function Navbar() {
   return (
-    <div className='border-b border-neutral'>
-        <header className='h-5rem w-50 border-b border-separate'>
+    <div className='border-b border-neutral lg:ml-30 md:ml-10 '>
+        <header className='h-5em w-50 border-b '>
         <div className='mx-auto mx-w-6xl p-4'>
 
-            <div className='flex items-center justify-between'>
-                <h1 className='text-2xl font-bold text-accent font-mono tracking-tight'>
+            <div className='flex items-center justify-between '>
+                <h1 className='text-2xl font-bold text-accent font-mono tracking-tight' >
                   Memo-Deck : for all your notes
                   </h1>
-                  <div className='flex items-center justify-around gap-2'>
+                  <div className='flex items-center justify-around lg:gap-2 md:gap-2'>
                   <div className='flex items-center gap-1'>
 
-                    <Link to={"/create"} className='btn text-primary-content/60 bg-'>
+                    <Link to={"/create-note"} className='btn text-primary-content/60 bg-'>
                     <PlusIcon className='size-4 text-accent'/><span>New note</span>
                     </Link>
                 </div>
 
                 <div className='flex items-center gap-2'>
-                    <Link to={"/create"} className='btn text-primary-content/60 bg-'>
+                    <Link to={"/create-folder"} className='btn text-primary-content/60 bg-'>
                     <FolderPlusIcon className='size-4 text-accent'/><span>Create New Folder</span>
                     </Link>
                 </div>
