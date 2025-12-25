@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axiosInstance from "../lib/axios";
 
 export default function CreateFolder() {
+  
   const { parentId } = useParams(); // current folder
   const navigate = useNavigate();
 
@@ -22,7 +23,7 @@ export default function CreateFolder() {
       if (parentId) {
         navigate(`/folder/${parentId}`);
       } else {
-        navigate("/folder");
+        navigate("/");
       }
 
     } catch (err) {

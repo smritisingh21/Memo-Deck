@@ -51,11 +51,16 @@ const CreateNote = () => {
           <div className="card-dark bg-base-100">
             <div className="card-body">
               
-              <h2 className="card-title card-actions text-primary-content text-2xl mb-4">Create New Note</h2>
+              <h2 className="card-title card-actions text-primary-content text-2xl mb-4">
+                Create New Note
+              </h2>
+
               <form onSubmit={handleSubmit}>
                 <div className="form-control mb-4">
                   <label className="label">
-                    <span className="label-text">Title</span>
+                    <span className="label-text">
+                      Title
+                    </span>
                   </label>
                   <input
                     type="text"
@@ -68,8 +73,11 @@ const CreateNote = () => {
 
                 <div className="form-control mb-4">
                   <label className="label">
-                    <span className="label-text">Content</span>
+                    <span className="label-text">
+                      Content
+                    </span>
                   </label>
+                  
                   <textarea
                     placeholder="Write your note here..."
                     className="textarea textarea-bordered h-32"

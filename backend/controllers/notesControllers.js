@@ -27,14 +27,16 @@ export async function getNote(req , res ) {
 
 export async function createNote(req , res) {
     try{
-        const{ title, content } = req.body;
+        const{ title, content, parent } = req.body;
         const note = new Note({
+             parent :parent || null,
              title : title, 
              content: content,
             });
             
         const savedNote = await note.save();
         res.status(201).json(savedNote);
+
     }catch(err){
         console.error("Could not create note.\n\n" , err);
         if (err.name === 'ValidationError') {

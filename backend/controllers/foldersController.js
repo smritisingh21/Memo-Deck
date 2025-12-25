@@ -1,8 +1,9 @@
 import Folder from "../models/folderSchema.js"
+import Note from "../models/notesSchema.js";
 
-export async function getAllFolders( req , res ) {
+export async function getAllFolders( _, res ) {
     try{
-        const folders = await Folder.find().sort({createdAt : -1});//newestFirst
+        const folders = await Folder.find().sort({createdAt : -1});
         res.status(200).json(folders);
 
     }catch(err){
@@ -14,10 +15,15 @@ export async function getAllFolders( req , res ) {
 
 export async function getFolder(req , res ) { 
     try{
-        const folderId= req.params.id;
-        const folder = await Folder.findById(folderId);
+
+        const {id} = req.params;
+        const folder = await Folder.findById(id);
+
         if(!folder) return res.status(404).json({message : "Folder not found."})
-        res.status(200).json(folder);
+            
+            const subfolders = await Folder.find({ parent: id });
+            const notes = await Note.find({ parent: id });
+            res.status(200).json({folder , subfolders ,notes});
 
     }catch(err){
         console.error("Could not fetch folder.\n\n" , err);
@@ -27,14 +33,18 @@ export async function getFolder(req , res ) {
 
 export async function createFolder(req , res) {
     try{
-        const{ title, content } = req.body;
+        const {parentId} = req.params;
+        const{ title, content} = req.body;
+
         const folder = new Folder({
-             title : title, 
-             content: content,
+            parentId :parentId,
+            title : title, 
+            content: content,
             });
             
         const savedFolder = await folder.save();
         res.status(201).json(savedFolder);
+
     }catch(err){
         console.error("Could not create folder.\n\n" , err);
         if (err.name === 'ValidationError') {
@@ -46,8 +56,9 @@ export async function createFolder(req , res) {
 }
 export async function editFolder(req , res) {
     try{
-        const folderId= req.params.id;
+        const {folderId}= req.params;
         const{title, content} = req.body;
+
         if (!title || !content) {
              return res.status(400).json({ message: "Title and content are required." });
         }
@@ -66,7 +77,7 @@ export async function editFolder(req , res) {
 }
 export async function deleteFolder(req , res) {
   try{
-        const folderId= req.params.id;
+        const {folderId}= req.params;
         const deletedFolder= await Folder.findByIdAndDelete(folderId);
         if(!deletedFolder) return res.status(404).json({message : "Folder not found."})
 

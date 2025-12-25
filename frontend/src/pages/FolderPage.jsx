@@ -1,66 +1,80 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "../lib/axios"; // your axios instance
+import axios from "../lib/axios";
+import FolderCard from "../components/FolderCard";
 import NoteCard from "../components/Notecard";
 
 export default function FolderPage() {
+  
   const { id } = useParams();
 
   const [folder, setFolder] = useState(null);
+  const [subfolders, setSubfolders] = useState([]);
+  const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
+    
     async function fetchFolder() {
-      try {
-        const res = await axios.get(`/folders/${id}`);
-        setFolder(res.data);
-      } catch (err) {
-        setError("Failed to load folder");
-      } finally {
-        setLoading(false);
-      }
+      const res = await axios.get(`/folder/${id}`);
+      setFolder(res.data.folder);
+      setSubfolders(res.data.subfolders);
+      setNotes(res.data.notes);
+      setLoading(false);
     }
 
     fetchFolder();
   }, [id]);
 
-  if (loading) {
-    return <div className="p-6">Loading folder...</div>;
-  }
-
-  if (error) {
-    return <div className="p-6 text-error">{error}</div>;
-  }
-
-  if (!folder) {
-    return <div className="p-6">Folder not found</div>;
-  }
+  if (loading) return <div className="p-6">Loading...</div>;
+  else{
 
   return (
-    <div className="p-6 space-y-6">
-      {/* Folder title */}
-      <header>
-        <h1 className="text-2xl font-bold tracking-tight text-primary">
+    <div className="p-6 space-y-8">
+
+      <header className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold tracking-tight">
           {folder.title}
         </h1>
-        <p className="text-sm text-base-content/70">
-          {folder.notes.length} notes
-        </p>
+
+        <div className="flex gap-2">
+          <Link to={`/folder/${id}/create`} className="btn btn-sm">
+            New Folder
+          </Link>
+          <Link to={`/folder/${id}/create-note`} className="btn btn-sm btn-primary">
+            New Note
+          </Link>
+        </div>
       </header>
 
-      {/* Notes list */}
-      {folder.notes.length === 0 ? (
-        <p className="text-base-content/50">
-          Empty folder !
+      {subfolders.length > 0 && (
+        <section>
+          <h2 className="text-lg font-semibold mb-3">Folders</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {subfolders.map((f) => (
+              <FolderCard key={f._id} id={f._id} title={f.title} notes={f.notes} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {notes.length > 0 && (
+        <section>
+          <h2 className="text-lg font-semibold mb-3">Notes</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {notes.map((note) => (
+              <NoteCard key={note._id} note={note} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {subfolders.length === 0 && notes.length === 0 && (
+        <p className="text-base-content/60">
+          This folder is empty
         </p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {folder.notes.map((note) => (
-            <NoteCard key={note._id} note={note} />
-          ))}
-        </div>
       )}
     </div>
   );
+}
 }

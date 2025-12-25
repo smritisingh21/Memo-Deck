@@ -5,6 +5,7 @@ const folderSchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
+  category: String,
   notes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Note" }],
   parent: {
     type: mongoose.Schema.Types.ObjectId,
