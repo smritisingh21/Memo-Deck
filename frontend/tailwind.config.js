@@ -14,6 +14,6 @@ export default {
   // DaisyUI is listed as a plugin for Tailwind
   plugins: [daisyui],
   daisyui:{
-    themes: ['forest' , 'caramellatte' , 'retro'],
+    themes: ['forest' , 'caramellatte' , 'retro' ,'coffee' , 'halloween','abyss' ,'acid' , 'dracula'],
   }
 }

@@ -37,10 +37,10 @@ export default function Menubar() {
         key={item.id}
         href={item.path}
         className="flex items-center gap-3 rounded-lg p-3 
-        hover:bg-base-200 transition"
+        hover:bg-base-200 transition hover:translate-x-1 hover:transition-transform "
          >
         <Icon size={18} className="text-primary" />
-        <span className="text-base-content">{item.name}</span>
+        <span className="text-primary-content">{item.name}</span>
       </a>
         )})}
     </nav>

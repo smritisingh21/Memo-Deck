@@ -6,6 +6,8 @@ import {
   Trash2,
   Settings,
   Folder,
+  FolderPlus,
+  Archive,
 } from "lucide-react";
 
 export const SIDE_MENU_DATA = [
@@ -19,28 +21,34 @@ export const SIDE_MENU_DATA = [
     id: "02",
     name: "All Folders",
     icon: Folder,
-    path: "/notes",
+    path: "/folders",
   },
   {
     id: "03",
     name: "Create Note",
     icon: PlusSquare,
-    path: "/create",
+    path: "/create-note",
   },
   {
     id: "04",
+    name: "Create Folder",
+    icon: FolderPlus,
+    path: "/create-folder",
+  },
+  {
+    id: "05",
     name: "Favourites",
     icon: Star,
     path: "/favourites",
   },
   {
-    id: "05",
-    name: "Trash",
-    icon: Trash2,
+    id: "06",
+    name: "Archives",
+    icon: Archive,
     path: "/trash",
   },
   {
-    id: "06",
+    id: "07",
     name: "Settings",
     icon: Settings,
     path: "/settings",

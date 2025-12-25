@@ -48,10 +48,12 @@ export default function Home() {
     <div className='min-h-screen bg-ghost lg:ml-60 md:ml-30 '>
         <Navbar/>
         <Menubar/>
-        
 
         <div className=' max-w-7xl mx-auto p-4 mt-6'>
         <Folder title="Study Notes" notes={note} />
+        <Folder title="Work Notes" notes={[]} />
+        <Folder title="To-do-list" notes={[]} />
+        <Folder title="Groceries" notes={[]} />
         <Folder title="Work Notes" notes={[]} />
         {loading && <div className='text-center text-base-100 py-10'>Loading notes...</div>}
         
