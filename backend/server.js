@@ -1,6 +1,7 @@
 import "dotenv/config"; 
 import express from "express";
 import notesRoutes from "./routes/notesRoutes.js"
+import rootRoutes from "./routes/rootRoutes.js"
 import foldersRoutes from "./routes/foldersRoutes.js"
 import connectDB from "./config/db.js";
 import cors from "cors"
@@ -26,6 +27,7 @@ app.use(express.json());
 
 app.use("/api/v1" , notesRoutes);
 app.use("/api/v1" , foldersRoutes);
+app.use("/api/v1" , rootRoutes);
 
 connectDB()
   .then(() => {

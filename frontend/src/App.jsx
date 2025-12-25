@@ -15,8 +15,7 @@ function App() {
     <div  className="min-h-screen">
       <AppLayout>
         <Routes>
-        <Route path= '/notes' element={<Home/>}/>
-        <Route path= '/' element={<Home/>}/>
+        <Route path= '/' element={<FolderPage/>}/>
         <Route  path= '/note/:id' element={<NoteDetail/>}/>
         <Route  path= '/create-note' element={<CreateNote/>}/> 
         <Route  path= '/folder/:parentId/create-note' element={<CreateNote/>}/> {/*note inside folder */}

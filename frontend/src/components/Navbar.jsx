@@ -12,20 +12,6 @@ export default function Navbar() {
                 <h1 className='text-2xl font-bold text-accent font-mono tracking-tight' >
                   Memo-Deck : for all your notes
                   </h1>
-                  <div className='flex items-center justify-around lg:gap-2 md:gap-2'>
-                  <div className='flex items-center gap-1'>
-
-                    <Link to={"/create-note"} className='btn text-primary-content/60 bg-'>
-                    <PlusIcon className='size-4 text-accent'/><span>New note</span>
-                    </Link>
-                </div>
-
-                <div className='flex items-center gap-2'>
-                    <Link to={"/create-folder"} className='btn text-primary-content/60 bg-'>
-                    <FolderPlusIcon className='size-4 text-accent'/><span>Create New Folder</span>
-                    </Link>
-                </div>
-                  </div>
               
             </div>
         </div>
