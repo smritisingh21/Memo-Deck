@@ -8,10 +8,13 @@ export default function Navbar() {
         <header className='h-5em w-50 border-b '>
         <div className='mx-auto mx-w-6xl p-4'>
 
-            <div className='flex items-center justify-between '>
-                <h1 className='text-2xl font-bold text-accent font-mono tracking-tight' >
-                  Memo-Deck : for all your notes
+            <div className='flex items-center justify-center '>
+                <h1 className='text-4xl font-bold text-primary font-sans ' >
+                  MemoDeck 
                   </h1>
+                   <span className='text-base-content/70 text-lg font-normal '> 
+                  <i>- for all your notes</i>
+                  </span>
               
             </div>
         </div>
