@@ -12,11 +12,13 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
     if (!title.trim()) return;
 
     setLoading(true);
-    await axios.post(`/note/${parentId}`, {
-      title,
-      content,
-      parent: parentId || null,
-    });
+     const url = parentId ? `/note/${parentId}` : `/note`;
+      
+      await axios.post(url, {
+        title,
+        content,
+        parent: parentId || null,
+      });
 
     setLoading(false);
     onCreated();

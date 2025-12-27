@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../lib/axios";
+import { LoaderIcon } from "lucide-react";
 import FolderCard from "../components/FolderCard";
 
 export default function FoldersPage() {
@@ -25,8 +26,12 @@ export default function FoldersPage() {
     fetchFolders();
   }, []); 
 
-  if (loading) {
-    return <div className="p-6">Loading your folders...</div>;
+ if (loading) {
+    return (
+      <div className="min-h-screen bg-base-100 flex items-start justify-center">
+        <LoaderIcon className="animate-spin size-10 text-primary/60" />
+      </div>
+    );
   }
 
   if (error) {

@@ -57,12 +57,11 @@ export async function editNote(req , res) {
 
         const updatedNote = await Note.findByIdAndUpdate(
             noteId ,
-            {title,content},{
-            new:true
-        });
+            {title,content},
+            { new:true}
+        );
         if(!updatedNote) return res.status(404).json({message : "Note not found."})
         res.status(200).json(updatedNote); 
-        res.status(200).json({message:"updated"});
     }catch(err){
         console.error("Could not edit note.\n\n" , err);
         res.status(500).json({message : "Internal server error: " + err.message}) 

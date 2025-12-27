@@ -34,6 +34,10 @@ export const NoteDetail = () => {
     fetchNote();
   }, [id]);
 
+    useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this note?")) return;
 
@@ -69,7 +73,7 @@ export const NoteDetail = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-base-100 flex items-center justify-center">
-        <LoaderIcon className="animate-spin size-8 text-primary" />
+        <LoaderIcon className="animate-spin size-20 text-primary/20" />
       </div>
     );
   }
@@ -87,9 +91,8 @@ export const NoteDetail = () => {
           <div className="flex items-center hover:bg-slate-800 p-1.5 
           rounded transition-colors cursor-pointer ">
 
-              <ArrowLeftIcon className="size-4" />
+          <ArrowLeftIcon className="size-4" />
               Go back
-
           </div>
           </button>
           
@@ -127,7 +130,7 @@ export const NoteDetail = () => {
       </div>
 
       {/* Page Content */}
-      <div className="max-w-3xl mx-auto px-6 pt-12 pb-24">
+      <div className="max-w-5xl mx-auto px-6 pt-12 pb-24 bg-secondary-content/30">
         {/* Meta Info */}
         <div className="flex items-center gap-2 text-xs text-base-content/40 mb-8">
           <ClockIcon className="size-3" />
@@ -148,8 +151,8 @@ export const NoteDetail = () => {
           {/* Content Area: No borders, ample line height */}
           <textarea
             placeholder="Start writing..."
-            className="w-full   bg-transparent text-sm md:text-md 
-            leading-relaxed min-h-screen resize-none focus:outline-none placeholder:opacity-20"
+            className="w-full h-screen overflow-y-visible  bg-transparent text-sm md:text-md 
+            leading-relaxed  resize-none focus:outline-none placeholder:opacity-20"
             value={note.content}
             onChange={(e) => setNote({ ...note, content: e.target.value })}
           />

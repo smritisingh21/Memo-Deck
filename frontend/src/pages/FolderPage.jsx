@@ -6,8 +6,11 @@ import PopUp from "../layouts/PopUp"
 import CreateFolder from "./CreateFolder";
 import FullScreenPopUp from "../layouts/FullScreenPopUp"
 import CreateNote from "./CreateNote";
-import { FolderClosed } from "lucide-react";
+import { FolderClosed, NotebookIcon } from "lucide-react";
 import axiosInstance from "../lib/axios";
+import { LoaderIcon } from "lucide-react";
+import Search from "../components/Search";
+import { FolderPlus,NotebookTabs } from "lucide-react";
 
 
 
@@ -45,7 +48,13 @@ export default function FolderPage() {
     fetchData();
   }, [id]);
 
-  if (loading) return <div className="p-6">Loading...</div>;
+ if (loading) {
+    return (
+      <div className="min-h-screen bg-base-100 flex items-start justify-center">
+        <LoaderIcon className="animate-spin size-10 text-primary/60" />
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 space-y-8 shadow-lg">
@@ -56,27 +65,33 @@ export default function FolderPage() {
         <h1 className="text-xl flex gap-2 font-bold text-primary/80 ">
 
           <FolderClosed size={30}/>{folder ? folder.title : "Home" }
+
         </h1>
 
-        <div className="flex gap-2">
+        <div className="flex gap-3 justify-center items-center">
+          <Search/>
+
           <button
-            className="btn btn-sm"
+            className="btn btn-sm btn-primary"
             onClick={() => setShowCreateFolder(true)}
           >
-            New Folder
+           <FolderPlus size={15}/> New Folder
           </button>
 
            <button
             className="btn btn-sm btn-primary"
             onClick={() => setShowCreateNote(true)}
             >
-            New Note
+            <NotebookIcon size={15}/> New Note
           </button>
 
-        </div>
+
+
+        </div>      
+
+
 
       </header>
-          <h2 className="text-lg text-primary/20  font-semibold "></h2>
 
        {subfolders.length > 0 && (
         <section className="">

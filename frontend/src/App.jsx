@@ -9,7 +9,7 @@ import AllFoldersPage from './pages/AllFoldersPage'
 function App() {
 
   return (
-    <div  className="min-h-screen">
+    <div  className="min-h-screen min-w-50vw" data-theme = 'forest'>
       <AppLayout>
         <Routes>
         <Route path= '/' element={<FolderPage/>}/>

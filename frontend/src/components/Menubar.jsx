@@ -17,8 +17,8 @@ export default function Menubar() {
 
       <aside
         className={`
-          fixed top-0 left-0 z-40 h-screen w-64 shadow-sm shadow-primary-content/50 
-          bg-base-400 border-r border-base-300
+          fixed top-0 left-0 z-40 h-screen w-64 shadow-md shadow-primary/30
+          bg-transparent 
           transform transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0
@@ -47,6 +47,8 @@ export default function Menubar() {
         )
         }
         )
+        }{
+          
         }
     </nav>
         <div className="divider  divider-base-content"></div>

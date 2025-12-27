@@ -9,7 +9,8 @@ export default function FolderCard({ id, title, notes =[] }) {
     <Link to={`/folder/${id}`}>
 
     <section className="bg-primary/10 rounded-md p-4 shadow-md  
-    space-y-5 m-6 hover:shadow-md hover:shadow-neutral-content/50 transition:bg-secondary/30 cursor-pointer">
+    space-y-5 m-6 hover:shadow-md hover:shadow-neutral-content/50 
+    transition:bg-secondary/30 cursor-pointer">
         
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 mb-4">

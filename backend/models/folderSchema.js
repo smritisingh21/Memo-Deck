@@ -12,6 +12,7 @@ const folderSchema = new mongoose.Schema({
     ref: "Folder",
     default: null
   }
+
 });
 
 const Folder = mongoose.model("Folder", folderSchema);
