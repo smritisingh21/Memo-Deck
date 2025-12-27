@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 
 export default function Navbar() {
   return (
-    <div className='border-b border-neutral lg:ml-30 md:ml-10 '>
+    <div className='border-b mt-10 mb-10 border-neutral lg:ml-30 md:ml-10 '>
         <header className='h-5em w-50 border-b '>
         <div className='mx-auto mx-w-6xl p-4'>
 

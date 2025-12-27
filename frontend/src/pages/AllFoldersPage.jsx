@@ -34,7 +34,7 @@ export default function FoldersPage() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 ">
       <header>
         <h3 className="text-xl font-bold">All folders</h3>
       </header>
@@ -42,7 +42,7 @@ export default function FoldersPage() {
       {!folders? (
         <p className="text-base-content/60">-----No folders yet-----</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           {folders.map((folder) => (
             <FolderCard key={folder._id} title={folder.title} notes={notes} />
           ))}

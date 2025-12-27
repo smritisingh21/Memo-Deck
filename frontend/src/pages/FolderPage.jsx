@@ -7,6 +7,10 @@ import PopUp from "../layouts/PopUp"
 import CreateFolder from "./CreateFolder";
 import FullScreenPopUp from "../layouts/FullScreenPopUp"
 import CreateNote from "./CreateNote";
+import { FolderClosed } from "lucide-react";
+import axiosInstance from "../lib/axios";
+
+
 
 export default function FolderPage() {
   const { id } = useParams(); // undefined at root
@@ -22,20 +26,20 @@ export default function FolderPage() {
     async function fetchData() {
       setLoading(true);
       if (id) {
-        const res = await axios.get(`/folder/${id}`);
+        const res = await axiosInstance.get(`/folder/${id}`);
         setFolder(res.data.folder);
         setSubfolders(res.data.subfolders);
         setNotes(res.data.notes);
       } else {
-        const res = await axios.get("/root");
+        const res = await axiosInstance.get("/root");
         setFolder(null);
-        setSubfolders(res.data.folders);
+        setSubfolders(res.data.folders.slice(0,4));
         setNotes(res.data.notes);
       }
 
       setLoading(false);
     }
-    
+
   useEffect(() => {
 
     fetchData();
@@ -44,12 +48,14 @@ export default function FolderPage() {
   if (loading) return <div className="p-6">Loading...</div>;
 
   return (
-    <div className="p-6 space-y-8">
+    <div className="p-6 space-y-8 shadow-lg">
 
       {/* Header */}
-      <header className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold tracking-tight">
-          {folder ? folder.title : "All Notes"}
+      <header className="flex justify-between items-center p-6
+       border-x-gray-700 bottom-3 rounded-3xl border-primary">
+        <h1 className="text-xl flex gap-2 font-bold text-primary/80 ">
+
+          <FolderClosed size={30}/>{folder ? folder.title : "Home" }
         </h1>
 
         <div className="flex gap-2">
@@ -66,14 +72,19 @@ export default function FolderPage() {
             >
             New Note
           </button>
+
         </div>
+
       </header>
+          <h2 className="text-lg text-primary/20  font-semibold ">
+          
+          </h2>
+
 
       {/* Subfolders */}
       {subfolders.length > 0 && (
         <section>
-          <h2 className="text-lg font-semibold mb-3">Folders</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 ">
             {subfolders.map((f) => (
               <FolderCard
                 key={f._id}
@@ -82,28 +93,28 @@ export default function FolderPage() {
                 notes={f.notes || []}
               />
             ))}
+           
           </div>
         </section>
       )}
 
-      {/* Notes */}
       {notes.length > 0 && (
         <section>
-          <h2 className="text-lg font-semibold mb-3">Notes</h2>
+          <h2 className="text-lg font-semibold mb-5"></h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {notes.map((note) => (
-              <NoteCard key={note._id} note={note} />
+              <NoteCard key={note._id} note={note} id={note._id}  />
             ))}
           </div>
         </section>
       )}
 
-      {/* Empty state */}
       {subfolders.length === 0 && notes.length === 0 && (
         <p className="text-base-content/60">
           This folder is empty
         </p>
       )}
+
       {showCreateFolder && (
     <PopUp onClose={() => setShowCreateFolder(false)}>
     <CreateFolder

@@ -14,10 +14,10 @@ export async function getAllNotes( req , res ) {
 
 export async function getNote(req , res ) { 
     try{
-        const noteId= req.params.id;
+        const noteId = req.params.id;
         const note = await Note.findById(noteId);
+        res.status(200).json(note); 
         if(!note) return res.status(404).json({message : "Note not found."})
-        res.status(200).json({message : "Note loaded"});
 
     }catch(err){
         console.error("Could not fetch note.\n\n" , err);
@@ -61,6 +61,7 @@ export async function editNote(req , res) {
             new:true
         });
         if(!updatedNote) return res.status(404).json({message : "Note not found."})
+        res.status(200).json(updatedNote); 
         res.status(200).json({message:"updated"});
     }catch(err){
         console.error("Could not edit note.\n\n" , err);

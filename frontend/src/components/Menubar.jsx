@@ -17,8 +17,8 @@ export default function Menubar() {
 
       <aside
         className={`
-          fixed top-0 left-0 z-40 h-screen w-64
-          bg-base-100 border-r border-base-300
+          fixed top-0 left-0 z-40 h-screen w-64 shadow-sm shadow-primary-content/50 
+          bg-base-400 border-r border-base-300
           transform transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0
@@ -37,10 +37,10 @@ export default function Menubar() {
         key={item.id}
         href={item.path}
         className="flex items-center gap-3 rounded-lg p-3 
-        hover:bg-base-200 transition hover:translate-x-1 hover:transition-transform "
+        hover:bg-primary-content/10 transition hover:translate-x-1 hover:transition-transform "
          >
-        <Icon size={18} className="text-primary" />
-        <span className="text-primary-content">{item.name}</span>
+        <Icon size={18} className="text-accent" />
+        <span className="text-accent/40">{item.name}</span>
       </a>
         )})}
     </nav>

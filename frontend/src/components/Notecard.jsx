@@ -5,14 +5,14 @@ import { Trash2Icon,PenSquareIcon } from 'lucide-react'
 import axiosInstance from '../lib/axios';
 
 
-export default function NoteCard({ note }) {
+export default function NoteCard({ note , id}) {
   const handleDelete = async (e, id) => {
     e.preventDefault(); 
 
     if (!window.confirm("Are you sure you want to delete this note?")) return;
 
     try {
-      await axiosInstance.delete(`/notes/${note._id}`);
+      await axiosInstance.delete(`/note/${id}`);
       setNotes((prev) => prev.filter((n) => n._id !== id)); // get rid of the deleted one
       toast.success("Note deleted successfully");
     } catch (error) {
@@ -22,25 +22,35 @@ export default function NoteCard({ note }) {
   };
   return (
       <Link
-      to={`/note`}
+      to={`/note/${id}`}
       className=""
     >
-      <div className=" card-body border border-b card-actions rounded-box bg-base-content/10 border-accent-content p-4 shadow-sm shadow-white">
-        <h3 className="card-title text-actions text-content-secondary mb-4 ">{note.title}</h3>
-        <p className="text-base-content/50 line-clamp-6">{note.content}</p>
+      <div className=" card-body h-50 w-90 border border-b card-actions 
+       overflow-hidden rounded-box align-center
+        bg-accent-content/20 border-accent-content p-4 
+      shadow-md hover:shadow-xl  shadow-primary-content">
+
+        <h3 className="card-title text-actions text-neutral-content/80 text-sm mb-4 ">{note.title}</h3>
+
+        <p className="text-accent/30 font-mono text-sm line-clamp-5">{note.content}</p>
+
         <div className="card-actions justify-between items-center mt-4">
-          <span className="text-sm text-base-content/60">
+          <span className="text-sm text-base-content/30">
             {formatDate(new Date(note.createdAt))}
           </span>
-          <div className="flex items-center gap-1">
+
+          <div className="flex items-center justify-end">
+
             <PenSquareIcon className="size-4 btn-ghost" />
             <button
               className="btn btn-xs text-warning"
-              onClick={(e) => handleDelete(e, note._id)}
+              onClick={(e) => handleDelete(e, id)}
             >
               <Trash2Icon className="size-4 btn-ghost" />
             </button>
           </div>
+
+          
         </div>
       </div>
     </Link>
