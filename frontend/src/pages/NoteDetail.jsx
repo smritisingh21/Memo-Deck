@@ -82,14 +82,24 @@ export const NoteDetail = () => {
       backdrop-blur-md border-b border-base-200">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2 text-sm text-base-content/60">
-            <Link to="/" className="hover:bg-base-200/60 px-2 py-1 rounded transition-colors">
-              All Notes
-            </Link>
-            <ChevronRightIcon className="size-4" />
+          
+          <button onClick={() => navigate(-1)}>
+          <div className="flex items-center hover:bg-slate-800 p-1.5 
+          rounded transition-colors cursor-pointer ">
+
+              <ArrowLeftIcon className="size-4" />
+              Go back
+
+          </div>
+          </button>
+          
+
+          <ChevronRightIcon className="size-4" />
             <span className="text-base-content font-medium truncate max-w-[150px]">
               {note.title || "Untitled"}
             </span>
-          </div>
+
+         </div>
 
           <div className="flex items-center gap-2">
             <button 
