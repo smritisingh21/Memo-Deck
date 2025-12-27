@@ -11,6 +11,8 @@ export default function FoldersPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+
+
   useEffect(() => {
     async function fetchFolders() {
       try {
@@ -27,6 +29,10 @@ export default function FoldersPage() {
     fetchFolders();
   }, []); 
 
+
+    const allSearchableItems = [
+    ...folders.map(f => ({ ...f, type: 'folder' })),
+  ];
  if (loading) {
     return (
       <div className="min-h-screen bg-base-100 flex items-start justify-center">
@@ -43,7 +49,7 @@ export default function FoldersPage() {
     <div className="p-6 ">
       <header className="flex items-center justify-between mb-10">
         <h3 className="text-2xl font-bold">All folders</h3>
-      <Search/>
+      <Search items={allSearchableItems}/>
       </header>
 
       {!folders? (
