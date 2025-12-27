@@ -5,11 +5,12 @@ import NoteDetail from './pages/NoteDetail'
 import FolderPage from './pages/FolderPage'
 import AppLayout from './layouts/AppLayout'
 import AllFoldersPage from './pages/AllFoldersPage'
+    // themes: ['forest' , 'halloween','abyss' ,'' , 'dracula','dark'],
 
 function App() {
 
   return (
-    <div  className="min-h-screen min-w-50vw" data-theme = 'forest'>
+    <div  className="min-h-screen min-w-50vw" data-theme ='forest'>
       <AppLayout>
         <Routes>
         <Route path= '/' element={<FolderPage/>}/>

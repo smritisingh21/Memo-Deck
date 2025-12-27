@@ -35,8 +35,8 @@ export default function FolderCard({ id, title, notes =[],type }) {
 
           <div className="flex items-center justify-center gap-3 mb-4">
 
-            <FolderCheck size={20} />
-            <h2 className="text-md text-accent/40 font-semibold">
+            <FolderCheck size={20} className="text-accent/80"/>
+            <h2 className="text-md text-base-content font-semibold">
               {title}
             </h2>
 

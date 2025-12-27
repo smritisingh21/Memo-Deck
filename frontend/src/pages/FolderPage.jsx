@@ -62,9 +62,9 @@ export default function FolderPage() {
       {/* Header */}
       <header className="flex justify-between items-center p-6
        border-x-blue-700 bottom-3 rounded-3xl border-primary">
-        <h1 className="text-xl flex gap-2 font-bold text-primary/80 ">
+        <h1 className="text-2xl flex gap-2 font-bold text-base/80 ">
 
-          <FolderClosed size={30}/>{folder ? folder.title : "Home" }
+          <FolderClosed size={30}/><u>{folder ? folder.title : "Home" }</u>
 
         </h1>
 
@@ -84,13 +84,7 @@ export default function FolderPage() {
             >
             <NotebookIcon size={15}/> New Note
           </button>
-
-
-
         </div>      
-
-
-
       </header>
 
        {subfolders.length > 0 && (

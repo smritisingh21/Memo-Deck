@@ -40,18 +40,20 @@ export default function NoteCard({ note , id, type}) {
         bg-accent-content/20 border-accent-content p-4 
       shadow-md hover:shadow-xl  shadow-primary-content">
 
-        <h3 className="card-title text-actions text-neutral-content/80 text-sm mb-4 ">{note.title}</h3>
+        <h3 className="card-title text-actions py-6  text-neutral-content/80 text-md mb-4 ">{note.title}</h3>
 
         <p className="text-accent/30 font-mono text-sm line-clamp-5">{note.content}</p>
 
-        <div className="card-actions justify-between items-center mt-4">
-          <span className="text-sm text-base-content/30">
-            {formatDate(new Date(note.createdAt))}
-          </span>
+        <div className=" flex gap-7 justify-around items-center mt-4">
 
-          <div className="flex items-center justify-end">
+          <p className="text-sm text-base-content/30">
+            {formatDate(new Date(note.createdAt))}
+          </p>
+
+          <div className="flex items-center justify-between">
 
             <PenSquareIcon className="size-4 btn-ghost" />
+
             <button
               className="btn btn-xs text-warning"
               onClick={(e) => handleDelete(e, id)}

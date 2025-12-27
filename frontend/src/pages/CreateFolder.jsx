@@ -39,6 +39,8 @@ export default function CreateFolder({ parentId, onClose, onCreated }) {
         placeholder="Folder name"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        onKeyDown={(e) => e.key === 'Enter' &&  handleCreate()}
+        
       />
 
       <div className="flex justify-end gap-2">

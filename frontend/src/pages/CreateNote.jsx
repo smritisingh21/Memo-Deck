@@ -8,6 +8,17 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
 
+    const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && e.shiftKey) {
+      e.preventDefault(); 
+      handleCreate();
+    }
+    
+    if (e.key === 'Escape') {
+      onClose();
+    }
+  };
+
   async function handleCreate() {
     if (!title.trim()) return;
 
@@ -63,6 +74,8 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
           className="w-full text-3xl mb-5 font-bold outline-none line- bg-transparent"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          
+
         />
 
         <textarea
@@ -70,6 +83,8 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
           className="w-full h-full resize-none outline-none bg-transparent text-base leading-relaxed"
           value={content}
           onChange={(e) => setContent(e.target.value)}
+        onKeyDown={handleKeyDown}
+
         />
       </div>
     </div>
