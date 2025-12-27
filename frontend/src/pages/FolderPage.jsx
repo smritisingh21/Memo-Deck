@@ -61,7 +61,7 @@ export default function FolderPage() {
 
       {/* Header */}
       <header className="flex justify-between items-center p-6
-       border-x-gray-700 bottom-3 rounded-3xl border-primary">
+       border-x-blue-700 bottom-3 rounded-3xl border-primary">
         <h1 className="text-xl flex gap-2 font-bold text-primary/80 ">
 
           <FolderClosed size={30}/>{folder ? folder.title : "Home" }
@@ -69,7 +69,7 @@ export default function FolderPage() {
         </h1>
 
         <div className="flex gap-3 justify-center items-center">
-          <Search/>
+          <Search item/>
 
           <button
             className="btn btn-sm btn-primary"
@@ -96,13 +96,14 @@ export default function FolderPage() {
        {subfolders.length > 0 && (
         <section className="">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
             {(onSeeMore ? subfolders : subfolders.slice(0, 6)).map((f) => (
               <FolderCard
                 key={f._id}
                 id={f._id}
                 title={f.title}
                 notes={f.notes || []}
+                type="folder"
               />
             ))}
           </div>
@@ -126,7 +127,7 @@ export default function FolderPage() {
           <h2 className="text-lg font-semibold mb-5"></h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {notes.map((note) => (
-              <NoteCard key={note._id} note={note} id={note._id}  />
+              <NoteCard key={note._id} note={note} id={note._id} type="note" />
             ))}
           </div>
         </section>

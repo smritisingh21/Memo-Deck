@@ -95,8 +95,9 @@ export async function editFolder(req , res) {
 }
 export async function deleteFolder(req , res) {
   try{
-        const {folderId}= req.params;
-        const deletedFolder= await Folder.findByIdAndDelete(folderId);
+        const {id}= req.params;
+
+        const deletedFolder= await Folder.findByIdAndDelete(id);
         if(!deletedFolder) return res.status(404).json({message : "Folder not found."})
 
         res.status(200).json({message :"folder deleted successfully."});

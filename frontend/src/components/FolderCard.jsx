@@ -1,30 +1,54 @@
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { FolderCheck } from "lucide-react";
+import { Trash2Icon, FolderCheck } from "lucide-react";
+import { useState } from "react";
+import axiosInstance from "../lib/axios";
 
 
+export default function FolderCard({ id, title, notes =[],type }) {
 
-export default function FolderCard({ id, title, notes =[] }) {
+  const [folders, setFolders] = useState([])
+
+  const handleDelete = async (e, id) => {
+    e.preventDefault(); 
+
+    try {
+      await axiosInstance.delete(`/folder/${id}`);
+      setFolders((prev) => prev.filter((f) => f._id !== id));
+      toast.success("Folder deleted successfully !");
+      window.location.reload();
+
+    } catch (error) {
+      console.log("Error in handleDelete", error);
+      toast.error("Failed to delete !");
+
+    }}
   
   return (
     <Link to={`/folder/${id}`}>
 
     <section className="bg-primary/10 rounded-md p-4 shadow-md  
-    space-y-5 m-6 hover:shadow-md hover:shadow-neutral-content/50 
+    space-y-5 m-6 hover:shadow-md hover:shadow-primary-content/50 
     transition:bg-secondary/30 cursor-pointer">
         
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3 mb-4">
+
+          <div className="flex items-center justify-center gap-3 mb-4">
 
             <FolderCheck size={20} />
-            <h2 className="text-sm text-accent/40 font-semibold">
+            <h2 className="text-md text-accent/40 font-semibold">
               {title}
             </h2>
 
         </div>
 
-        <span className="text-sm text-base-content/80">
+      <div className="flex gap-4 justify-center items-center  ">
+          <span className="text-sm text-base-content/80">
             {notes.length} items
        </span>
+        <Trash2Icon size={20} className="text-neutral/90 hover:text-red-600"
+        onClick={ (e) => handleDelete(e ,id)}/>
+      </div>
       </div>
 
     </section>

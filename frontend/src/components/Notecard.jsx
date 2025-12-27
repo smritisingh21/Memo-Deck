@@ -1,11 +1,17 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router";
 import { formatDate } from '../../utils/helper.js';
 import { Trash2Icon,PenSquareIcon } from 'lucide-react'
 import axiosInstance from '../lib/axios';
+import toast from "react-hot-toast";
 
 
-export default function NoteCard({ note , id}) {
+
+export default function NoteCard({ note , id, type}) {
+
+  const [notes , setNotes] = useState([]);
+
   const handleDelete = async (e, id) => {
     e.preventDefault(); 
 
@@ -15,10 +21,14 @@ export default function NoteCard({ note , id}) {
       await axiosInstance.delete(`/note/${id}`);
       setNotes((prev) => prev.filter((n) => n._id !== id)); // get rid of the deleted one
       toast.success("Note deleted successfully");
+      window.location.reload();
+
     } catch (error) {
       console.log("Error in handleDelete", error);
       toast.error("Failed to delete note");
+
     }
+
   };
   return (
       <Link
