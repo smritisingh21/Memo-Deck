@@ -17,6 +17,7 @@ export default function FolderPage() {
   const [folder, setFolder] = useState(null);
   const [subfolders, setSubfolders] = useState([]);
   const [notes, setNotes] = useState([]);
+  const [onSeeMore, setOnSeeMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showCreateFolder, setShowCreateFolder] = useState(false);
   const [showCreateNote, setShowCreateNote] = useState(false);
@@ -32,7 +33,7 @@ export default function FolderPage() {
       } else {
         const res = await axiosInstance.get("/root");
         setFolder(null);
-        setSubfolders(res.data.folders.slice(0,4));
+        setSubfolders(res.data.folders);
         setNotes(res.data.notes);
       }
 
@@ -75,16 +76,13 @@ export default function FolderPage() {
         </div>
 
       </header>
-          <h2 className="text-lg text-primary/20  font-semibold ">
-          
-          </h2>
+          <h2 className="text-lg text-primary/20  font-semibold "></h2>
 
+       {subfolders.length > 0 && (
+        <section className="">
 
-      {/* Subfolders */}
-      {subfolders.length > 0 && (
-        <section>
-          <div className="grid grid-cols-1 md:grid-cols-2 ">
-            {subfolders.map((f) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
+            {(onSeeMore ? subfolders : subfolders.slice(0, 6)).map((f) => (
               <FolderCard
                 key={f._id}
                 id={f._id}
@@ -92,7 +90,18 @@ export default function FolderPage() {
                 notes={f.notes || []}
               />
             ))}
-           
+          </div>
+             <div className="flex items-center justify-end px-4">
+
+            {subfolders.length > 6 && (
+              <button 
+                className="text-xs font-bold text-secondary flex items-center gap-1 hover:gap-2 transition-all"
+                onClick={() => setOnSeeMore(!onSeeMore)}
+              >
+                {onSeeMore ? "View Less" : `View All (${subfolders.length})`}
+              </button>
+
+            )}
           </div>
         </section>
       )}
@@ -133,7 +142,6 @@ export default function FolderPage() {
     />
   </FullScreenPopUp>
 )}
-
-    </div>
-  );
+  </div>
+);
 }
