@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { formatDate } from '../../utils/helper.js';
 import { Trash2Icon,PenSquareIcon } from 'lucide-react'
+import { StarIcon } from "lucide-react";
+import { Archive } from "lucide-react";
 import axiosInstance from '../lib/axios';
 import toast from "react-hot-toast";
 
@@ -44,26 +46,45 @@ export default function NoteCard({ note , id, type}) {
 
         <p className="text-accent/30 font-mono text-sm line-clamp-5">{note.content}</p>
 
-        <div className=" flex gap-7 justify-around items-center mt-4">
+        <div className=" flex gap-20 justify-evenly gap- items-center mt-4">
 
-          <p className="text-sm text-base-content/30">
+          <div className="text-xs mb-4 text-base-content/40">
             {formatDate(new Date(note.createdAt))}
-          </p>
-
-          <div className="flex items-center justify-between">
-
-            <PenSquareIcon className="size-4 btn-ghost" />
-
-            <button
-              className="btn btn-xs text-warning"
-              onClick={(e) => handleDelete(e, id)}
-            >
-              <Trash2Icon className="size-4 btn-ghost" />
-            </button>
           </div>
 
-          
+
         </div>
+
+            <div className="flex justify-center items-center gap-6 opacity-60">
+
+           <button className="flex items-center mb-4 justify-between gap-1  hover:text-red-600 " onClick={(e) => handleDelete(e, id)}>
+            <div>
+              <Trash2Icon size={10} className=" hover:text-red-600" />
+            </div>
+              <p className="text-sm">Delete</p>
+            
+            </button>
+
+
+           <button className="flex items-center mb-4 justify-between gap-1 hover:text-fuchsia-600  hover:fill-fuchsia-600" onClick={handleDelete}>
+
+            <div onClick={(e) => handleDelete(e, id)}>
+              <StarIcon size={13} className=" hover:fill-fuchsia-600" />
+            </div>
+              <p className="text-sm">Add to favourites</p>
+            
+            </button>
+
+
+           <button className="flex items-center mb-4 justify-between gap-1   hover:text-accent" onClick={handleDelete}>
+
+            <div onClick={(e) => handleDelete(e, id)}>
+              <Archive size={13} className=" hover:text-accent" />
+            </div>
+              <p className="text-sm">archive</p>
+            
+            </button>
+            </div>
       </div>
     </Link>
   );
