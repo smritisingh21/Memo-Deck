@@ -25,6 +25,12 @@ export default function FolderPage() {
   const [showCreateFolder, setShowCreateFolder] = useState(false);
   const [showCreateNote, setShowCreateNote] = useState(false);
 
+  
+    const allSearchableItems = [
+    ...subfolders.map(f => ({ ...f, type: 'folder' })),
+    ...notes.map(n => ({ ...n, type: 'note' }))
+  ];
+
 
     async function fetchData() {
       setLoading(true);
@@ -69,7 +75,7 @@ export default function FolderPage() {
         </h1>
 
         <div className="flex gap-3 justify-center items-center">
-          <Search item/>
+          <Search items={allSearchableItems} />
 
           <button
             className="btn btn-sm btn-primary"
@@ -85,6 +91,7 @@ export default function FolderPage() {
             <NotebookIcon size={15}/> New Note
           </button>
         </div>      
+
       </header>
 
        {subfolders.length > 0 && (

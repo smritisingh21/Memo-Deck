@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../lib/axios";
 import { LoaderIcon } from "lucide-react";
 import FolderCard from "../components/FolderCard";
+import Search from "../components/Search";
 
 export default function FoldersPage() {
   const [folders, setFolders] = useState([]);
@@ -40,8 +41,9 @@ export default function FoldersPage() {
 
   return (
     <div className="p-6 ">
-      <header>
-        <h3 className="text-xl font-bold">All folders</h3>
+      <header className="flex items-center justify-between mb-10">
+        <h3 className="text-2xl font-bold">All folders</h3>
+      <Search/>
       </header>
 
       {!folders? (
