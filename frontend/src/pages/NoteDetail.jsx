@@ -75,7 +75,7 @@ export const NoteDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-base-100 text-base-content">
+    <div className="min-h-screen h-full bg-base-100 text-base-content">
 
       {/* Top Utility Bar  */}
       <div className="sticky top-0 z-10 w-full bg-base-100/80 
@@ -134,12 +134,12 @@ export const NoteDetail = () => {
           <span>Last edited {new Date().toLocaleDateString()}</span>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-6 h-full">
           {/* Notion-style Title: Borderless and Large */}
           <input
             type="text"
             placeholder="Untitled"
-            className="w-full bg-transparent text-4xl md:text-5xl 
+            className="w-full bg-transparent mb-md text-4xl md:text-4xl 
             font-bold focus:outline-none placeholder:opacity-20"
             value={note.title}
             onChange={(e) => setNote({ ...note, title: e.target.value })}
@@ -148,8 +148,8 @@ export const NoteDetail = () => {
           {/* Content Area: No borders, ample line height */}
           <textarea
             placeholder="Start writing..."
-            className="w-full bg-transparent text-lg md:text-xl 
-            leading-relaxed min-h-[500px] resize-none focus:outline-none placeholder:opacity-20"
+            className="w-full   bg-transparent text-sm md:text-md 
+            leading-relaxed min-h-screen resize-none focus:outline-none placeholder:opacity-20"
             value={note.content}
             onChange={(e) => setNote({ ...note, content: e.target.value })}
           />

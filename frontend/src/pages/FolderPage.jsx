@@ -1,6 +1,5 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "../lib/axios";
 import FolderCard from "../components/FolderCard";
 import NoteCard from "../components/Notecard";
 import PopUp from "../layouts/PopUp"
@@ -13,7 +12,7 @@ import axiosInstance from "../lib/axios";
 
 
 export default function FolderPage() {
-  const { id } = useParams(); // undefined at root
+  const { id } = useParams();
 
   const [folder, setFolder] = useState(null);
   const [subfolders, setSubfolders] = useState([]);

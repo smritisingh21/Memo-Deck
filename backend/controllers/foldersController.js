@@ -1,6 +1,6 @@
 import Folder from "../models/folderSchema.js"
 import Note from "../models/notesSchema.js";
-import mongoose from "mongoose";
+
 export async function getAllFolders( _, res ) {
     try{
         const folders = await Folder.find().sort({createdAt : -1});
@@ -20,9 +20,11 @@ export async function getFolder(req , res ) {
         const folder = await Folder.findById(id);
 
         if(!folder) return res.status(404).json({message : "Folder not found."})
+        else{
             const subfolders = await Folder.find({ parent: id });
             const notes = await Note.find({ parent: id });
-            res.status(200).json({folder , subfolders ,notes});
+            return res.status(200).json({folder , subfolders ,notes});
+        }
 
     }catch(err){
         console.error("Could not fetch folder.\n\n" , err);

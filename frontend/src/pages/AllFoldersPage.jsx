@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "../lib/axios";
+import axiosInstance from "../lib/axios";
 import FolderCard from "../components/FolderCard";
 
 export default function FoldersPage() {
@@ -12,7 +12,7 @@ export default function FoldersPage() {
   useEffect(() => {
     async function fetchFolders() {
       try {
-        const folders= await axios.get("/folders");
+        const folders= await axiosInstance.get("/folders");
         setFolders(folders.data);
 
       } catch (err) {
@@ -44,7 +44,10 @@ export default function FoldersPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           {folders.map((folder) => (
-            <FolderCard key={folder._id} title={folder.title} notes={notes} />
+            <FolderCard
+             key={folder._id} 
+             title={folder.title} 
+             notes={notes} />
           ))}
         </div>
       )}
