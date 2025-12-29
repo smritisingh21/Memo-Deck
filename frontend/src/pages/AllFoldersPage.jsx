@@ -47,7 +47,7 @@ export default function FoldersPage() {
 
   return (
     <div className="p-6 ">
-      <header className="flex items-center justify-between mb-10">
+      <header className="flex items-center justify-between mb-10 gap-3">
         <h3 className="text-2xl font-bold">All folders</h3>
       <Search items={allSearchableItems}/>
       </header>
@@ -55,7 +55,7 @@ export default function FoldersPage() {
       {!folders? (
         <p className="text-base-content/60">-----No folders yet-----</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 hover:translate-x-1">
           {folders.map((folder) => (
             <FolderCard
              key={folder._id} 

@@ -29,10 +29,10 @@ export default function FolderCard({ id, title, notes =[] }) {
   
   return (
 
-    <div className="relative w-full">
+    <div className="relative w-full hover:translate-y-1">
     <Link to={`/folder/${id}`}>
 
-    <section className=" realtive bg-primary/10 rounded-3xl p-6 h-17 shadow-sm space-y-4
+    <section className=" realtive bg-primary/10 rounded-3xl p-6 h-full shadow-sm space-y-4
      hover:shadow-md transition-all cursor-pointer border border-transparent
       hover:border-primary/20 flex flex-col justify-between">
         
