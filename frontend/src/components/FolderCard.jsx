@@ -28,11 +28,13 @@ export default function FolderCard({ id, title, notes =[] }) {
     }}
   
   return (
+
+    <div className="relative w-full">
     <Link to={`/folder/${id}`}>
 
-    <section className="bg-primary/10 rounded-md p-4 shadow-md  
-    space-y-5 m-6 hover:shadow-md hover:shadow-primary-content/50 
-    transition:bg-secondary/30 cursor-pointer">
+    <section className=" realtive bg-primary/10 rounded-3xl p-6 h-17 shadow-sm space-y-4
+     hover:shadow-md transition-all cursor-pointer border border-transparent
+      hover:border-primary/20 flex flex-col justify-between">
         
         <div className="flex items-center justify-between">
 
@@ -81,5 +83,6 @@ export default function FolderCard({ id, title, notes =[] }) {
       )
       }
     </Link>
+    </div>
   );
 }
