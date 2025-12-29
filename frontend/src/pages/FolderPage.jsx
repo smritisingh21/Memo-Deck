@@ -56,14 +56,14 @@ export default function FolderPage() {
 
  if (loading) {
     return (
-      <div className="min-h-screen bg-base-100 flex items-start justify-center">
+      <div className="min-h-screen bg-base-100 flex items-start justify-center ">
         <LoaderIcon className="animate-spin size-10 text-primary/60" />
       </div>
     );
   }
 
   return (
-    <div className="p-6 space-y-8 shadow-lg">
+    <div className="p-10 space-y-4 shadow-lg ">
 
       {/* Header */}
       <header className="flex justify-between items-center p-6
@@ -97,7 +97,7 @@ export default function FolderPage() {
        {subfolders.length > 0 && (
         <section className="">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {(onSeeMore ? subfolders : subfolders.slice(0, 6)).map((f) => (
               <FolderCard
                 key={f._id}
@@ -108,7 +108,7 @@ export default function FolderPage() {
               />
             ))}
           </div>
-             <div className="flex items-center justify-end px-4">
+             <div className="flex items-center justify-end px-4 mt-3">
 
             {subfolders.length > 6 && (
               <button 
