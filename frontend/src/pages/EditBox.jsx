@@ -8,11 +8,8 @@ export default function EditBox({ id , oldTitle, onClose}) {
   const [title, setTitle] = useState({oldTitle});
 
    const handleEdit = async (e, id) =>{
-
-    if (e) {
       e.preventDefault();
       e.stopPropagation();
-    }
 
     try{
       if(id){

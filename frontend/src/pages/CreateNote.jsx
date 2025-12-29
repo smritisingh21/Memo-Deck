@@ -28,6 +28,7 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
       await axios.post(url, {
         title,
         content,
+        type:"note",
         parent: parentId || null,
       });
 

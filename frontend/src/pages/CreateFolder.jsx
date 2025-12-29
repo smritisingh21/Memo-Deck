@@ -11,6 +11,7 @@ export default function CreateFolder({ parentId, onClose, onCreated }) {
     setLoading(true);
     if(parentId){
       await axios.post(`/folder/${parentId}`, {
+      type: "folder",
       title,
       parent: parentId || null,
     });

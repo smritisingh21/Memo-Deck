@@ -5,12 +5,13 @@ import FolderCard from "../components/FolderCard";
 import Search from "../components/Search";
 
 export default function FoldersPage() {
+
+
   const [folders, setFolders] = useState([]);
   const [notes , setNotes] = useState([]);
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
 
 
   useEffect(() => {
@@ -59,6 +60,7 @@ export default function FoldersPage() {
           {folders.map((folder) => (
             <FolderCard
              key={folder._id} 
+             id={folder._id}
              title={folder.title} 
              notes={notes} />
           ))}

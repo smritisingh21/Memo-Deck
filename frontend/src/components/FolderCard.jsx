@@ -14,7 +14,7 @@ export default function FolderCard({ id, title, notes =[] }) {
 
   const handleDelete = async (e, id) => {
     e.preventDefault(); 
-    e.stopPropagation()
+
     try {
       await axiosInstance.delete(`/folder/${id}`);
       setFolders((prev) => prev.filter((f) => f._id !== id));
@@ -22,7 +22,6 @@ export default function FolderCard({ id, title, notes =[] }) {
       window.location.reload();
 
     } catch (error) {
-      console.log("Error in handleDelete", error);
       toast.error("Failed to delete !");
 
     }}
@@ -53,7 +52,13 @@ export default function FolderCard({ id, title, notes =[] }) {
        </span>
 
         <Trash2Icon size={18} className="text-gray-600 hover:text-red-600 "
-        onClick={ (e) => handleDelete(e ,id)}/>
+        onClick={ (e) => {
+           e.preventDefault() ;
+          e.stopPropagation();
+          handleDelete(e ,id)
+        }
+        }/>
+        
 
         <button  className="text-gray-600 hover:text-base-content" 
         onClick={ (e) =>{
