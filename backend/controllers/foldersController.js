@@ -74,16 +74,16 @@ export async function createRootFolder(req, res) {
 
 export async function editFolder(req , res) {
     try{
-        const {folderId}= req.params;
-        const{title, content} = req.body;
+        const folderId = req.params.id;
+        const{title} = req.body;
 
-        if (!title || !content) {
-             return res.status(400).json({ message: "Title and content are required." });
+        if (!title ) {
+             return res.status(400).json({ message: "Title cannot be empty" });
         }
 
         const updatedFolder = await Folder.findByIdAndUpdate(
             folderId ,
-            {title,content},{
+            {title},{
             new:true
         });
         if(!updatedFolder) return res.status(404).json({message : "Folder not found."})
