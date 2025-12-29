@@ -5,10 +5,10 @@ import { useTheme } from '../context/ThemeContext';
 export default function Navbar() {
 
   const { theme, setTheme } = useTheme();
-  const supportedThemes = ['halloween' , 'dark' , 'coffee' ,'forest']
+  const supportedThemes = ['halloween' , 'dark' , 'forest' ,'dracula']
   
   return (
-    <div className='border-b mt-10 mb-10 border-neutral lg:ml-30 md:ml-10 '>
+    <div className='border-b mt-10 mb-10 border-neutral md:shrink-0 lg:ml-30 md:ml-10 '>
         <header className='max-h-full w-full border-b '>
         <div className='mx-auto mx-w-6xl p-8'>
 
@@ -21,7 +21,7 @@ export default function Navbar() {
                   </h1>
                   
         <div className='flex gap-2 justify-center items-center'>
-           <div className="flex flex-wrap items-center justify-center gap-1 bg-base-200 p-1.5 rounded-2xl ">
+           <div className="flex flex-wrap items-center justify-center gap-1 bg-base-200 p-1.5 rounded-2xl sm:shrink-0">
             {supportedThemes.map((theme) => (
               <button 
                 key={theme}

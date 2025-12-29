@@ -110,7 +110,7 @@ export const NoteDetail = () => {
               className="btn btn-ghost btn-sm text-error hover:bg-error/10"
               title="Delete note"
             >
-              <Trash2Icon className="size-4" />
+              <Trash2Icon className="size-4" />Remove
             </button>
             <div className="divider divider-horizontal mx-0"></div>
             <button 
@@ -130,7 +130,7 @@ export const NoteDetail = () => {
       </div>
 
       {/* Page Content */}
-      <div className="max-w-5xl mx-auto px-6 pt-12 pb-24 bg-secondary-content/30">
+      <div className="max-w-5xl mx-auto px-20 pt-12 pb-24 bg-transparent">
         {/* Meta Info */}
         <div className="flex items-center gap-2 text-xs text-base-content/40 mb-8">
           <ClockIcon className="size-3" />

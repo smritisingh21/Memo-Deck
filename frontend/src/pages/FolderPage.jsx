@@ -10,7 +10,7 @@ import { FolderClosed, NotebookIcon } from "lucide-react";
 import axiosInstance from "../lib/axios";
 import { LoaderIcon } from "lucide-react";
 import Search from "../components/Search";
-import { FolderPlus,NotebookTabs } from "lucide-react";
+import { FolderPlus} from "lucide-react";
 
 
 
@@ -66,9 +66,9 @@ export default function FolderPage() {
     <div className="p-10 space-y-4 shadow-lg ">
 
       {/* Header */}
-      <header className="flex justify-between items-center p-6
+      <header className="flex justify-between items-center p-6 
        border-x-blue-700 bottom-3 rounded-3xl border-primary">
-        <h1 className="text-2xl flex gap-2 font-bold text-base/80 ">
+        <h1 className="text-2xl md:text-md flex gap-2 font-bold text-base/80 ">
 
           <FolderClosed size={30}/><u>{folder ? folder.title : "Home" }</u>
 
@@ -97,7 +97,7 @@ export default function FolderPage() {
        {subfolders.length > 0 && (
         <section className="">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
             {(onSeeMore ? subfolders : subfolders.slice(0, 6)).map((f) => (
               <FolderCard
                 key={f._id}

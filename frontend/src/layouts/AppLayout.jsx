@@ -5,7 +5,7 @@ export default function AppLayout({children}) {
   
   return (
     <div className="min-h-screen flex ">
-    <aside className="w-64 md:w-50vw  shrink-0">
+    <aside className="w-64 ">
       <Menubar />
     </aside>
 

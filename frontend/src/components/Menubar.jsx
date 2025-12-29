@@ -9,7 +9,7 @@ export default function Menubar() {
   return (
     <>
       <button
-        className="fixed top-4 left-4 z-50 p-2 rounded-md bg-base-200 md:hidden"
+        className="fixed top-4 left-4 z-50 p-2 rounded-md bg-base-200 md:hidden "
         onClick={() => setOpen(!open)}
       >
         {open ? <X size={20} /> : <Menu size={20} />}
@@ -17,9 +17,8 @@ export default function Menubar() {
 
       <aside
         className={`
-          fixed top-0 left-0 z-40 h-screen w-64 shadow-md shadow-primary/30
-          bg-transparent 
-          transform transition-transform duration-300 ease-in-out
+          fixed top-0 left-0 z-40 h-screen w-64  shadow-md shadow-primary/30 bg-transparent 
+          transform transition-transform duration-300 ease-in-out md:visible
           ${open ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0
         `}

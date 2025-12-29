@@ -38,7 +38,7 @@ export default function NoteCard({ note , id, type}) {
       className=""
     >
       <div className=" card-body h-50 w-90 border border-b card-actions 
-       overflow-hidden rounded-box align-center
+       overflow-hidden rounded-box align-center 
         bg-accent-content/20 border-accent-content p-4 
       shadow-md hover:shadow-xl  shadow-primary-content">
 
@@ -46,7 +46,7 @@ export default function NoteCard({ note , id, type}) {
 
         <p className="text-accent/30 font-mono text-sm line-clamp-5">{note.content}</p>
 
-        <div className=" flex gap-20 justify-evenly gap- items-center mt-4">
+        <div className=" flex gap-20 justify-evenly items-center mt-4">
 
           <div className="text-xs mb-4 text-base-content/40">
             {formatDate(new Date(note.createdAt))}
