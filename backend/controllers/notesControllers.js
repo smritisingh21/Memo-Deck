@@ -79,3 +79,20 @@ export async function deleteNote(req , res) {
         res.status(500).json({message : "Internal server error"})
     }
 }
+
+export async function addToFavourite(req,res){
+
+    try{
+        const {id} = req.params;
+        const note = await Note.findByIdAndUpdate(
+            id,
+            {favourite},
+            {new:true}
+        )
+        return res.status(200).json({message :"Added to favourites"})
+    }catch(err){
+     console.log("Could not add to favourites");
+    res.status(500).json({message : "Internal server error"})
+
+    }
+}

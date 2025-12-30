@@ -15,6 +15,7 @@ import { FolderPlus} from "lucide-react";
 
 
 export default function FolderPage() {
+  
   const { id } = useParams();
 
   const [folder, setFolder] = useState(null);

@@ -24,7 +24,7 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
 
     setLoading(true);
      const url = parentId ? `/note/${parentId}` : `/note`;
-      
+     
       await axios.post(url, {
         title,
         content,

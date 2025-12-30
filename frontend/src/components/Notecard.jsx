@@ -7,12 +7,15 @@ import { StarIcon } from "lucide-react";
 import { Archive } from "lucide-react";
 import axiosInstance from '../lib/axios';
 import toast from "react-hot-toast";
+import axios from "axios";
 
 
 
 export default function NoteCard({ note , id, type}) {
 
   const [notes , setNotes] = useState([]);
+  const [favourite , setFavourite] = useState(false);
+  const [isArchived , setIsArchived] = useState(false);
 
   const handleDelete = async (e, id) => {
     e.preventDefault(); 
@@ -32,6 +35,17 @@ export default function NoteCard({ note , id, type}) {
     }
 
   };
+
+  const addToFavourites =async (id) =>{
+    try{
+      await axiosInstance.patch(`/note/${id}` , fa)
+      toast.success("Added to favourites");
+    }catch(err){
+      console.log("error in addToFavourites");
+    }
+  }
+
+
   return (
       <Link
       to={`/note/${id}`}
@@ -57,33 +71,55 @@ export default function NoteCard({ note , id, type}) {
 
             <div className="flex justify-center items-center gap-6 opacity-60">
 
-           <button className="flex items-center mb-4 justify-between gap-1  hover:text-red-600 " onClick={(e) => handleDelete(e, id)}>
+
+           <button 
+           className="flex items-center mb-4 justify-between gap-1  hover:text-red-600 " 
+           onClick={(e) => handleDelete(e, id)}>
             <div>
-              <Trash2Icon size={10} className=" hover:text-red-600" />
+              <Trash2Icon size={13} className=" hover:text-red-600" />
             </div>
               <p className="text-sm">Delete</p>
-            
             </button>
 
 
-           <button className="flex items-center mb-4 justify-between gap-1 hover:text-fuchsia-600  hover:fill-fuchsia-600" onClick={handleDelete}>
+           <button 
+           className="flex items-center mb-4 justify-between gap-1 hover:text-fuchsia-600  hover:fill-fuchsia-600" 
+           onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault()
+              setFavourite(!favourite)
+            }}
+            >
+            <div >
 
-            <div onClick={(e) => handleDelete(e, id)}>
-              <StarIcon size={13} className=" hover:fill-fuchsia-600" />
+            <StarIcon size={13} 
+            className=" hover:fill-fuchsia-600" />
             </div>
-              <p className="text-sm">Add to favourites</p>
-            
+            <p className="text-sm">
+              {favourite ? "Add to favs" : "Remove from favs"}
+            </p>
             </button>
 
 
-           <button className="flex items-center mb-4 justify-between gap-1   hover:text-accent" onClick={handleDelete}>
 
-            <div onClick={(e) => handleDelete(e, id)}>
-              <Archive size={13} className=" hover:text-accent" />
-            </div>
-              <p className="text-sm">archive</p>
-            
+            {!isArchived?  (
+
+            <button className="flex items-center mb-4 justify-between gap-1 hover:text-accent transition-all duration-500">
+              <div className="flex justify-center items-center "
+              onClick={(e) =>{
+                e.stopPropagation()
+                e.preventDefault();
+                setIsArchived(!isArchived)
+              }}>
+                <Archive size ={13}/>
+                <p className="text-sm">Archive</p>
+              </div>
             </button>
+
+            ):(
+              ""
+            )
+            }
             </div>
       </div>
     </Link>
