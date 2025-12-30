@@ -10,11 +10,11 @@ import toast from "react-hot-toast";
 
 
 
-export default function NoteCard({ note , id, type}) {
+export default function NoteCard({ note , id}) {
 
   const [notes , setNotes] = useState([]);
-  const [favourite , setFavourite] = useState(false);
-  const [isArchived , setIsArchived] = useState(false);
+  const [favourite , setFavourite] = useState(note.favourite || false);
+  const [ archived , setIsArchived] = useState(note.archived || false);
 
   const handleDelete = async (e, id) => {
     e.preventDefault(); 
@@ -35,11 +35,11 @@ export default function NoteCard({ note , id, type}) {
 
   };
 
-  const editNote =async (id) =>{
+  const editNote =async (id , favourite , archived) =>{
     try{
       await axiosInstance.patch(`/note/${id}` , {
-        favourite : favourite,
-        Archived: isArchived,
+        favourite,
+       archived,
       } )
       toast.success("Succeed");
     }catch(err){
@@ -90,8 +90,9 @@ export default function NoteCard({ note , id, type}) {
            onClick={(e) => {
               e.stopPropagation();
               e.preventDefault()
+              const val = !favourite
               setFavourite(!favourite)
-              editNote(id)
+              editNote(id, val, archived)
             }}
             >
             <div >
@@ -100,13 +101,13 @@ export default function NoteCard({ note , id, type}) {
             className=" hover:fill-fuchsia-600" />
             </div>
             <p className="text-sm">
-              {favourite ? "Add to favs" : "Remove from favs"}
+              {!favourite ? "Add to favs" : "Remove from favs"}
             </p>
             </button>
 
 
 
-            {!isArchived?  (
+            {!archived?  (
             <button className="flex items-center mb-4 justify-between gap-1 hover:text-accent
              transition-all duration-500">
 
@@ -114,8 +115,9 @@ export default function NoteCard({ note , id, type}) {
               onClick={(e) =>{
                 e.stopPropagation()
                 e.preventDefault();
-                setIsArchived(!isArchived)
-                editNote(id)
+                const val = !archived
+                setIsArchived(!archived)
+                editNote(id , favourite, val)
               }}>
                 <Archive size ={13}/>
                 <p className="text-sm">Archive</p>

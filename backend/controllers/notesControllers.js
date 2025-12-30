@@ -25,6 +25,8 @@ export async function getNote(req , res ) {
     }
 }
 
+
+
 export async function createNote(req , res) {
     try{
         const {parentId} = req.params;
@@ -47,78 +49,51 @@ export async function createNote(req , res) {
     }
 
 }
+
+
 export async function editNote(req , res) {
     try{
         const noteId= req.params.id;
-        const{title, content, favourite , isArchived} = req.body;
+        const{title, content, favourite , archived } = req.body;
 
         const updateData = {};
         if (title !== undefined) updateData.title = title;
         if (content !== undefined) updateData.content = content;
         if (favourite !== undefined) updateData.favourite = favourite;
-        if (isArchived !== undefined) updateData.isArchived = isArchived;
+        if (archived !== undefined) updateData.archived = archived;
 
         const updatedNote = await Note.findByIdAndUpdate(
             noteId,
             { $set: updateData },
-            { new: true, runValidators: true }
+            { new: true }
         );
 
+        console.log(updatedNote.favourite);
+        console.log(updatedNote.archived);
         if (!updatedNote) {
             return res.status(404).json({ message: "Note not found." });
         }
-        console.log(updatedNote);
         res.status(200).json(updatedNote); 
+
     }catch(err){
         console.error("Could not edit note.\n\n" , err);
         res.status(500).json({message : "Internal server error: " + err.message}) 
     }
 }
+
+
 export async function deleteNote(req , res) {
-  try{
+    try{
         const noteId= req.params.id;
         const deletedNote= await Note.findByIdAndDelete(noteId);
         if(!deletedNote) return res.status(404).json({message : "Note not found."})
 
         res.status(200).json({message :"note deleted successfully."});
-    }catch(err){
+    }
+    
+    catch(err){
         console.error("Could not create note.\n\n" , err);
         res.status(500).json({message : "Internal server error"})
     }
 }
 
-
-// export async function addToFavourite(req,res){
-
-//     try{
-//         const {id} = req.params;
-//         const favourite = req.body;
-//         const note = await Note.findByIdAndUpdate(
-//             id,
-//             favourite,
-//             {new:true}
-//         )
-//         return res.status(200).json({message :"Added to favourites"})
-//     }catch(err){
-//      console.log("Could not add to favourites");
-//     res.status(500).json({message : "Internal server error"})
-
-//     }
-// }
-// export async function handleArchive(req,res){
-
-//     try{
-//         const {id} = req.params;
-//         const isArchived = req.body;
-//         const note = await Note.findByIdAndUpdate(
-//             id,
-//             isArchived,
-//             {new:true}
-//         )
-//         return res.status(200).json({message :"Added to archive"})
-//     }catch(err){
-//      console.log("Could not add to archive");
-//     res.status(500).json({message : "Internal server error"})
-
-//     }
-// }
