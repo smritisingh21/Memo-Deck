@@ -13,8 +13,8 @@ import toast from "react-hot-toast";
 export default function NoteCard({ note , id}) {
 
   const [notes , setNotes] = useState([]);
-  const [favourite , setFavourite] = useState(note.favourite || false);
-  const [ archived , setIsArchived] = useState(note.archived || false);
+  const [favourite , setFavourite] = useState(false);
+  const [ archived , setIsArchived] = useState(false);
 
   const handleDelete = async (e, id) => {
     e.preventDefault(); 
@@ -51,7 +51,7 @@ export default function NoteCard({ note , id}) {
   const ArchiveNote =async (id , archived) =>{
     try{
       await axiosInstance.patch(`/note/${id}` , {
-       favourite,
+       archived,
       } )
       toast.success("Added to archive");
     }catch(err){
@@ -110,7 +110,7 @@ export default function NoteCard({ note , id}) {
 
 
 
-        {!archived?  (
+        {!archived ? (
 
             <Tooltip content="Archive">
           <button className="flex items-center mb-4 justify-between gap-1 hover:text-accent
@@ -123,7 +123,6 @@ export default function NoteCard({ note , id}) {
                 const val = !archived
                 setIsArchived(!archived)
                 ArchiveNote(id , val)
-                window.location.reload();
 
               }}>
                 <Archive size ={16}/>
@@ -131,12 +130,10 @@ export default function NoteCard({ note , id}) {
               </div>
           </button>
             </Tooltip>
-            ):
-            (
+            ):(
               ""
-            )
-            
-        }
+            )   
+          }
           <Tooltip content={`${favourite? "Remove from favourites" : "Add to favourites"}`}>
         
           <button 
