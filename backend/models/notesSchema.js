@@ -5,7 +5,8 @@ const noteSchema = new mongoose.Schema(
     title: String,
     content: String,
     type:String,
-    favourite : String,
+    favourite :Boolean,
+    Archived :Boolean,
     parent: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Folder",

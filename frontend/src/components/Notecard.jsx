@@ -7,7 +7,6 @@ import { StarIcon } from "lucide-react";
 import { Archive } from "lucide-react";
 import axiosInstance from '../lib/axios';
 import toast from "react-hot-toast";
-import axios from "axios";
 
 
 
@@ -36,12 +35,16 @@ export default function NoteCard({ note , id, type}) {
 
   };
 
-  const addToFavourites =async (id) =>{
+  const editNote =async (id) =>{
     try{
-      await axiosInstance.patch(`/note/${id}` , fa)
-      toast.success("Added to favourites");
+      await axiosInstance.patch(`/note/${id}` , {
+        favourite : favourite,
+        isArchived: isArchived,
+      } )
+      toast.success("Succedd");
     }catch(err){
-      console.log("error in addToFavourites");
+      console.log("error");
+      toast.error("error")
     }
   }
 
@@ -88,6 +91,7 @@ export default function NoteCard({ note , id, type}) {
               e.stopPropagation();
               e.preventDefault()
               setFavourite(!favourite)
+              editNote(id)
             }}
             >
             <div >
@@ -104,19 +108,22 @@ export default function NoteCard({ note , id, type}) {
 
             {!isArchived?  (
 
-            <button className="flex items-center mb-4 justify-between gap-1 hover:text-accent transition-all duration-500">
+            <button className="flex items-center mb-4 justify-between gap-1 hover:text-accent
+             transition-all duration-500">
+
               <div className="flex justify-center items-center "
-              onClick={(e) =>{
+              onClick={(e,id) =>{
                 e.stopPropagation()
                 e.preventDefault();
                 setIsArchived(!isArchived)
+                editNote(id)
               }}>
                 <Archive size ={13}/>
                 <p className="text-sm">Archive</p>
               </div>
             </button>
-
-            ):(
+            ):
+            (
               ""
             )
             }
