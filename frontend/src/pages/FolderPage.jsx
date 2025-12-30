@@ -10,6 +10,7 @@ import { FolderClosed, NotebookIcon } from "lucide-react";
 import axiosInstance from "../lib/axios";
 import { LoaderIcon } from "lucide-react";
 import Search from "../components/Search";
+import { FolderX } from "lucide-react";
 import { FolderPlus} from "lucide-react";
 
 
@@ -63,8 +64,11 @@ export default function FolderPage() {
     );
   }
 
+  const hasContent = (subfolders?.length > 0) || (notes?.length > 0);
+
+
   return (
-    <div className="p-10 space-y-4 shadow-lg ">
+    <div className="p-6 space-y-8 shadow-lg animate-in fade-in duration-200  ">
 
       {/* Header */}
       <header className="flex justify-between items-center p-6 
@@ -94,10 +98,10 @@ export default function FolderPage() {
         </div>      
 
       </header>
+      
 
        {subfolders.length > 0 && (
-        <section className="">
-
+        <section className="animate-in fade-in duration-500">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
             {(onSeeMore ? subfolders : subfolders.slice(0, 6)).map((f) => (
               <FolderCard
@@ -135,11 +139,13 @@ export default function FolderPage() {
         </section>
       )}
 
-      {subfolders.length === 0 && notes.length === 0 && (
-        <p className="text-base-content/60">
-          This folder is empty
-        </p>
-      )}
+       {!hasContent && (
+        <div className="flex flex-col items-center justify-center py-24 opacity-30 text-center">
+          <FolderX size={64} className="mb-6" />
+          <h2 className="text-xl font-bold">Nothing yet</h2>
+          <p className="text-sm max-w-xs mt-2">Start adding new notes and folders to see them here.</p>
+        </div>)
+    }
 
       {showCreateFolder && (
     <PopUp onClose={() => setShowCreateFolder(false)}>

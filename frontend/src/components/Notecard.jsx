@@ -123,6 +123,8 @@ export default function NoteCard({ note , id}) {
                 const val = !archived
                 setIsArchived(!archived)
                 ArchiveNote(id , val)
+                window.location.reload();
+
               }}>
                 <Archive size ={16}/>
                 <p className="md:text-sm sm:hidden">Archive</p>
@@ -145,6 +147,8 @@ export default function NoteCard({ note , id}) {
               const val = !favourite
               setFavourite(!favourite)
               AddToFav(id, val)
+              window.location.reload();
+
             }}
             >
             <div >
