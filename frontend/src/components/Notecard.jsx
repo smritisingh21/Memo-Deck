@@ -35,19 +35,40 @@ export default function NoteCard({ note , id}) {
 
   };
 
-  const editNote =async (id , favourite , archived) =>{
+  const AddToFav =async (id , favourite ,) =>{
     try{
-      await axiosInstance.patch(`/note/${id}` , {
-        favourite,
-       archived,
-      } )
-      toast.success("Succeed");
+      const res = await axiosInstance.patch(`/note/${id}` , {
+       favourite,
+      })
+      if(favourite === true) toast.success("Note added to favourites");
+      else toast.success("Note removed from favourites");
+      
     }catch(err){
-      console.log("error");
-      toast.error("error")
+      console.log("error adding to favorites");
+      toast.error("error adding to favorites")
     }
   }
+  const ArchiveNote =async (id , archived) =>{
+    try{
+      await axiosInstance.patch(`/note/${id}` , {
+       favourite,
+      } )
+      toast.success("Added to archive");
+    }catch(err){
+      console.log("Could not archive");
+      toast.error("Could not archive")
+    }
+  }
+  
 
+  const Tooltip = ({ children, content, position = "top" }) => {
+  if (!content) return children;
+  return (
+    <div className={`tooltip z-20 tooltip-${position} before:text-[11px] before:font-bold`} data-tip={content}>
+      {children}
+    </div>
+  );
+};
 
   return (
       <Link
@@ -73,43 +94,27 @@ export default function NoteCard({ note , id}) {
         </div>
 
             <div className="flex justify-center items-center gap-6 opacity-60">
-
+          
+          <Tooltip content="Delete">
 
            <button 
-           className="flex items-center mb-4 justify-between gap-1  hover:text-red-600 " 
+           className="flex items-center mb-4 justify-between gap-1  hover:text-red-600 hover:<Tool" 
            onClick={(e) => handleDelete(e, id)}>
             <div>
-              <Trash2Icon size={13} className=" hover:text-red-600" />
+              <Trash2Icon size={16} className=" hover:text-red-600 " />
             </div>
-              <p className="text-sm">Delete</p>
+              <p className="text-sm sm:hidden">Delete</p>
             </button>
-
-
-           <button 
-           className="flex items-center mb-4 justify-between gap-1 hover:text-fuchsia-600  hover:fill-fuchsia-600" 
-           onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault()
-              const val = !favourite
-              setFavourite(!favourite)
-              editNote(id, val, archived)
-            }}
-            >
-            <div >
-
-            <StarIcon size={13} 
-            className=" hover:fill-fuchsia-600" />
-            </div>
-            <p className="text-sm">
-              {!favourite ? "Add to favs" : "Remove from favs"}
-            </p>
-            </button>
+            </Tooltip>
+          
 
 
 
-            {!archived?  (
-            <button className="flex items-center mb-4 justify-between gap-1 hover:text-accent
-             transition-all duration-500">
+        {!archived?  (
+
+            <Tooltip content="Archive">
+          <button className="flex items-center mb-4 justify-between gap-1 hover:text-accent
+             transition-all duration-300">
 
               <div className="flex justify-center items-center "
               onClick={(e) =>{
@@ -117,17 +122,42 @@ export default function NoteCard({ note , id}) {
                 e.preventDefault();
                 const val = !archived
                 setIsArchived(!archived)
-                editNote(id , favourite, val)
+                ArchiveNote(id , val)
               }}>
-                <Archive size ={13}/>
-                <p className="text-sm">Archive</p>
+                <Archive size ={16}/>
+                <p className="md:text-sm sm:hidden">Archive</p>
               </div>
-            </button>
+          </button>
+            </Tooltip>
             ):
             (
               ""
             )
-            }
+            
+        }
+          <Tooltip content={`${favourite? "Remove from favourites" : "Add to favourites"}`}>
+        
+          <button 
+              className="flex items-center mb-4 justify-between gap-1 hover:text-accent  hover:fill-accent" 
+               onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault()
+              const val = !favourite
+              setFavourite(!favourite)
+              AddToFav(id, val)
+            }}
+            >
+            <div >
+
+            <StarIcon size={20} 
+            className={`${favourite ? 'fill-accent text-transparent' :'fill-none'} hover:fill-accent   `}/>
+            </div>
+            <p className="text-sm sm:hidden">
+              {!favourite ? "Add to favs" : "Remove from favs"}
+            </p>
+            </button>
+            </Tooltip>
+
             </div>
       </div>
     </Link>
