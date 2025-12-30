@@ -13,8 +13,8 @@ import toast from "react-hot-toast";
 export default function NoteCard({ note , id}) {
 
   const [notes , setNotes] = useState([]);
-  const [favourite , setFavourite] = useState(false);
-  const [ archived , setIsArchived] = useState(false);
+  const [favourite , setFavourite] = useState(note.favourite ||false);
+  const [ archived , setIsArchived] = useState(note.archived ||false);
 
   const handleDelete = async (e, id) => {
     e.preventDefault(); 
@@ -80,7 +80,7 @@ export default function NoteCard({ note , id}) {
         bg-accent-content/20 border-accent-content p-4 
       shadow-md hover:shadow-xl  shadow-primary-content">
 
-        <h3 className="card-title text-actions py-6  text-neutral-content/80 text-md mb-4 ">{note.title}</h3>
+        <h3 className="text-actions pt-4 py-3 px-5 text-neutral-content/80 text-xl p ">{note.title}</h3>
 
         <p className="text-accent/30 font-mono text-sm line-clamp-5">{note.content}</p>
 
@@ -144,7 +144,6 @@ export default function NoteCard({ note , id}) {
               const val = !favourite
               setFavourite(!favourite)
               AddToFav(id, val)
-              window.location.reload();
 
             }}
             >
