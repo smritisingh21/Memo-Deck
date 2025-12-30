@@ -39,9 +39,9 @@ export default function NoteCard({ note , id, type}) {
     try{
       await axiosInstance.patch(`/note/${id}` , {
         favourite : favourite,
-        isArchived: isArchived,
+        Archived: isArchived,
       } )
-      toast.success("Succedd");
+      toast.success("Succeed");
     }catch(err){
       console.log("error");
       toast.error("error")
@@ -107,12 +107,11 @@ export default function NoteCard({ note , id, type}) {
 
 
             {!isArchived?  (
-
             <button className="flex items-center mb-4 justify-between gap-1 hover:text-accent
              transition-all duration-500">
 
               <div className="flex justify-center items-center "
-              onClick={(e,id) =>{
+              onClick={(e) =>{
                 e.stopPropagation()
                 e.preventDefault();
                 setIsArchived(!isArchived)

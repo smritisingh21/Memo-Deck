@@ -5,9 +5,18 @@ const folderSchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
-  type: String,
-  favourite :Boolean,
-  Archived :Boolean,
+     type:{
+      type:String,
+      default:"Folder",
+    },
+  favourite :{
+    type:Boolean,
+    default:false,
+  },
+  archived :{
+    type:Boolean,
+    default:false,
+  },
   notes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Note" }],
   parent: {
     type: mongoose.Schema.Types.ObjectId,
