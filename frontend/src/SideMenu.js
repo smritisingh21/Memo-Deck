@@ -33,7 +33,7 @@ export const SIDE_MENU_DATA = [
     id: "06",
     name: "Archives",
     icon: Archive,
-    path: "/trash",
+    path: "/archive",
   },
   {
     id: "07",

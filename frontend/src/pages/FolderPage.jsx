@@ -71,8 +71,8 @@ export default function FolderPage() {
     <div className="p-6 space-y-8 shadow-lg animate-in fade-in duration-200  ">
 
       {/* Header */}
-      <header className="flex justify-between items-center p-6 
-       border-x-blue-700 bottom-3 rounded-3xl border-primary">
+      <header className="flex justify-between items-center  md:flex-row md:items-center md:justify-between  sm:p-6 
+       rounded-[2rem] bg-base-100 shadow-lg shadow-primary/5 sticky top-4 z-20 bottom-3 ">
         <h1 className="text-2xl md:text-md flex gap-2 font-bold text-base/80 ">
 
           <FolderClosed size={30}/><u>{folder ? folder.title : "Home" }</u>
@@ -102,8 +102,8 @@ export default function FolderPage() {
 
        {subfolders.length > 0 && (
         <section className="animate-in fade-in duration-500">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-            {(onSeeMore ? subfolders : subfolders.slice(0, 6)).map((f) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {(onSeeMore ? subfolders : subfolders.slice(0, 8)).map((f) => (
               <FolderCard
                 key={f._id}
                 id={f._id}
@@ -115,7 +115,7 @@ export default function FolderPage() {
           </div>
              <div className="flex items-center justify-end px-4 mt-3">
 
-            {subfolders.length > 6 && (
+            {subfolders.length > 8 && (
               <button 
                 className="text-xs font-bold text-secondary flex items-center gap-1 hover:gap-2 transition-all"
                 onClick={() => setOnSeeMore(!onSeeMore)}

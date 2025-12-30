@@ -5,6 +5,7 @@ import NoteDetail from './pages/NoteDetail'
 import FolderPage from './pages/FolderPage'
 import AppLayout from './layouts/AppLayout'
 import AllFoldersPage from './pages/AllFoldersPage'
+import ArchivePage from './pages/ArchivePage'
 import { ThemeProvider, useTheme } from './context/ThemeContext'
 import FavouritesPage from './pages/FavouritesPage'
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/folder/:id" element={<FolderPage />} />
         <Route  path= '/note/:id' element={<NoteDetail/>}/>
         <Route  path= '/favourites' element={<FavouritesPage/>}/> {/*root folder */}
+        <Route  path= '/archive' element={<ArchivePage/>}/> {/*root folder */}
         <Route  path= '/folders' element={<AllFoldersPage/>}/> {/*root folder */}
       </Routes>
       </ThemeProvider>

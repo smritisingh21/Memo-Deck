@@ -3,7 +3,7 @@ import Note from "../models/notesSchema.js";
 
 export async function getAllFolders( _, res ) {
     try{
-        const folders = await Folder.find().sort({createdAt : 1});
+        const folders = await Folder.find().sort({createdAt : -1});
         res.status(200).json(folders);
 
     }catch(err){

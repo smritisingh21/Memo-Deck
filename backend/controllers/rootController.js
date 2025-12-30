@@ -3,8 +3,8 @@ import Note from "../models/notesSchema.js";
 
 export async function getRoot(req, res) {
 
-  const folders = await Folder.find({ parent: null });
-  const notes = await Note.find({ parent: null });
+  const folders = await Folder.find({ parent: null }).sort({createdAt : -1});
+  const notes = await Note.find({ parent: null }).sort({createdAt : -1});
 
   res.json({ folders, notes });
 }
@@ -44,6 +44,30 @@ export async function getFavourites(req , res ) {
         });
 
         if(!folders && !notes) return res.status(404).json({message : "Favourites not found."})
+
+        else{
+            return res.status(200).json({
+             folders ,
+             notes
+            });
+        }
+
+    }catch(err){
+        console.error("Could not fetch folder.\n\n" , err);
+        res.status(500).json({message : "Internal server error"})
+    }
+}
+export async function getArchived(req , res ) { 
+    try{
+
+        const folders = await Folder.find({
+            archived: true
+        });
+        const notes = await Note.find({
+            archived: true
+        });
+
+        if(!folders && !notes) return res.status(404).json({message : "Archived notes not found."})
 
         else{
             return res.status(200).json({
