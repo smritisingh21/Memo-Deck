@@ -19,7 +19,7 @@ export default function EditBox({ id , oldTitle, onClose}) {
     };
     } catch (error) {
       console.log("Error in handleEdit", error);
-      toast.error("Failed to edit !" , error);
+      toast.error("Failed to edit!" , error);
 
     }}
 
@@ -42,8 +42,12 @@ export default function EditBox({ id , oldTitle, onClose}) {
       <input
         className="input input-bordered w-full mb-4"
         placeholder="New name"
-        value={oldTitle}
-        onChange={(e) => setTitle(e.target.value)}
+        value={title}
+        onChange={(e) => {
+          setTitle(e.target.value)
+          console.log(e.target.value);
+
+        }}
         onKeyDown={(e) => {
             if (e.key === 'Enter') handleEdit();
             if (e.key === 'Escape') onClose();
@@ -58,16 +62,18 @@ export default function EditBox({ id , oldTitle, onClose}) {
         e.stopPropagation();
         onClose();
         }}
-
-         >
+        >
           Cancel
         </button>
+
+
         <button
           className="btn btn-primary"
            onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
         handleEdit();
+        onClose();
         }}
         >
           Save

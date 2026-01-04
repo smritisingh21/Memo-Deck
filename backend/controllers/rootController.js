@@ -92,7 +92,7 @@ export async function getArchived(req , res ) {
 
         else{
             return res.status(200).json({
-             folders ,
+             folders,
              notes
             });
         }

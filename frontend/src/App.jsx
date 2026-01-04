@@ -33,7 +33,7 @@ function App() {
         <Route  path= '/note/:id' element={<NoteDetail/>}/>
         <Route  path= '/folders' element={<AllFoldersPage/>}/> 
         <Route  path= '/favourites' element={<FavouritesPage/>}/> 
-        <Route  path= '/favourites' element={<FavouritesPage/>}/> 
+        <Route  path= '/archive' element={<ArchivePage/>}/> 
         <Route  path= '/settings' element={<Settings/>}/> 
       </Routes>
       </ThemeProvider>
