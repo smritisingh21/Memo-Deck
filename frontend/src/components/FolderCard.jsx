@@ -7,9 +7,10 @@ import { PenBoxIcon } from "lucide-react";
 import CreateFolder from "../pages/CreateFolder";
 import EditBox from "../pages/EditBox";
 
-export default function FolderCard({ id, title, notes =[] }) {
+export default function FolderCard({ id, title,itemsCount, notes =[] }) {
 
   const [folders, setFolders] = useState([])
+  console.log(itemsCount);
   const [editBox, setEditBox] = useState(false);
 
   const handleDelete = async (e, id) => {
@@ -48,7 +49,7 @@ export default function FolderCard({ id, title, notes =[] }) {
 
       <div className="flex gap-4 justify-center items-center  max-w-md ">
         <span className="text-sm  text-base-content/80">
-          {notes.length} items
+          {itemsCount} items
        </span>
 
         <Trash2Icon size={18} className="text-gray-600 hover:text-red-600 "

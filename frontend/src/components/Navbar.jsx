@@ -20,13 +20,13 @@ export default function Navbar() {
                   </span>
                   </h1>
                   
-        <div className='flex gap-2 justify-center items-center'>
-           <div className="flex flex-wrap items-center justify-center gap-1 bg-base-200 p-1.5 rounded-2xl sm:shrink-0">
+        <div className='flex gap-2 justify-center items-center '>
+           <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-2 bg-base-200  sm:shrink-0">
             {supportedThemes.map((theme) => (
               <button 
                 key={theme}
                 onClick={() => setTheme(theme)}
-                className={`px-3 py-1.5 text-xs hover:bg-transparent hover:text-white hover:translate-x-2 font-bold uppercase tracking-wider rounded-xl transition-all duration-200 ${
+                className={`px-3 py-1.5 text-xs hover:bg-transparent  hover:text-white hover:translate-x-2 font-bold  rounded-xl transition-all duration-200 ${
                   theme === theme 
                     ? 'bg-primary text-primary-content shadow-lg' 
                     : 'hover:bg-base-300 text-base-content/70'

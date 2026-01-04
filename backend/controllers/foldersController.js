@@ -13,24 +13,42 @@ export async function getAllFolders( _, res ) {
 }
 
 
-export async function getFolder(req , res ) { 
-    try{
+export async function getFolder(req, res) {
+  try {
+    const { id } = req.params;
 
-        const {id} = req.params;
-        const folder = await Folder.findById(id);
-
-        if(!folder) return res.status(404).json({message : "Folder not found."})
-        else{
-            const subfolders = await Folder.find({ parent: id });
-            const notes = await Note.find({ parent: id });
-            return res.status(200).json({folder , subfolders ,notes});
-        }
-
-    }catch(err){
-        console.error("Could not fetch folder.\n\n" , err);
-        res.status(500).json({message : "Internal server error"})
+    const folder = await Folder.findById(id);
+    if (!folder) {
+      return res.status(404).json({ message: "Folder not found." });
     }
+
+    const rawSubfolders = await Folder.find({ parent: id });
+    const notes = await Note.find({ parent: id });
+
+    const subfolders = await Promise.all(
+      rawSubfolders.map(async (f) => {
+        const folderCount = await Folder.countDocuments({ parent: f._id });
+        const noteCount = await Note.countDocuments({ parent: f._id });
+
+        return {
+          ...f.toObject(),
+          itemsCount: folderCount + noteCount
+        };
+      })
+    );
+
+    return res.status(200).json({
+      folder,
+      subfolders,
+      notes
+    });
+
+  } catch (err) {
+    console.error("Could not fetch folder.\n\n", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
 }
+
 
 export async function createFolder(req , res) {
     try{

@@ -14,7 +14,6 @@ import { FolderX } from "lucide-react";
 import { FolderPlus} from "lucide-react";
 
 
-
 export default function FolderPage() {
   
   const { id } = useParams();
@@ -34,6 +33,7 @@ export default function FolderPage() {
   ];
 
 
+
     async function fetchData() {
       setLoading(true);
       if (id) {
@@ -41,6 +41,7 @@ export default function FolderPage() {
         setFolder(res.data.folder);
         setSubfolders(res.data.subfolders);
         setNotes(res.data.notes);
+        
       } else {
         const res = await axiosInstance.get("/root");
         setFolder(null);
@@ -109,6 +110,7 @@ export default function FolderPage() {
                 id={f._id}
                 title={f.title}
                 notes={f.notes || []}
+                itemsCount = {f.itemsCount}
                 type="folder"
               />
             ))}

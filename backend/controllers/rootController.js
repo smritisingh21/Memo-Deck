@@ -2,12 +2,33 @@ import Folder from "../models/folderSchema.js";
 import Note from "../models/notesSchema.js";
 
 export async function getRoot(req, res) {
+  try {
+    const rawFolders = await Folder.find({ parent: null });
+    const notes = await Note.find({ parent: null });
 
-  const folders = await Folder.find({ parent: null }).sort({createdAt : -1});
-  const notes = await Note.find({ parent: null }).sort({createdAt : -1});
+    const folders = await Promise.all(
+      rawFolders.map(async (f) => {
+        const folderCount = await Folder.countDocuments({ parent: f._id });
+        const noteCount = await Note.countDocuments({ parent: f._id });
 
-  res.json({ folders, notes });
+        return {
+          ...f.toObject(),
+          itemsCount: folderCount + noteCount
+        };
+      })
+    );
+
+    res.status(200).json({
+      folders,
+      notes
+    });
+
+  } catch (err) {
+    console.error("Could not fetch root\n\n", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
 }
+
 
 
 export async function createNote(req , res) {

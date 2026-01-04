@@ -18,10 +18,12 @@ const folderSchema = new mongoose.Schema({
     default:false,
   },
   notes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Note" }],
+  
   parent: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Folder",
-    default: null
+    default: null,
+    index:true
   }
 
 });

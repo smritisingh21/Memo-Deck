@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Modal({ children, onClose }) {
+export default function PopUp({ children, onClose }) {
   return (
     <div className="fixed h-screen inset-0 z-50 flex items-center justify-center">
       
