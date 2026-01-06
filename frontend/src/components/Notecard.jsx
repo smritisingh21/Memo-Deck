@@ -77,7 +77,7 @@ export default function NoteCard({ note , id}) {
       to={`/note/${id}`}
       className=""
     >
-      <div className=" card-body h-50 w-90 border border-b card-actions 
+      <div className=" card-body max-h-4em w-90 border border-b card-actions 
        overflow-hidden rounded-box align-center 
         bg-accent-content/20 border-accent-content p-4 
       shadow-md hover:shadow-xl  shadow-primary-content">

@@ -104,7 +104,7 @@ export default function FolderPage() {
 
        {subfolders.length > 0 && (
         <section className="animate-in fade-in duration-500">
-          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3 h-100%">
             {(onSeeMore ? subfolders : subfolders.slice(0, 8)).map((f) => (
               <FolderCard
                 key={f._id}
@@ -134,7 +134,7 @@ export default function FolderPage() {
       {notes.length > 0 && (
         <section>
           <h2 className="text-lg font-semibold mb-5"></h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {notes.map((note) => (
               <NoteCard key={note._id} note={note} id={note._id} type="note" />
             ))}

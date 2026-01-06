@@ -90,7 +90,7 @@ export default function ArchivePage() {
                 <h2 className="text-xs font-black uppercase tracking-[0.2em] opacity-40">Notes</h2>
                 <div className="h-px flex-1 bg-base-content/5"></div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                 {archive.notes.map(n => (
                   <NoteCard key={n._id} id={n._id} note={n} />
                 ))}
