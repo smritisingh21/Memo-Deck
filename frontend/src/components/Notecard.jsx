@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import { formatDate } from '../../utils/helper.js';
 import { Trash2Icon,PenSquareIcon } from 'lucide-react'
 import { StarIcon } from "lucide-react";
-import { Archive } from "lucide-react";
+import { Archive , ArchiveRestoreIcon } from "lucide-react";
 import axiosInstance from '../lib/axios';
 import toast from "react-hot-toast";
 
@@ -57,6 +57,8 @@ export default function NoteCard({ note , id}) {
     }catch(err){
       console.log("Could not archive");
       toast.error("Could not archive")
+    }finally{
+      window.location.reload();
     }
   }
   
@@ -93,7 +95,7 @@ export default function NoteCard({ note , id}) {
 
         </div>
 
-            <div className="flex justify-center items-center gap-6 opacity-60">
+            <div className="flex justify-center items-center gap-3 opacity-60">
           
           <Tooltip content="Delete">
 
@@ -107,31 +109,48 @@ export default function NoteCard({ note , id}) {
             </button>
             </Tooltip>
           
-
-
-
         {!archived ? (
-
-            <Tooltip content="Archive">
-          <button className="flex items-center mb-4 justify-between gap-1 hover:text-accent
+          <Tooltip content="Archive">
+          <button className="flex items-center mb-4 justify-center gap-1 hover:text-accent
              transition-all duration-300">
 
               <div className="flex justify-center items-center "
               onClick={(e) =>{
                 e.stopPropagation()
                 e.preventDefault();
-                const val = !archived
-                setIsArchived(!archived)
+                const val = true
+                setIsArchived(true)
                 ArchiveNote(id , val)
 
               }}>
                 <Archive size ={16}/>
-                <p className="md:text-sm sm:hidden">Archive</p>
+                <p className="md:text-sm sm:hidden">
+                  Archive
+                </p>
               </div>
           </button>
             </Tooltip>
             ):(
-              ""
+              <Tooltip content="Unarchive">
+          <button className="flex items-center mb-4 justify-center gap-1 hover:text-accent
+             transition-all duration-300">
+
+              <div className="flex justify-center items-center "
+              onClick={(e) =>{
+                e.stopPropagation()
+                e.preventDefault();
+                const val = false
+                setIsArchived(false)
+                ArchiveNote(id , val)
+
+              }}>
+                <ArchiveRestoreIcon size ={16} onClick={() => ArchiveNote()} />
+                <p className="md:text-sm sm:hidden">
+                  Archive
+                </p>
+              </div>
+          </button>
+            </Tooltip>
             )   
           }
           <Tooltip content={`${favourite? "Remove from favourites" : "Add to favourites"}`}>

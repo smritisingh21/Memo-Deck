@@ -83,7 +83,7 @@ function FolderCard({ id, title, itemsCount, onDeleted }) {
                 {title}
               </h2>
 
-            <span className="text-sm text-base-content/70 m-3">
+            <span className="text-sm text-base-content/30 m-3">
               {itemsCount} items
             </span>
             </div>

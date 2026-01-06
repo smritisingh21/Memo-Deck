@@ -62,6 +62,7 @@ export default function FoldersPage() {
              key={folder._id} 
              id={folder._id}
              title={folder.title} 
+             itemsCount={folder.itemsCount}
              notes={notes} />
           ))}
         </div>

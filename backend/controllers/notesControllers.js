@@ -2,7 +2,7 @@ import Note from "../models/notesSchema.js"
 
 export async function getAllNotes( req , res ) {
     try{
-        const notes = await Note.find().sort({createdAt : -1});//newestFirst
+        const notes = await Note.find({archived : false}).sort({createdAt : -1});//newestFirst
         res.status(200).json(notes);
 
     }catch(err){

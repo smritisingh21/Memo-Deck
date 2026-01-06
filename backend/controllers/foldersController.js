@@ -1,29 +1,54 @@
 import Folder from "../models/folderSchema.js"
 import Note from "../models/notesSchema.js";
 
-export async function getAllFolders( _, res ) {
-    try{
-        const folders = await Folder.find().sort({createdAt : -1});
-        res.status(200).json(folders);
+export async function getAllFolders(_, res) {
+  try {
+    const allFolders = await Folder.find({ archived: false });
 
-    }catch(err){
-        console.error("Could not fetch folders.\n\n" , err)
-        res.status(500).json({message : "Internal server error"})
+    if (!allFolders.length) {
+      return res.status(404).json({ message: "No folders found." });
     }
+
+    const foldersWithCounts = await Promise.all(
+      allFolders.map(async (f) => {
+        const folderCount = await Folder.countDocuments({
+          parent: f._id,
+          archived: false
+        });
+
+        const noteCount = await Note.countDocuments({
+          parent: f._id,
+          archived: false
+        });
+
+        return {
+          ...f.toObject(),
+          itemsCount: folderCount + noteCount
+        };
+      })
+    );
+
+    return res.status(200).json(foldersWithCounts);
+
+  } catch (err) {
+    console.error("Could not fetch folders.\n", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
 }
+
 
 
 export async function getFolder(req, res) {
   try {
     const { id } = req.params;
 
-    const folder = await Folder.findById(id);
+    const folder = await Folder.findById(id).find({ archived : false});
     if (!folder) {
       return res.status(404).json({ message: "Folder not found." });
     }
 
-    const rawSubfolders = await Folder.find({ parent: id });
-    const notes = await Note.find({ parent: id });
+    const rawSubfolders = await Folder.find({ parent: id , archived : false });
+    const notes = await Note.find({ parent: id ,archived : false});
 
     const subfolders = await Promise.all(
       rawSubfolders.map(async (f) => {

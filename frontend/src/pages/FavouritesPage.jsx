@@ -7,7 +7,6 @@ import { LoaderIcon } from "lucide-react";
 import { Star } from "lucide-react";
 import { HeartOff } from "lucide-react";
 
-
 export default function FavoritesPage() {
   const [favorites, setFavorites] = useState({ folders: [], notes: [] });
   const [loading, setLoading] = useState(true);
@@ -25,6 +24,7 @@ export default function FavoritesPage() {
       console.error("Error fetching favorites:", err);
     } finally {
       setLoading(false);
+      
     }
   }
 
