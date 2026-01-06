@@ -4,7 +4,6 @@ import Note from "../models/notesSchema.js";
 export async function getAllFolders(_, res) {
   try {
     const allFolders = await Folder.find({ archived: false });
-
     if (!allFolders.length) {
       return res.status(404).json({ message: "No folders found." });
     }
@@ -13,16 +12,13 @@ export async function getAllFolders(_, res) {
       allFolders.map(async (f) => {
         const folderCount = await Folder.countDocuments({
           parent: f._id,
-          archived: false
         });
 
         const noteCount = await Note.countDocuments({
-          parent: f._id,
-          archived: false
+          parent: f._id ,
         });
-
         return {
-          ...f.toObject(),
+          allFolders,
           itemsCount: folderCount + noteCount
         };
       })
@@ -39,16 +35,16 @@ export async function getAllFolders(_, res) {
 
 
 export async function getFolder(req, res) {
+
   try {
     const { id } = req.params;
-
-    const folder = await Folder.findById(id).find({ archived : false});
+    const folder = await Folder.findOne({ _id: id });
     if (!folder) {
       return res.status(404).json({ message: "Folder not found." });
     }
 
-    const rawSubfolders = await Folder.find({ parent: id , archived : false });
-    const notes = await Note.find({ parent: id ,archived : false});
+    const rawSubfolders = await Folder.find({ parent: id , archived:false});
+    const notes = await Note.find({ parent: id , archived:false });
 
     const subfolders = await Promise.all(
       rawSubfolders.map(async (f) => {

@@ -39,6 +39,7 @@ export default function FolderPage() {
       if (id) {
         const res = await axiosInstance.get(`/folder/${id}`);
         setFolder(res.data.folder);
+        console.log(res.data.folder);
         setSubfolders(res.data.subfolders);
         setNotes(res.data.notes);
         
@@ -53,7 +54,6 @@ export default function FolderPage() {
     }
 
   useEffect(() => {
-
     fetchData();
   }, [id]);
 
@@ -76,7 +76,8 @@ export default function FolderPage() {
        rounded-[2rem] bg-base-100 shadow-lg shadow-primary/5 sticky top-4 z-20 bottom-3 ">
         <h1 className="text-2xl md:text-md flex gap-2 font-bold text-base/80 ">
 
-          <FolderClosed size={30}/><u>{folder ? folder.title : "Home" }</u>
+          <FolderClosed size={30}/>
+          <u> {folder ? folder.title : "Home" }</u>
 
         </h1>
 

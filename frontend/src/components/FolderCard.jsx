@@ -76,19 +76,19 @@ function FolderCard({ id, title, itemsCount, onDeleted }) {
 
           <div ref={menuRef} className="flex items-center justify-between">
 
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center justify-center gap-3">
 
               <FolderCheck size={20} className="text-accent/80" />
               <h2 className="text-md font-semibold line-clamp-1">
                 {title}
               </h2>
-
-            <span className="text-sm text-base-content/30 m-3">
-              {itemsCount} items
-            </span>
             </div>
-               <div className="">
 
+             
+            <div className="flex items-center justify-center">
+              <span className="text-sm text-base-content/30 m-3">
+              {itemsCount} items
+              </span>
             {!openMenu ? (
               <button
                 aria-label="Open menu"
@@ -109,7 +109,7 @@ function FolderCard({ id, title, itemsCount, onDeleted }) {
                   className="text-red-500"
                  }}
                 >
-                  <X size={25} />
+                <X size={25} />
                 </button>
               
             )}

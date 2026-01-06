@@ -3,8 +3,8 @@ import Note from "../models/notesSchema.js";
 
 export async function getRoot(req, res) {
   try {
-    const rawFolders = await Folder.find({ parent: null });
-    const notes = await Note.find({ parent: null });
+    const rawFolders = await Folder.find({ parent: null , archived : false});
+    const notes = await Note.find({ parent: null , archived :false });
 
     const folders = await Promise.all(
       rawFolders.map(async (f) => {

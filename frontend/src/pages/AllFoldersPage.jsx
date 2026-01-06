@@ -19,6 +19,7 @@ export default function FoldersPage() {
       try {
         const folders= await axiosInstance.get("/folders");
         setFolders(folders.data);
+        console.log(folders.data);
 
       } catch (err) {
         setError("Failed to load folders");
@@ -41,7 +42,6 @@ export default function FoldersPage() {
       </div>
     );
   }
-
   if (error) {
     return <div className="p-6 text-error">{error}</div>;
   }
