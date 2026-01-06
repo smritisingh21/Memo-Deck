@@ -58,10 +58,10 @@ export async function getFavourites(req , res ) {
     try{
 
         const folders = await Folder.find({
-            favourite: true
+            favourite: true, archived:false
         });
         const notes = await Note.find({
-            favourite: true
+            favourite: true ,archived:false
         });
 
         if(!folders && !notes) return res.status(404).json({message : "Favourites not found."})
@@ -78,6 +78,8 @@ export async function getFavourites(req , res ) {
         res.status(500).json({message : "Internal server error"})
     }
 }
+
+
 export async function getArchived(req , res ) { 
     try{
 
