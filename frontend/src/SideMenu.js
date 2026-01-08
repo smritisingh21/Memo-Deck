@@ -1,12 +1,8 @@
 import {
   Home,
-  FileText,
-  PlusSquare,
   Star,
-  Trash2,
   Settings,
   Folder,
-  FolderPlus,
   Archive,
 } from "lucide-react";
 
@@ -27,18 +23,13 @@ export const SIDE_MENU_DATA = [
     id: "05",
     name: "Favourites",
     icon: Star,
-    path: "/favourites",
+    path: "/favorites",
   },
   {
     id: "06",
     name: "Archives",
     icon: Archive,
-    path: "/archive",
+    path: "/archives",
   },
-  {
-    id: "07",
-    name: "Settings",
-    icon: Settings,
-    path: "/settings",
-  },
+
 ];

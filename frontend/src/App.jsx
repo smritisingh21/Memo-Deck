@@ -19,25 +19,23 @@ function App() {
   const {theme}  = useTheme();
   return (
     <div  className="min-h-screen min-w-50vw" >
-        
-        <Routes>
+        <ThemeProvider>
+      
+      <Routes>
         <Route path= '/login' element={<Login/>}/>
         <Route path= '/signup' element={<Signup/>}/>
-      </Routes>
 
-      <AppLayout >
-        <ThemeProvider>
-        <Routes>
+      <Route element={<AppLayout/>}>
         <Route path= '/' element={<FolderPage/>}/>
         <Route path="/folder/:id" element={<FolderPage />} />
         <Route  path= '/note/:id' element={<NoteDetail/>}/>
         <Route  path= '/folders' element={<AllFoldersPage/>}/> 
-        <Route  path= '/favourites' element={<FavouritesPage/>}/> 
-        <Route  path= '/archive' element={<ArchivePage/>}/> 
+        <Route  path= '/favorites' element={<FavouritesPage/>}/> 
+        <Route  path= '/archives' element={<ArchivePage/>}/> 
         <Route  path= '/settings' element={<Settings/>}/> 
+      </Route>
       </Routes>
       </ThemeProvider>
-      </AppLayout>
     </div>
     
   )
