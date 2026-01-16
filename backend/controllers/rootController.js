@@ -3,8 +3,16 @@ import Note from "../models/notesSchema.js";
 
 export async function getRoot(req, res) {
   try {
-    const rawFolders = await Folder.find({ parent: null , archived : false});
-    const notes = await Note.find({ parent: null , archived :false });
+    const rawFolders = await Folder.find({ 
+        parent: null ,
+        user: req.userId,
+        archived : false
+    });
+    const notes = await Note.find({
+         parent: null ,
+         user: req.userId,
+         archived :false 
+        });
 
     const folders = await Promise.all(
       rawFolders.map(async (f) => {
@@ -34,10 +42,14 @@ export async function getRoot(req, res) {
 export async function createNote(req , res) {
     try{
         const{ title, content} = req.body;
+        if(!content) return res.json({message :"No content to create note"})
+
         const note = new Note({
              parent : null,
-             title : title, 
+             title : title || null, 
              content: content,
+             user: req.userId,
+
             });
             
         const savedNote = await note.save();

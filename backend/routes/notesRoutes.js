@@ -1,8 +1,10 @@
 import express from "express";
 import { createNote, deleteNote, editNote, getAllNotes ,getNote} from "../controllers/notesControllers.js";
+import { protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
+router.use(protect);
 
 router.get("/notes" , getAllNotes );
 router.get("/note/:id" , getNote );

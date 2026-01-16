@@ -24,7 +24,12 @@ const folderSchema = new mongoose.Schema({
     ref: "Folder",
     default: null,
     index:true
-  }
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,  
+  },
 
 });
 

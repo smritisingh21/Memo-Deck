@@ -1,31 +1,39 @@
 import Folder from "../models/folderSchema.js"
 import Note from "../models/notesSchema.js";
 
-export async function getAllFolders(_, res) {
+export async function getAllFolders(req, res) {
   try {
-    const allFolders = await Folder.find({ archived: false });
+
+    const allFolders = await Folder.find({ 
+      archived: false,
+      user: req.userId
+    });
+
     if (!allFolders.length) {
       return res.status(404).json({ message: "No folders found." });
     }
 
     const foldersWithCounts = await Promise.all(
-      allFolders.map(async (f) => {
-        const folderCount = await Folder.countDocuments({
-          parent: f._id,
-        });
+    allFolders.map(async (f) => {
+    const folderCount = await Folder.countDocuments({
+      parent: f._id,
+      user: req.userId
+    });
 
-        const noteCount = await Note.countDocuments({
-          parent: f._id ,
-        });
-        return {
-          allFolders,
-          itemsCount: folderCount + noteCount
-        };
-      })
-    );
+    const noteCount = await Note.countDocuments({
+      parent: f._id,
+      user: req.userId
+    });
 
-    console.log(foldersWithCounts);
-    return res.status(200).json(foldersWithCounts);
+    return {
+      ...f.toObject(),        
+      itemsCount: folderCount + noteCount
+    };
+  })
+);
+
+res.status(200).json(foldersWithCounts);
+
 
   } catch (err) {
     console.error("Could not fetch folders.\n", err);
@@ -44,8 +52,17 @@ export async function getFolder(req, res) {
       return res.status(404).json({ message: "Folder not found." });
     }
 
-    const rawSubfolders = await Folder.find({ parent: id , archived:false});
-    const notes = await Note.find({ parent: id , archived:false });
+    const rawSubfolders = await Folder.find({ 
+      parent: id ,
+      user: req.userId,
+      archived:false
+    });
+
+    const notes = await Note.find({ 
+      parent: id ,
+      user: req.userId, 
+      archived:false 
+    });
 
     const subfolders = await Promise.all(
       rawSubfolders.map(async (f) => {
@@ -80,6 +97,7 @@ export async function createFolder(req , res) {
         const folder = new Folder({
             parent :parentId,
             title : title, 
+            user: req.userId,
             });
             
         const savedFolder = await folder.save();
@@ -101,6 +119,7 @@ export async function createRootFolder(req, res) {
     const folder = new Folder({
       title,
       parent: null,
+      user: req.userId, 
     });
 
     const savedFolder = await folder.save();
@@ -124,8 +143,10 @@ export async function editFolder(req , res) {
         const updatedFolder = await Folder.findByIdAndUpdate(
             folderId ,
             {title},{
-            new:true
+            new:true,
+            user: req.userId, 
         });
+
         if(!updatedFolder) return res.status(404).json({message : "Folder not found."})
         res.status(200).json({message:"updated"});
     }catch(err){
@@ -137,7 +158,7 @@ export async function deleteFolder(req , res) {
 
   try{
         const id= req.params.id;
-        const deletedFolder = await Folder.findByIdAndDelete(id);
+        await Folder.findByIdAndDelete(id);
         if(!id) return res.status(404).json({message : "Folder not found."})
 
         res.status(200).json({message :"folder deleted successfully."});

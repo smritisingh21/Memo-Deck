@@ -8,7 +8,6 @@ export default function FoldersPage() {
 
 
   const [folders, setFolders] = useState([]);
-  const [notes , setNotes] = useState([]);
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -17,9 +16,9 @@ export default function FoldersPage() {
   useEffect(() => {
     async function fetchFolders() {
       try {
-        const folders= await axiosInstance.get("/folders");
-        setFolders(folders.data);
+        const folders = await axiosInstance.get("/folders");
         console.log(folders.data);
+        setFolders(folders.data);
 
       } catch (err) {
         setError("Failed to load folders");
@@ -61,9 +60,9 @@ export default function FoldersPage() {
             <FolderCard
              key={folder._id} 
              id={folder._id}
-             title={folder.title} 
+             title={folder.title? folder.title :"Untitled"} 
              itemsCount={folder.itemsCount}
-             notes={notes} />
+             notes={folder.notes} />
           ))}
         </div>
       )}

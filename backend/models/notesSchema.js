@@ -3,9 +3,7 @@ import mongoose from "mongoose";
 const noteSchema = new mongoose.Schema(
   {
     title: String,
-
     content: String,
-
     type:{
       type:String,
       default:"Note",
@@ -26,6 +24,11 @@ const noteSchema = new mongoose.Schema(
       ref: "Folder",
       default: null,
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true, 
+  },
   },
   { timestamps: true }
 );

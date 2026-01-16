@@ -1,11 +1,12 @@
 import express from "express";
 import { createRootFolder,createFolder, deleteFolder, editFolder, getAllFolders ,getFolder} from "../controllers/foldersController.js";
+import { protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-
+router.use(protect);
 router.get("/folders" , getAllFolders );
-router.get("/folder/:id" , getFolder );
+router.get("/folder/:id" ,getFolder );
 
 router.post("/folder", createRootFolder);
 router.post("/folder/:parentId" , createFolder );

@@ -2,7 +2,11 @@ import Note from "../models/notesSchema.js"
 
 export async function getAllNotes( req , res ) {
     try{
-        const notes = await Note.find({ archived: false }).sort({createdAt : -1});//newestFirst
+        const notes = await Note.find({
+            archived: false,
+            user: req.userId
+        }).sort({createdAt : -1});//newestFirst
+
         res.status(200).json(notes);
 
     }catch(err){
@@ -15,7 +19,8 @@ export async function getAllNotes( req , res ) {
 export async function getNote(req , res ) { 
     try{
         const noteId = req.params.id;
-        const note = await Note.findById(noteId);
+           
+        const note = await Note.findById(noteId , {user: req.userId} );
         res.status(200).json(note); 
         if(!note) return res.status(404).json({message : "Note not found."})
 
@@ -35,6 +40,7 @@ export async function createNote(req , res) {
              parent :parentId || null,
              title : title, 
              content: content,
+             user: req.userId
             });
             
         const savedNote = await note.save();

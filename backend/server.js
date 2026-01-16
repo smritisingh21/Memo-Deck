@@ -6,6 +6,7 @@ import foldersRoutes from "./routes/foldersRoutes.js"
 import authRoutes from './routes/authRoutes.js'
 import connectDB from "./config/db.js";
 import cors from "cors"
+import { protect } from "./middlewares/authMiddleware.js";
 // import rateLimiter from "./middlewares/rateLimiter.js";
 
 const app = express();
