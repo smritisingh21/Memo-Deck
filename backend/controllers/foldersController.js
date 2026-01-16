@@ -24,6 +24,7 @@ export async function getAllFolders(_, res) {
       })
     );
 
+    console.log(foldersWithCounts);
     return res.status(200).json(foldersWithCounts);
 
   } catch (err) {

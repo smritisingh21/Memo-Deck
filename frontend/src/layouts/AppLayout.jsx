@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import Menubar from "../components/Menubar";
-
+import { Outlet } from "react-router";
 export default function AppLayout({children}) {
   
   return (
@@ -13,7 +13,7 @@ export default function AppLayout({children}) {
       <Navbar />
 
       <main className="flex-1 p-6 overflow-y-auto ">
-        {children}
+         <Outlet />
       </main>
     </div>
       

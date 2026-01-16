@@ -39,7 +39,6 @@ export default function FolderPage() {
       if (id) {
         const res = await axiosInstance.get(`/folder/${id}`);
         setFolder(res.data.folder);
-        console.log(res.data.folder);
         setSubfolders(res.data.subfolders);
         setNotes(res.data.notes);
         
@@ -70,7 +69,6 @@ export default function FolderPage() {
 
   return (
     <div className="p-6 space-y-8 shadow-lg animate-in fade-in duration-200  ">
-
       {/* Header */}
       <header className="flex justify-between items-center  md:flex-row md:items-center md:justify-between  sm:p-6 
        rounded-[2rem] bg-base-100 shadow-lg shadow-primary/5 sticky top-4 z-20 bottom-3 ">
