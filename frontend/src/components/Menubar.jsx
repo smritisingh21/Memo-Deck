@@ -4,12 +4,12 @@ import { SIDE_MENU_DATA } from "../SideMenu";
 
 export default function Menubar() {
   const [open, setOpen] = useState(false);
-  
 
   return (
     <>
       <button
-        className="fixed top-4 left-4 z-50 p-2 rounded-md bg-base-200 md:hidden "
+        className="fixed top-4 left-4 z-50 p-2 rounded-none bg-base-100 border-2 border-secondary 
+                   shadow-[3px_3px_0_0_hsl(var(--s))] md:hidden"
         onClick={() => setOpen(!open)}
       >
         {open ? <X size={20} /> : <Menu size={20} />}
@@ -17,45 +17,43 @@ export default function Menubar() {
 
       <aside
         className={`
-          fixed top-0 left-0 z-40 h-screen w-64  shadow-md shadow-primary/30 bg-transparent 
-          transform transition-transform duration-300 ease-in-out md:visible
+          fixed top-0 left-0 z-40 h-screen w-64 bg-base-100 border-r-2 border-secondary
+          shadow-[4px_0_0_0_hsl(var(--s))]
+          transform transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0
         `}
       >
-        <div className="p-4 mt-10 font-bold text-lg text-primary">
+        <div className="p-5 mt-6 font-extrabold text-lg text-primary tracking-tight uppercase">
           Memo Deck
         </div>
 
-        <nav className="flex flex-col gap-2 p-4">
-        {SIDE_MENU_DATA.map((item) => {
-        const Icon = item.icon;
+        <nav className="flex flex-col gap-2 px-3">
+          {SIDE_MENU_DATA.map((item) => {
+            const Icon = item.icon;
 
-        return (
-         <a
-        key={item.id}
-        href={item.path}
-        className="flex items-center gap-3 rounded-lg p-3 
-        hover:bg-base-content/10 transition hover:translate-x-1 hover:transition-transform "
-         >
-        <Icon size={18} className="text-base-content" />
-        <span className="text-base-content/40">{item.name}</span>
+            return (
+              <a
+                key={item.id}
+                href={item.path}
+                className="flex items-center gap-3 px-3 py-2 rounded-none
+                           border-2 border-transparent
+                           hover:border-secondary
+                           hover:bg-base-200
+                           shadow-[2px_2px_0_0_transparent]
+                           hover:shadow-[2px_2px_0_0_hsl(var(--s))]
+                           transition-all"
+              >
+                <Icon size={18} className="text-accent" />
+                <span className="text-sm font-bold text-base-content">{item.name}</span>
+              </a>
+            );
+          })}
+        </nav>
 
-        </a>
-      
-        )
-        }
-        )
-        }{
-          
-        }
-    </nav>
-        <div className="divider  divider-base-content"></div>
-
-
+        <div className="border-t-2 border-secondary my-4"></div>
       </aside>
 
-      {/* Overlay (mobile only) */}
       {open && (
         <div
           className="fixed inset-0 bg-black/40 z-30 md:hidden"

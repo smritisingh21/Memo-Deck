@@ -68,10 +68,11 @@ export default function FolderPage() {
 
 
   return (
-    <div className="p-6 space-y-8 shadow-lg animate-in fade-in duration-200  ">
+    <div className="p-4 space-y-2 bg-base-100"
+>
       {/* Header */}
-      <header className="flex justify-between items-center  md:flex-row md:items-center md:justify-between  sm:p-6 
-       rounded-[2rem] bg-base-100 shadow-lg shadow-primary/5 sticky top-4 z-20 bottom-3 ">
+      <header className="flex justify-between items-center sm:p-6 sticky top-4 z-20 transition-all">
+
         <h1 className="text-2xl md:text-md flex gap-2 font-bold text-base/80 ">
 
           <FolderClosed size={30}/>
@@ -95,14 +96,19 @@ export default function FolderPage() {
             >
             <NotebookIcon size={15}/> New Note
           </button>
-        </div>      
+        </div> 
 
       </header>
-      
+       
+        <div className="flex items-center justify-center gap-4 mb-10 ml-5">
+                <h2 className="text-xs font-black uppercase tracking-[0.2em] opacity-40">Folders</h2>
+                <div className="h-px flex-1 bg-base-content/5"></div>
+              </div>
+
 
        {subfolders.length > 0 && (
-        <section className="animate-in fade-in duration-500">
-          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3 h-100%">
+        <section className="animate-in fade-in duration-500 pt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-7 h-100%">
             {(onSeeMore ? subfolders : subfolders.slice(0, 8)).map((f) => (
               <FolderCard
                 key={f._id}
@@ -129,10 +135,16 @@ export default function FolderPage() {
         </section>
       )}
 
+        <div className="flex items-center justify-center gap-4 mb-10 ml-5 mt-15">
+            <h2 className="text-xs font-black uppercase tracking-[0.2em] opacity-40">Notes</h2>
+            <div className="h-px flex-1 bg-base-content/5"></div>
+        </div>
+
+
       {notes.length > 0 && (
         <section>
           <h2 className="text-lg font-semibold mb-5"></h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {notes.map((note) => (
               <NoteCard key={note._id} note={note} id={note._id} type="note" />
             ))}

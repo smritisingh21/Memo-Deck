@@ -8,7 +8,7 @@ export default function Navbar() {
   const supportedThemes = ['halloween' , 'dark' , 'forest' ,'dracula']
   
   return (
-    <div className='border-b mt-10 mb-10 border-neutral md:shrink-0 lg:ml-30 md:ml-10 '>
+    <div className='border-b mt-1 mb-2 border-neutral md:shrink-0 lg:ml-30 md:ml-10 '>
         <header className='max-h-full w-full border-b '>
         <div className='mx-auto mx-w-6xl p-8'>
 

@@ -2,182 +2,143 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router";
 import { formatDate } from '../../utils/helper.js';
-import { Trash2Icon,PenSquareIcon } from 'lucide-react'
+import { Trash2Icon, PenSquareIcon } from 'lucide-react'
 import { StarIcon } from "lucide-react";
-import { Archive , ArchiveRestoreIcon } from "lucide-react";
+import { Archive, ArchiveRestoreIcon } from "lucide-react";
 import axiosInstance from '../lib/axios';
 import toast from "react-hot-toast";
 
+export default function NoteCard({ note, id }) {
 
-
-export default function NoteCard({ note , id}) {
-
-  const [notes , setNotes] = useState([]);
-  const [favourite , setFavourite] = useState(note.favourite ||false);
-  const [ archived , setIsArchived] = useState(note.archived ||false);
+  const [notes, setNotes] = useState([]);
+  const [favourite, setFavourite] = useState(note.favourite || false);
+  const [archived, setIsArchived] = useState(note.archived || false);
 
   const handleDelete = async (e, id) => {
-    e.preventDefault(); 
-
+    e.preventDefault();
     if (!window.confirm("Are you sure you want to delete this note?")) return;
 
     try {
       await axiosInstance.delete(`/note/${id}`);
-      setNotes((prev) => prev.filter((n) => n._id !== id)); // get rid of the deleted one
+      setNotes((prev) => prev.filter((n) => n._id !== id));
       toast.success("Note deleted successfully");
       window.location.reload();
-
     } catch (error) {
-      console.log("Error in handleDelete", error);
       toast.error("Failed to delete note");
-
     }
-
   };
 
-  const AddToFav =async (id , favourite ,) =>{
-    try{
-      const res = await axiosInstance.patch(`/note/${id}` , {
-       favourite,
-      })
-      if(favourite === true) toast.success("Note added to favourites");
+  const AddToFav = async (id, favourite) => {
+    try {
+      await axiosInstance.patch(`/note/${id}`, { favourite });
+      if (favourite === true) toast.success("Note added to favourites");
       else toast.success("Note removed from favourites");
-      
-    }catch(err){
-      console.log("error adding to favorites");
+    } catch {
       toast.error("error adding to favorites")
     }
-  }
-  const ArchiveNote =async (id , archived) =>{
-    try{
-      await axiosInstance.patch(`/note/${id}` , {
-       archived,
-      } )
+  };
+
+  const ArchiveNote = async (id, archived) => {
+    try {
+      await axiosInstance.patch(`/note/${id}`, { archived });
       toast.success("Added to archive");
-    }catch(err){
-      console.log("Could not archive");
+    } catch {
       toast.error("Could not archive")
-    }finally{
+    } finally {
       window.location.reload();
     }
-  }
-  
+  };
 
   const Tooltip = ({ children, content, position = "top" }) => {
-  if (!content) return children;
-  return (
-    <div className={`tooltip z-20 tooltip-${position} before:text-[11px] before:font-bold`} data-tip={content}>
-      {children}
-    </div>
-  );
-};
+    if (!content) return children;
+    return (
+      <div className={`tooltip z-20 tooltip-${position} before:text-[11px] before:font-bold`} data-tip={content}>
+        {children}
+      </div>
+    );
+  };
 
   return (
-      <Link
-      to={`/note/${id}`}
-      className=""
-    >
-      <div className=" card-body max-h-4em w-90 border border-b card-actions 
-       overflow-hidden rounded-box align-center 
-        bg-accent-content/20 border-accent-content p-4 
-      shadow-md hover:shadow-xl  shadow-primary-content">
+    <Link to={`/note/${id}`} className="">
+      <div className="relative bg-base-100 border-2 border-white p-5 
+      shadow-[4px_4px_0_0_theme(colors.white)] hover:shadow-[6px_6px_0_0_theme(colors.white)]
+       hover:-translate-x-[2px] hover:-translate-y-[2px] transition-all cursor-pointer">
 
-        <h3 className="text-actions pt-4 py-3 px-5 text-neutral-content/80 text-xl p ">{note.title}</h3>
+        <h3 className="text-lg font-bold tracking-tight text-base-content border-b-2 border-white/40 pb-2 mb-2">
+          {note.title}
+        </h3>
 
-        <p className="text-accent/30 font-mono text-sm line-clamp-5">{note.content}</p>
+        <p className="text-sm text-base-content/70 font-mono line-clamp-5 mb-4">
+          {note.content}
+        </p>
 
-        <div className=" flex gap-20 justify-evenly items-center mt-4">
-
-          <div className="text-xs mb-4 text-base-content/40">
-            {formatDate(new Date(note.createdAt))}
-          </div>
-
-
+        <div className="flex justify-between items-center text-xs font-semibold text-base-content/50 mb-4">
+          {formatDate(new Date(note.createdAt))}
         </div>
 
-            <div className="flex justify-center items-center gap-3 opacity-60">
-          
+        <div className="flex justify-center items-center gap-3 border-t-2 border-primary pt-3">
+
           <Tooltip content="Delete">
-
-           <button 
-           className="flex items-center mb-4 justify-between gap-1  hover:text-red-600 hover:<Tool" 
-           onClick={(e) => handleDelete(e, id)}>
-            <div>
-              <Trash2Icon size={16} className=" hover:text-red-600 " />
-            </div>
-              <p className="text-sm sm:hidden">Delete</p>
-            </button>
-            </Tooltip>
-          
-        {!archived ? (
-          <Tooltip content="Archive">
-          <button className="flex items-center mb-4 justify-center gap-1 hover:text-accent
-             transition-all duration-300">
-
-              <div className="flex justify-center items-center "
-              onClick={(e) =>{
-                e.stopPropagation()
-                e.preventDefault();
-                const val = true
-                setIsArchived(true)
-                ArchiveNote(id , val)
-
-              }}>
-                <Archive size ={16}/>
-                <p className="md:text-sm sm:hidden">
-                  Archive
-                </p>
-              </div>
-          </button>
-            </Tooltip>
-            ):(
-              <Tooltip content="Unarchive">
-          <button className="flex items-center mb-4 justify-center gap-1 hover:text-accent
-             transition-all duration-300">
-
-              <div className="flex justify-center items-center "
-              onClick={(e) =>{
-                e.stopPropagation()
-                e.preventDefault();
-                const val = false
-                setIsArchived(false)
-                ArchiveNote(id , val)
-
-              }}>
-                <ArchiveRestoreIcon size ={16} onClick={() => ArchiveNote()} />
-                <p className="md:text-sm sm:hidden">
-                  Archive
-                </p>
-              </div>
-          </button>
-            </Tooltip>
-            )   
-          }
-          <Tooltip content={`${favourite? "Remove from favourites" : "Add to favourites"}`}>
-        
-          <button 
-              className="flex items-center mb-4 justify-between gap-1 hover:text-accent  hover:fill-accent" 
-               onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault()
-              const val = !favourite
-              setFavourite(!favourite)
-              AddToFav(id, val)
-
-            }}
+            <button
+              className="flex items-center gap-1 border-2 border-secondary bg-base-100 px-2 py-1 shadow-[2px_2px_0_0_theme(colors.secondary)] hover:shadow-[3px_3px_0_0_theme(colors.secondary)] transition-all hover:text-red-600"
+              onClick={(e) => handleDelete(e, id)}
             >
-            <div >
-
-            <StarIcon size={20} 
-            className={`${favourite ? 'fill-accent text-transparent' :'fill-none'} hover:fill-accent   `}/>
-            </div>
-            <p className="text-sm sm:hidden">
-              {!favourite ? "Add to favs" : "Remove from favs"}
-            </p>
+              <Trash2Icon size={16} />
+              <p className="text-xs sm:hidden">Delete</p>
             </button>
-            </Tooltip>
+          </Tooltip>
 
-            </div>
+          {!archived ? (
+            <Tooltip content="Archive">
+              <button
+                className="flex items-center gap-1 border-2 border-secondary bg-base-100 px-2 py-1 shadow-[2px_2px_0_0_theme(colors.secondary)] hover:shadow-[3px_3px_0_0_theme(colors.secondary)] transition-all hover:text-accent"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  setIsArchived(true);
+                  ArchiveNote(id, true);
+                }}
+              >
+                <Archive size={16} />
+                <p className="text-xs sm:hidden">Archive</p>
+              </button>
+            </Tooltip>
+          ) : (
+            <Tooltip content="Unarchive">
+              <button
+                className="flex items-center gap-1 border-2 border-secondary bg-base-100 px-2 py-1 shadow-[2px_2px_0_0_theme(colors.secondary)] hover:shadow-[3px_3px_0_0_theme(colors.secondary)] transition-all hover:text-accent"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  setIsArchived(false);
+                  ArchiveNote(id, false);
+                }}
+              >
+                <ArchiveRestoreIcon size={16} />
+                <p className="text-xs sm:hidden">Unarchive</p>
+              </button>
+            </Tooltip>
+          )}
+
+          <Tooltip content={`${favourite ? "Remove from favourites" : "Add to favourites"}`}>
+            <button
+              className="flex items-center gap-1 border-2 border-secondary bg-base-100 px-2 py-1 shadow-[2px_2px_0_0_theme(colors.secondary)] hover:shadow-[3px_3px_0_0_theme(colors.secondary)] transition-all hover:text-accent"
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                const val = !favourite;
+                setFavourite(val);
+                AddToFav(id, val);
+              }}
+            >
+              <StarIcon size={18} className={`${favourite ? "fill-accent text-transparent" : "fill-none"} transition-all`} />
+              <p className="text-xs sm:hidden">
+                {!favourite ? "Fav" : "Unfav"}
+              </p>
+            </button>
+          </Tooltip>
+
+        </div>
       </div>
     </Link>
   );
