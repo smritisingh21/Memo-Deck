@@ -55,7 +55,7 @@ export default function FoldersPage() {
       {!folders? (
         <p className="text-base-content/60">-----No folders yet-----</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 hover:translate-x-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 hover:translate-x-1">
           {folders.slice(0,10).map((folder) => (
             <FolderCard
              key={folder._id} 

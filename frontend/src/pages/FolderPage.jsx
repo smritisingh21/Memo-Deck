@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link , useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FolderCard from "../components/FolderCard";
 import NoteCard from "../components/Notecard";
@@ -6,7 +6,7 @@ import PopUp from "../layouts/PopUp"
 import CreateFolder from "./CreateFolder";
 import FullScreenPopUp from "../layouts/FullScreenPopUp"
 import CreateNote from "./CreateNote";
-import { FolderClosed, NotebookIcon } from "lucide-react";
+import { ArrowLeft, FolderClosed, NotebookIcon } from "lucide-react";
 import axiosInstance from "../lib/axios";
 import { LoaderIcon } from "lucide-react";
 import Search from "../components/Search";
@@ -17,7 +17,7 @@ import { FolderPlus} from "lucide-react";
 export default function FolderPage() {
   
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const [folder, setFolder] = useState(null);
   const [subfolders, setSubfolders] = useState([]);
   const [notes, setNotes] = useState([]);
@@ -74,6 +74,17 @@ export default function FolderPage() {
       <header className="flex justify-between items-center sm:p-6 sticky top-4 z-20 transition-all">
 
         <h1 className="text-2xl md:text-md flex gap-2 font-bold text-base/80 ">
+
+    {
+      folder? (
+            <div className="text-xs flex-wrap">
+          <button className="flex justify-center items-center gap-2 hover:bg-secondary/40 rounded-xl p-1.5 " onClick={() => navigate(-1)}>
+            <ArrowLeft/> Back
+
+          </button>
+        </div>
+      ):("")
+    }
 
           <FolderClosed size={30}/>
           <u> {folder ? folder.title : "Home" }</u>

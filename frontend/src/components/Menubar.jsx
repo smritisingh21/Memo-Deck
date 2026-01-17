@@ -14,6 +14,7 @@ export default function Menubar() {
       >
         {open ? <X size={20} /> : <Menu size={20} />}
       </button>
+
       
 
       <aside
@@ -24,6 +25,11 @@ export default function Menubar() {
           md:translate-x-0
         `}
       >
+        <h1 className="text-2xl font-bold text-primary mt-10">MemoDeck{" "}</h1>
+         <span className="text-base-content/60 text-sm font-normal">
+            — just note it
+          </span>
+
 
         <div className="flex items-center justify-center rounded-full mt-20 ">
          <div className="">

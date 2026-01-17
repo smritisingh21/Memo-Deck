@@ -1,47 +1,71 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { Palette, X } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef(null);
 
-  const supportedThemes = ["halloween", "forest", "dracula", "aqua"];
+  const themes = ["halloween", "forest", "dracula", "aqua"];
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <div className="border-b mt-1 mb-2 border-neutral md:shrink-0 lg:ml-30 md:ml-10">
-      <header className="w-full border-b">
-        <div className="mx-auto max-w-6xl p-8">
-          <div className="flex items-center justify-between">
+    <header className="w-full border-b border-base-300 bg-base-100">
+      <div className="w-full px-6 py-4 flex items-center justify-between">
 
-            <h1 className="text-4xl font-bold text-primary">
-              MemoDeck{" "}
-              <span className="text-base-content/70 text-lg font-normal italic">
-                - just note it
-              </span>
-            </h1>
+        {/* Logo */}
+        <h1 className="text-2xl font-bold text-white">
+          Welcome Back!!{" "}
+          <span className="text-base-content/60 text-sm font-normal">
+             smriti
+          </span>
+        </h1>
 
-            <div className="flex gap-2 items-center">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 bg-base-200 p-2 rounded-xl">
-                {supportedThemes.map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setTheme(t)}
-                    className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all
-                      ${
-                        t === theme
-                          ? "bg-primary text-primary-content shadow-md"
-                          : "text-base-content/70 hover:bg-base-300"
-                      }
-                    `}
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
+        {/* Theme Button */}
+        <div className="relative" ref={menuRef}>
+          <button
+            onClick={() => setOpen(!open)}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-base-200 hover:bg-base-300 transition"
+          >
+            <Palette size={18} />
+            <span className="text-sm font-medium hidden sm:block">Theme</span>
+          </button>
+
+          {/* Dropdown */}
+          {open && (
+            <div className="absolute right-0 mt-2 w-40 rounded-xl bg-base-100 border border-base-300 shadow-lg z-50 animate-in fade-in">
+              {themes.map((t) => (
+                <button
+                  key={t}
+                  onClick={() => {
+                    setTheme(t);
+                    setOpen(false);
+                  }}
+                  className={`w-full text-left px-4 py-2 text-sm capitalize transition
+                    ${
+                      theme === t
+                        ? "bg-primary text-primary-content"
+                        : "hover:bg-base-200"
+                    }`}
+                >
+                  {t}
+                </button>
+              ))}
             </div>
-
-          </div>
+          )}
         </div>
-      </header>
-    </div>
+      </div>
+    </header>
   );
 }

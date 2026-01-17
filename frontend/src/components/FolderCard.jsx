@@ -63,7 +63,7 @@ function FolderCard({ id, title, itemsCount, onDeleted }) {
   return (
     <div className="relative w-full">
       <Link to={`/folder/${id}`}>
-        <section className="relative bg-base-100 border-2 border-white rounded-none p-6 h-full shadow-[4px_4px_0_0_theme(colors.primary)] hover:shadow-[6px_6px_0_0_theme(colors.primary)] hover:-translate-x-[2px] hover:-translate-y-[2px] transition-all cursor-pointer">
+        <section className="relative bg-base-100 border-2 border-primary/40 rounded-none p-6 h-full shadow-[4px_4px_0_0_theme(colors.primary)] hover:shadow-[6px_6px_0_0_theme(colors.primary)] hover:-translate-x-[2px] hover:-translate-y-[2px] transition-all cursor-pointer">
           <div ref={menuRef} className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <FolderCheck size={20} className="text-accent" />
