@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, User2Icon, X } from "lucide-react";
 import { SIDE_MENU_DATA } from "../SideMenu";
 
 export default function Menubar() {
@@ -14,21 +14,29 @@ export default function Menubar() {
       >
         {open ? <X size={20} /> : <Menu size={20} />}
       </button>
+      
 
       <aside
         className={`
-          fixed top-0 left-0 z-40 h-screen w-64 bg-base-100 border-r-2 border-secondary
-          shadow-[4px_0_0_0_hsl(var(--s))]
+          fixed top-0 left-0 z-40 h-screen w-64  border-r-2 
           transform transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0
         `}
       >
-        <div className="p-5 mt-6 font-extrabold text-lg text-primary tracking-tight uppercase">
-          Memo Deck
+
+        <div className="flex items-center justify-center rounded-full mt-20 ">
+         <div className="">
+          <User2Icon size={50}/>
+         </div>
+
         </div>
 
-        <nav className="flex flex-col gap-2 px-3">
+        <div className="p-5 mt-6 font-bold text-lg text-primary  ">
+          Username
+        </div>
+
+        <nav className="flex flex-col gap-2 px-3 mt-12">
           {SIDE_MENU_DATA.map((item) => {
             const Icon = item.icon;
 
@@ -36,9 +44,9 @@ export default function Menubar() {
               <a
                 key={item.id}
                 href={item.path}
-                className="flex items-center gap-3 px-3 py-2 rounded-none
+                className="flex items-center gap-3 px-3 py-2 rounded-sm
                            border-2 border-transparent
-                           hover:border-secondary
+                           hover:border-accent
                            hover:bg-base-200
                            shadow-[2px_2px_0_0_transparent]
                            hover:shadow-[2px_2px_0_0_hsl(var(--s))]
@@ -51,7 +59,6 @@ export default function Menubar() {
           })}
         </nav>
 
-        <div className="border-t-2 border-secondary my-4"></div>
       </aside>
 
       {open && (

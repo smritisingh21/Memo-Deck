@@ -20,7 +20,7 @@ export async function getNote(req , res ) {
     try{
         const noteId = req.params.id;
            
-        const note = await Note.findById(noteId , {user: req.userId} );
+        const note = await Note.findById(noteId);
         res.status(200).json(note); 
         if(!note) return res.status(404).json({message : "Note not found."})
 

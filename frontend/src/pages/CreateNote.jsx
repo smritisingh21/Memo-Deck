@@ -1,11 +1,20 @@
-import { ArrowLeft, X } from "lucide-react";
+import { ArrowLeft, X, XIcon } from "lucide-react";
 import { useState } from "react";
+import { Link ,useNavigate } from "react-router";
 import axios from "../lib/axios";
-
+import { 
+  ArrowLeftIcon, 
+  LoaderIcon, 
+  Trash2Icon, 
+  SaveIcon, 
+  ChevronRightIcon, 
+  ClockIcon 
+} from "lucide-react";
 export default function CreateNote({ parentId, onClose,onCreated}) {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(false);
 
     const handleKeyDown = (e) => {
@@ -37,57 +46,93 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
     onClose();
   }
 
+
   return (
-    <div className="h-screen flex flex-col ml-40 mr-40 ">
+  
+    <div className="min-h-screen h-full bg-base-100 text-base-content pt-10 m-0">
 
-      <div className="flex items-center justify-between px-6 py-4 border-b">
-        <button
-          onClick={onClose}
-          className="btn btn-ghost btn-sm gap-2"
-        >
-          <ArrowLeft size={18} />
-          Back
-        </button>
-
-        <div className="flex items-center gap-2">
-          <button
-            onClick={handleCreate}
-            disabled={loading}
-            className="btn btn-primary btn-sm"
-          >
-            {loading ? "Creating…" : "Create"}
+      {/* Top Utility Bar  */}
+      <div className="sticky top-0 z-10 w-full bg-base-100/80 
+      backdrop-blur-md border-b border-base-200">
+        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-2 text-sm text-base-content/60">
+          
+          <button onClick={() => onClose() }>
+          <div className="flex items-center hover:bg-slate-800 p-1.5 rounded transition-colors cursor-pointer ">
+          <ArrowLeftIcon className="size-4" />Go back
+          </div>
           </button>
+          
 
-          <button
-            onClick={onClose}
-            className="btn btn-ghost btn-sm"
-          >
-            <X size={18} />
-          </button>
+          <ChevronRightIcon className="size-4" />
+            <span className="text-base-content font-medium truncate max-w-[150px]">
+              {title || "Untitled"}
+            </span>
+
+         </div>
+
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={() => onClose() } 
+              className="btn btn-ghost btn-sm text-error hover:bg-error/10"
+              title="Delete note"
+            >
+              <XIcon className="size-4" />Cancel
+            </button>
+
+            <div className="divider divider-horizontal mx-0"></div>
+            <button 
+              className="btn btn-primary btn-sm gap-2" 
+              onClick={handleCreate}
+            >
+              {saving ? (
+                <LoaderIcon className="size-4 animate-spin" />
+              ) : (
+                <SaveIcon className="size-4" />
+              )}
+              {saving ? "Creating..." : "Create"}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="flex-1 p-8 overflow-y-visible space-y-2">
-        <input
-          type="text"
-          placeholder="Note title"
-          className="w-full text-3xl mb-5 font-bold outline-none line- bg-transparent"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          
+      {/* Page Content */}
+      <div className="max-w-5xl mx-auto px-20 pt-12 pb-24 bg-transparent">
+        {/* Meta Info */}
+        <div className="flex items-center gap-2 text-xs text-base-content/40 mb-8">
+          <ClockIcon className="size-3" />
+          <span>Last edited {new Date().toLocaleDateString()}</span>
+        </div>
 
-        />
+        <div className="space-y-6 h-full">
+          {/* Notion-style Title: Borderless and Large */}
+          <input
+            type="text"
+            placeholder="Untitled"
+            className="w-full bg-transparent mb-md text-4xl md:text-4xl 
+            font-bold focus:outline-none placeholder:opacity-20"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
 
-        <textarea
-          placeholder="Start writing your note…"
-          className="w-full h-full resize-none outline-none bg-transparent text-base leading-relaxed"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        onKeyDown={handleKeyDown}
-
-        />
+          {/* Content Area: No borders, ample line height */}
+          <textarea
+            placeholder="Start writing..."
+            className="w-full h-screen overflow-y-visible  bg-transparent text-sm md:text-md 
+            leading-relaxed  resize-none focus:outline-none placeholder:opacity-20"
+            value={content}
+            onChange={(e) => setContent( e.target.value )}
+          />
+        </div>
       </div>
+
+      {/* Floating Back Action for Mobile */}
+      <Link 
+        to="/" 
+        className="fixed bottom-6 left-6 md:hidden btn btn-circle btn-neutral shadow-lg"
+      >
+        <ArrowLeftIcon className="size-5" />
+      </Link>
     </div>
   );
 }

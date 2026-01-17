@@ -4,6 +4,7 @@ import {
   Settings,
   Folder,
   Archive,
+  LogOutIcon,
 } from "lucide-react";
 
 export const SIDE_MENU_DATA = [
@@ -30,6 +31,12 @@ export const SIDE_MENU_DATA = [
     name: "Archives",
     icon: Archive,
     path: "/archives",
+  },
+  {
+    id: "07",
+    name: "Logout",
+    icon: LogOutIcon,
+    path: "/logout",
   },
 
 ];
