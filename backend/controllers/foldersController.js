@@ -131,28 +131,25 @@ export async function createRootFolder(req, res) {
 }
 
 
-export async function editFolder(req , res) {
-    try{
-        const folderId = req.params.id;
-        const{title} = req.body;
+export async function editFolder(req, res) {
+  try {
+    const folderId = req.params.id;
 
-        if (!title ) {
-             return res.status(400).json({ message: "Title cannot be empty" });
-        }
+    const updatedFolder = await Folder.findByIdAndUpdate(
+      folderId,
+      req.body,        
+      { new: true }
+    );
 
-        const updatedFolder = await Folder.findByIdAndUpdate(
-            folderId ,
-            {title},{
-            new:true,
-            user: req.userId, 
-        });
+    if (!updatedFolder)
+      return res.status(404).json({ message: "Folder not found" });
 
-        if(!updatedFolder) return res.status(404).json({message : "Folder not found."})
-        res.status(200).json({message:"updated"});
-    }catch(err){
-        console.error("Could not edit folder.\n\n" , err);
-        res.status(500).json({message : "Internal server error: " + err.message}) 
-    }
+    res.status(200).json(updatedFolder);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
 }
 export async function deleteFolder(req , res) {
 

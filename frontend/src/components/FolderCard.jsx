@@ -8,6 +8,7 @@ import {
   PenBoxIcon,
   ArchiveIcon,
   HeartPlus,
+  HeartIcon,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import axiosInstance from "../lib/axios";
@@ -17,6 +18,8 @@ import Options from "../layouts/Options";
 function FolderCard({ id, title, itemsCount, onDeleted }) {
   const [editBox, setEditBox] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
+  const [archive , setArchive] = useState(false)
+  const [favourite , setFavourite] = useState(false)
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -44,8 +47,8 @@ function FolderCard({ id, title, itemsCount, onDeleted }) {
   const handleFavourites = async (id, favourite) => {
     try {
       await axiosInstance.patch(`/folder/${id}`, { favourite });
-      if (favourite === true) toast.success("Note added to favourites");
-      else toast.success("Note removed from favourites");
+      if (favourite === true) toast.success("Added to favourites");
+      else toast.success("Removed from favourites");
     } catch {
       toast.error("error adding to favorites");
     }
@@ -107,18 +110,55 @@ function FolderCard({ id, title, itemsCount, onDeleted }) {
       </Link>
 
       {openMenu && (
-        <div className="z-20 absolute -bottom-24 -right-10 bg-base-100 border-2 border-primary shadow-[6px_6px_0_0_theme(colors.primary)] px-3 py-3 text-sm">
+        <div ref={menuRef} className="z-20 absolute -bottom-24 -right-10 bg-base-100 border-2 border-primary shadow-[6px_6px_0_0_theme(colors.primary)] px-3 py-3 text-sm">
           <div className="flex flex-col gap-2">
-            <Options functionality={(e) => handleDelete()} icon={<Trash2Icon size={18} />} label={"Delete"} />
-            <Options functionality={(e) => setEditBox(true)} icon={<PenBoxIcon size={18} />} label={"Rename"} />
-            <Options functionality={(e) => handleFavourites()} icon={<HeartPlus size={18} />} label={"Favourite"} />
-            <Options functionality={(e) => handleArchive()} icon={<ArchiveIcon size={18} />} label={"Archive"} />
+            <Options functionality={(e) => {
+              handleDelete()
+              setOpenMenu(false);
+            }
+            }
+              icon={<Trash2Icon size={18} />} 
+              label={"Delete"} />
+
+            <Options functionality={(e) => {
+              setEditBox(true)
+              setOpenMenu(false);
+
+            } 
+            }
+              icon={<PenBoxIcon size={18} />
+              }
+              label={"Rename"} />
+
+            <Options 
+            functionality={(e) =>{
+              const newValue = !favourite
+              setFavourite(newValue)
+              handleFavourites(id, newValue)
+              setOpenMenu(false);
+            }}
+            icon={<HeartPlus size={18} />}
+            label={favourite? "Unfavourite":"Favourite"} />
+
+            <Options
+             functionality={(e) =>{
+              const newArchive = !archive;
+              setArchive(newArchive)
+              handleArchive(id ,newArchive)
+              setOpenMenu(false);
+             }
+             }
+              icon={<ArchiveIcon size={18} />}
+              label={archive? "Unarchive":"Archive"} />
           </div>
         </div>
       )}
 
       {editBox && (
-        <EditBox id={id} oldTitle={title} onClose={() => setEditBox(false)} />
+        <EditBox 
+        id={id}
+        oldTitle={title}
+        onClose={() => setEditBox(false)} />
       )}
     </div>
   );

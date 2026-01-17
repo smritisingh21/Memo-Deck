@@ -4,7 +4,6 @@ import { protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.use(protect);
 router.get("/folders" , getAllFolders );
 router.get("/folder/:id" ,getFolder );
 

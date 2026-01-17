@@ -38,12 +38,14 @@ export default function FolderPage() {
       setLoading(true);
       if (id) {
         const res = await axiosInstance.get(`/folder/${id}`);
+        if(!res.data.token) navigate("/login")
         setFolder(res.data.folder);
         setSubfolders(res.data.subfolders);
         setNotes(res.data.notes);
         
       } else {
         const res = await axiosInstance.get("/root");
+        if(!res.data.token) navigate("/login")
         setFolder(null);
         setSubfolders(res.data.folders);
         setNotes(res.data.notes);

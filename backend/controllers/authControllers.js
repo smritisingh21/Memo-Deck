@@ -2,7 +2,7 @@ import User from "../models/UserSchema.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "supersecret";
+const JWT_SECRET = process.env.JWT_SECRET || "my-secret";
 
 // ---------------- SIGNUP ----------------
 export async function signup(req, res) {
@@ -26,21 +26,25 @@ export async function signup(req, res) {
     const token = jwt.sign({ id: user._id }, JWT_SECRET, {
       expiresIn: "7d",
     });
-    console.log(token);
 
     res.status(201).json({
       message: "Signup successful",
       token,
-      user: { id: user._id, name: user.name, email: user.email },
+      user: { 
+        id: user._id,
+        name: user.name,
+        email: user.email },
     });
-  } catch (err) {
+    } catch (err) {
     res.status(500).json({ message: "Signup failed" });
   }
 }
 
 // ---------------- LOGIN ----------------
+
 export async function login(req, res) {
   try {
+
     const { email, password } = req.body;
 
     if (!email || !password)
@@ -54,14 +58,19 @@ export async function login(req, res) {
     if (!ok)
       return res.status(401).json({ message: "Invalid credentials" });
 
+
     const token = jwt.sign({ id: user._id }, JWT_SECRET, {
       expiresIn: "7d",
     });
 
+
     res.json({
       message: "Login successful",
       token,
-      user: { id: user._id, name: user.name, email: user.email },
+      user: { 
+        id: user._id,
+        name: user.name,
+        email: user.email },
     });
   } catch (err) {
     res.status(500).json({ message: "Login failed" });

@@ -3,7 +3,7 @@ import { createNote, getRoot,getFavourites,getArchived } from "../controllers/ro
 import { protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
-router.use(protect);
+
 
 router.get("/root" , getRoot)
 router.post("/note" , createNote)

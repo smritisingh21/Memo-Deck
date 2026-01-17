@@ -21,18 +21,14 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="w-full border-b border-base-300 bg-base-100">
+    <div>
+      <header className="w-full border-b border-base-300 bg-base-100">
       <div className="w-full px-6 py-4 flex items-center justify-between">
 
-        {/* Logo */}
-        <h1 className="text-2xl font-bold text-white">
-          Welcome Back!!{" "}
-          <span className="text-base-content/60 text-sm font-normal">
-             smriti
-          </span>
+        <h1 className="text-2xl font-bold text-primary">
+          MemoDeck{" "}
         </h1>
 
-        {/* Theme Button */}
         <div className="relative" ref={menuRef}>
           <button
             onClick={() => setOpen(!open)}
@@ -42,9 +38,10 @@ export default function Navbar() {
             <span className="text-sm font-medium hidden sm:block">Theme</span>
           </button>
 
-          {/* Dropdown */}
+
           {open && (
-            <div className="absolute right-0 mt-2 w-40 rounded-xl bg-base-100 border border-base-300 shadow-lg z-50 animate-in fade-in">
+            <div className="absolute right-0 mt-2 w-40 rounded-xl bg-base-100 border border-base-300 
+            shadow-lg z-50 animate-in fade-in">
               {themes.map((t) => (
                 <button
                   key={t}
@@ -56,7 +53,7 @@ export default function Navbar() {
                     ${
                       theme === t
                         ? "bg-primary text-primary-content"
-                        : "hover:bg-base-200"
+                        : "hover:bg-primary/20"
                     }`}
                 >
                   {t}
@@ -67,5 +64,8 @@ export default function Navbar() {
         </div>
       </div>
     </header>
+    <div className="border border-white w-full"></div>
+    </div>
+    
   );
 }

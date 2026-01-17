@@ -12,6 +12,7 @@ import Login from './pages/Auth/Login'
 import FavouritesPage from './pages/FavouritesPage'
 import AuthLayout from './layouts/AuthLayout'
 import Signup from './pages/Auth/Signup'
+import Logout from './pages/Auth/Logout'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Routes>
          <Route path= '/login' element={<Login/>}/>
         <Route path= '/signup' element={<Signup/>}/>
+        <Route path= '/logout' element={<Logout/>}/>
       <Route element={<AppLayout/>}>
         <Route path= '/' element={<FolderPage/>}/>
         <Route path="/folder/:id" element={<FolderPage />} />

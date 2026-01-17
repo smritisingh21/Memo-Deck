@@ -23,10 +23,10 @@ app.use(express.json());
 // app.use(rateLimiter);
 
 
-app.use("/api/v1" , notesRoutes);
-app.use("/api/v1" , foldersRoutes);
-app.use("/api/v1" , rootRoutes);
-app.use("/api/v1" , authRoutes); 
+app.use("/api/v1" ,protect, notesRoutes);
+app.use("/api/v1" ,protect, foldersRoutes);
+app.use("/api/v1" ,protect, rootRoutes);
+app.use("/api/v1/auth" , authRoutes); 
 
 connectDB()
   .then(() => {
