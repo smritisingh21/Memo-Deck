@@ -14,8 +14,8 @@ export default function Signup() {
       console.log("Signup route hit");
 
       localStorage.setItem("token", res.data.token);
-      toast.success("Welcome to MemoDeck");
       navigate("/");
+      toast.success("Welcome to MemoDeck");
     } catch {
       toast.error("Signup failed.Try again.");
     }
@@ -116,6 +116,8 @@ export default function Signup() {
         >
           Create Account
         </button>
+            <p>Already have an account ? <a href="/login" className="underline"> Login</a></p>
+
       </form>
     </div>
   );

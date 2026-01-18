@@ -12,8 +12,8 @@ export default function Login() {
     try {
       const res = await axios.post("/auth/login", form);
       localStorage.setItem("token", res.data.token);
-      toast.success("Welcome back");
       navigate("/");
+      toast.success("You are now logged in!");
     } catch {
       toast.error("Invalid credentials");
     }
@@ -96,7 +96,10 @@ export default function Login() {
         >
           Login
         </button>
+            <p>Don't have an account ? <a href="/signup" className="underline"> Create new account</a></p>
+
       </form>
+
     </div>
   );
 }

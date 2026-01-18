@@ -7,6 +7,7 @@ import AppLayout from './layouts/AppLayout'
 import AllFoldersPage from './pages/AllFoldersPage'
 import ArchivePage from './pages/ArchivePage'
 import { ThemeProvider, useTheme } from './context/ThemeContext'
+import ProtectedRoute from './pages/Auth/ProtectedRoutes'
 import Settings from './pages/Settings'
 import Login from './pages/Auth/Login'
 import FavouritesPage from './pages/FavouritesPage'
@@ -24,9 +25,15 @@ function App() {
          <Route path= '/login' element={<Login/>}/>
         <Route path= '/signup' element={<Signup/>}/>
         <Route path= '/logout' element={<Logout/>}/>
-      <Route element={<AppLayout/>}>
+
+      <Route element={
+          <ProtectedRoute>
+            <AppLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path= '/' element={<FolderPage/>}/>
-        <Route path="/folder/:id" element={<FolderPage />} />
+        <Route path='/folder/:id' element={<FolderPage />} />
         <Route  path= '/note/:id' element={<NoteDetail/>}/>
         <Route  path= '/folders' element={<AllFoldersPage/>}/> 
         <Route  path= '/favorites' element={<FavouritesPage/>}/> 
