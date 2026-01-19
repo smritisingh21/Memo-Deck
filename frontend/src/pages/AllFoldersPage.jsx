@@ -7,7 +7,6 @@ import { useAuth } from "../context/AuthContext";
 
 export default function FoldersPage() {
   const [folders, setFolders] = useState([]);
-  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -16,11 +15,10 @@ export default function FoldersPage() {
     async function fetchFolders() {
       try {
         const folders = await axiosInstance.get("/folders");
-        console.log(folders.data);
         setFolders(folders.data);
 
       } catch (err) {
-        setError("Failed to load folders");
+        setError("No folders yet");
       } finally {
         setLoading(false);
       }

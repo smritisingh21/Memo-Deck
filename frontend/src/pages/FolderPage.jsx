@@ -45,7 +45,6 @@ export default function FolderPage() {
       }
     } catch (error) {
       console.error("Error fetching data:", error);
-      // Axios interceptor will handle 401 errors globally
     } finally {
       setLoading(false);
     }

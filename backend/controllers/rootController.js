@@ -70,10 +70,12 @@ export async function getFavourites(req , res ) {
     try{
 
         const folders = await Folder.find({
-            favourite: true, archived:false
+            favourite: true, archived:false,
+             user:req.userId
         });
         const notes = await Note.find({
-            favourite: true ,archived:false
+            user: req.userId,
+            favourite: true ,archived:false ,
         });
 
         if(!folders && !notes) return res.status(404).json({message : "Favourites not found."})
@@ -96,10 +98,12 @@ export async function getArchived(req , res ) {
     try{
 
         const folders = await Folder.find({
-            archived: true
+        user: req.userId,
+            archived: true,
         });
         const notes = await Note.find({
-            archived: true
+        user: req.userId,
+            archived: true,
         });
 
         if(!folders && !notes) return res.status(404).json({message : "Archived notes not found."})
