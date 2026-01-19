@@ -6,7 +6,15 @@ import toast from 'react-hot-toast';
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+
+    const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user_data');
+    try {
+      return savedUser ? JSON.parse(savedUser) : null;
+    } catch (e) {
+      return null;
+    }
+  });
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -23,12 +31,11 @@ export function AuthProvider({ children }) {
     }
 
     try {
-      const res = await axiosInstance.get('/root');
-      if (res.data.user) {
-        setUser(res.data.user);
-      } else {
-        setUser({ authenticated: true });
-      }
+      const res = await axiosInstance.get('/user');
+      setUser({
+        name: res.data.username,
+        ...res.data
+      });
     } catch (error) {
       localStorage.removeItem('token');
       setUser(null);

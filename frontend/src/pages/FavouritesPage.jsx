@@ -6,12 +6,13 @@ import axiosInstance from "../lib/axios";
 import { LoaderIcon } from "lucide-react";
 import { Star } from "lucide-react";
 import { HeartOff } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 export default function FavoritesPage() {
   const [favorites, setFavorites] = useState({ folders: [], notes: [] });
   const [loading, setLoading] = useState(true);
 
-
+  useAuth();  
   async function fetchFavorites() {
     setLoading(true);
     try {

@@ -12,6 +12,7 @@ import { LoaderIcon } from "lucide-react";
 import Search from "../components/Search";
 import { FolderX } from "lucide-react";
 import { FolderPlus } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 export default function FolderPage() {
   const { id } = useParams();
@@ -23,6 +24,8 @@ export default function FolderPage() {
   const [loading, setLoading] = useState(true);
   const [showCreateFolder, setShowCreateFolder] = useState(false);
   const [showCreateNote, setShowCreateNote] = useState(false);
+
+   useAuth();
 
   const allSearchableItems = [
     ...subfolders.map((f) => ({ ...f, type: "folder" })),

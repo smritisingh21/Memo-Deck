@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [submitting, setSubmitting] = useState(false);
-  const { login, loading, isAuthenticated } = useAuth();
+  const { login, loading } = useAuth();
 
   if (loading) {
     return (
@@ -16,7 +16,6 @@ export default function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
     if (!form.email || !form.password) {
       return;
     }

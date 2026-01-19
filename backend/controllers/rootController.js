@@ -1,5 +1,6 @@
 import Folder from "../models/folderSchema.js";
 import Note from "../models/notesSchema.js";
+import User from "../models/UserSchema.js"
 
 export async function getRoot(req, res) {
   try {
@@ -37,7 +38,27 @@ export async function getRoot(req, res) {
   }
 }
 
-
+export async function getUser(req, res) {
+  try {
+    const userId = req.userId; 
+    const user = await User.findById(userId).select('-password');
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+    res.json({
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email
+      }
+    });
+  } catch (err) {
+    console.error("Error fetching user:", err);
+    res.status(500).json({ message: "Failed to fetch user data" });
+  }
+}
 
 export async function createNote(req , res) {
     try{
@@ -70,12 +91,14 @@ export async function getFavourites(req , res ) {
     try{
 
         const folders = await Folder.find({
-            favourite: true, archived:false,
-             user:req.userId
+            favourite: true, 
+            archived:false,
+            user:req.userId
         });
         const notes = await Note.find({
             user: req.userId,
-            favourite: true ,archived:false ,
+            favourite: true ,
+            archived:false ,
         });
 
         if(!folders && !notes) return res.status(404).json({message : "Favourites not found."})

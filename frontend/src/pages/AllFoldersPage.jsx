@@ -10,7 +10,7 @@ export default function FoldersPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-
+  useAuth();
   useEffect(() => {
     async function fetchFolders() {
       try {
