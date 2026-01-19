@@ -68,7 +68,8 @@ export default function FolderPage() {
     <div className="p-4 space-y-2 bg-base-100">
       <header className="flex justify-between items-center sm:p-6 sticky top-4 z-20 transition-all">
         <h1 className="text-2xl md:text-md flex gap-2 font-bold text-base/80">
-          {folder ? (
+
+        {folder ? (
             <div className="text-xs flex-wrap">
               <button
                 className="flex justify-center items-center gap-2 hover:bg-secondary/40 rounded-xl p-1.5"
@@ -102,17 +103,20 @@ export default function FolderPage() {
             <NotebookIcon size={15} /> New Note
           </button>
         </div>
+        
       </header>
 
-      <div className="flex items-center justify-center gap-4 mb-10 ml-5">
+  
+
+      {subfolders.length > 0 && (
+        
+        <section className="animate-in fade-in duration-500 pt-10">
+              <div className="flex items-center justify-center gap-4 mb-10 ml-5">
         <h2 className="text-xs font-black uppercase tracking-[0.2em] opacity-40">
           Folders
         </h2>
         <div className="h-px flex-1 bg-base-content/5"></div>
       </div>
-
-      {subfolders.length > 0 && (
-        <section className="animate-in fade-in duration-500 pt-10">
           <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-7 h-100%">
             {(onSeeMore ? subfolders : subfolders.slice(0, 8)).map((f) => (
               <FolderCard
@@ -135,18 +139,20 @@ export default function FolderPage() {
               </button>
             )}
           </div>
+       
         </section>
       )}
 
-      <div className="flex items-center justify-center gap-4 mb-10 ml-5 mt-15">
+     
+
+      {notes.length > 0 && (
+        <section>
+              <div className="flex items-center justify-center gap-4 mb-10 ml-5 mt-15">
         <h2 className="text-xs font-black uppercase tracking-[0.2em] opacity-40">
           Notes
         </h2>
         <div className="h-px flex-1 bg-base-content/5"></div>
       </div>
-
-      {notes.length > 0 && (
-        <section>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {notes.map((note) => (
               <NoteCard key={note._id} note={note} id={note._id} type="note" />
