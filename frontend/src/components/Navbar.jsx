@@ -22,8 +22,8 @@ export default function Navbar() {
 
   return (
     <div>
-      <header className="w-full border-b border-base-300 bg-base-100">
-      <div className="w-full px-6 py-4 flex items-center justify-between">
+      <header className="w-full ">
+      <div className="w-full px-2 py-3 flex items-center justify-between">
 
         <h1 className="text-2xl font-bold text-primary">
           MemoDeck{" "}
@@ -64,7 +64,7 @@ export default function Navbar() {
         </div>
       </div>
     </header>
-    <div className="border border-white w-full"></div>
+    <div className="border border-gray-400 w-100"></div>
     </div>
     
   );

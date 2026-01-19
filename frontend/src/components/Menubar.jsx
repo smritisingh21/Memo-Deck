@@ -12,7 +12,8 @@ export default function Menubar() {
   return (
     <>
       <button
-        className="fixed top-4 left-4 z-50 p-2 rounded-none bg-base-100 border-2 border-secondary shadow-[3px_3px_0_0_hsl(var(--s))] md:hidden"
+        className="fixed top-4 left-4 z-50 rounded-none bg-base-100 
+         shadow-[3px_3px_0_0_hsl(var(--s))] md:hidden"
         onClick={() => setOpen(!open)}
       >
         {open ? <X size={20} /> : <Menu size={20} />}
@@ -20,7 +21,7 @@ export default function Menubar() {
 
       <aside
         className={`
-          fixed top-0 left-0 z-40 h-screen w-64 bg-base-100 border-r-2 border-primary/10
+          fixed top-0 left-0 z-40 h-screen lg:w-64 md:w-54 bg-black/80 border-r-2 border-primary/10
           transform transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0
@@ -73,7 +74,7 @@ export default function Menubar() {
         </div>
 
         {/* Navigation Menu */}
-        <nav className="flex flex-col gap-2 px-4 mt-6">
+        <nav className="flex flex-col px-4 mt-3">
           {SIDE_MENU_DATA.map((item) => {
             const Icon = item.icon;
 
@@ -82,10 +83,10 @@ export default function Menubar() {
                 key={item.id}
                 href={item.path}
                 className="
-                  flex items-center gap-3 px-4 py-3
+                  flex items-center gap-2 px-4 py-3
                   border-2 border-transparent
                   hover:border-secondary
-                  hover:bg-base-200
+                  hover:bg-white/10
                   shadow-[2px_2px_0_0_transparent]
                   hover:shadow-[3px_3px_0_0_hsl(var(--s))]
                   transition-all

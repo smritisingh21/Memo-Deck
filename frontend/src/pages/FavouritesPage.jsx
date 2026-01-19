@@ -9,7 +9,7 @@ import { HeartOff } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 export default function FavoritesPage() {
-  const [favorites, setFavorites] = useState({ folders: [], notes: [] });
+  const [favourite, setFavorites] = useState({ folders: [], notes: [] });
   const [loading, setLoading] = useState(true);
 
   useAuth();  
@@ -22,7 +22,7 @@ export default function FavoritesPage() {
         notes: res.data.notes || []
       });
     } catch (err) {
-      console.error("Error fetching favorites:", err);
+      console.error("Error fetching favourite:", err);
     } finally {
       setLoading(false);
       
@@ -40,10 +40,10 @@ export default function FavoritesPage() {
     </div>
   );
 
-  const hasContent = (favorites.folders?.length > 0) || (favorites.notes?.length > 0);
+  const hasContent = (favourite.folders?.length > 0) || (favourite.notes?.length > 0);
 
   return (
-    <div className="p-6 space-y-8 animate-in fade-in duration-500">
+    <div className="p-6 space-y-8 animate-in fade-in duration-500 md:p-10 sm:p-5 bg-black/40 rounded-sm ">
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 sm:p-8 border border-base-300 rounded-[2rem] bg-base-100 shadow-sm gap-4">
 
         <div className="flex gap-4 items-center">
@@ -57,7 +57,7 @@ export default function FavoritesPage() {
         </div>
         <div className="px-4 py-2 bg-base-200 rounded-full">
           <p className="text-[10px] font-black opacity-60 uppercase tracking-widest">
-            {favorites.folders.length + favorites.notes.length} Total Items
+            {favourite.folders.length + favourite.notes.length} Total Items
           </p>
         </div>
       </header>
@@ -65,21 +65,21 @@ export default function FavoritesPage() {
       {!hasContent ? (
         <div className="flex flex-col items-center justify-center py-24 opacity-30 text-center">
           <HeartOff size={64} className="mb-6" />
-          <h2 className="text-xl font-bold">No favorites yet</h2>
+          <h2 className="text-xl font-bold">No favourite yet</h2>
           <p className="text-sm max-w-xs mt-2">Start hearting your important notes and folders to see them here.</p>
         </div>
       ) : (
         <div className="space-y-12">
 
           {/* Folders Section */}
-          {favorites.folders.length > 0 && (
+          {favourite.folders.length > 0 && (
             <section>
               <div className="flex items-center gap-2 mb-6 ml-2">
                 <h2 className="text-xs font-black uppercase tracking-[0.2em] opacity-40">Folders</h2>
                 <div className="h-px flex-1 bg-base-content/5"></div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {favorites.folders.map(f => (
+                {favourite.folders.map(f => (
                   <FolderCard key={f._id} id={f._id} title={f.title} />
                 ))}
               </div>
@@ -87,14 +87,14 @@ export default function FavoritesPage() {
           )}
 
           {/* Notes Section */}
-          {favorites.notes.length > 0 && (
+          {favourite.notes.length > 0 && (
             <section>
               <div className="flex items-center justify-center gap-4 mb-6 ml-2">
                 <h2 className="text-xs font-black uppercase tracking-[0.2em] opacity-40">Notes</h2>
                 <div className="h-px flex-1 bg-base-content/5"></div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-                {favorites.notes.map(n => (
+                {favourite.notes.map(n => (
                   <NoteCard key={n._id} id={n._id} note={n} />
                 ))}
               </div>

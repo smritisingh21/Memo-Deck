@@ -68,7 +68,7 @@ export default function FolderPage() {
   const hasContent = subfolders?.length > 0 || notes?.length > 0;
 
   return (
-    <div className="p-4 space-y-2 bg-base-100">
+    <div className="md:p-10 sm:p-5 bg-black/40 rounded-sm animate-in fade-in duration-500 ">
       <header className="flex justify-between items-center sm:p-6 sticky top-4 z-20 transition-all">
         <h1 className="text-2xl md:text-md flex gap-2 font-bold text-base/80">
 
@@ -120,8 +120,8 @@ export default function FolderPage() {
         </h2>
         <div className="h-px flex-1 bg-base-content/5"></div>
       </div>
-          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-7 h-100%">
-            {(onSeeMore ? subfolders : subfolders.slice(0, 8)).map((f) => (
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7 h-100%">
+            {(onSeeMore ? subfolders : subfolders.slice(0, 4)).map((f) => (
               <FolderCard
                 key={f._id}
                 id={f._id}
@@ -135,7 +135,7 @@ export default function FolderPage() {
           <div className="flex items-center justify-end px-4 mt-3">
             {subfolders.length > 8 && (
               <button
-                className="text-xs font-bold text-secondary flex items-center gap-1 hover:gap-2 transition-all"
+                className="text-xs font-bold text-secondary flex items-center gap-1 hover:gap-2 transition-transform translate-y-full duration-300 ease-in-out"
                 onClick={() => setOnSeeMore(!onSeeMore)}
               >
                 {onSeeMore ? "View Less" : `View All (${subfolders.length})`}
@@ -156,7 +156,7 @@ export default function FolderPage() {
         </h2>
         <div className="h-px flex-1 bg-base-content/5"></div>
       </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7">
             {notes.map((note) => (
               <NoteCard key={note._id} note={note} id={note._id} type="note" />
             ))}

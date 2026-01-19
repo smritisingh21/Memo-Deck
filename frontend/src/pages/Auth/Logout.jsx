@@ -9,7 +9,7 @@ export default function Logout() {
 return (
     <>
         <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200" >
-          <div className="w-full max-w-sm bg-base-100 border-4 border-error shadow-[8px_8px_0_0_theme(colors.error)] p-6
+          <div className="w-full max-w-sm bg-base-100 border-4 border-error shadow-[8px_8px_0_0_theme(colors.black)] p-6
               space-y-6 animate-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
@@ -62,11 +62,11 @@ return (
                   flex-1
                   py-3
                   font-bold
-                  border-2 border-base-content
-                  bg-base-100
+                  border-2 border-black
+                  bg-white/30
                   text-base-content
-                  shadow-[4px_4px_0_0_theme(colors.base-content)]
-                  hover:shadow-[6px_6px_0_0_theme(colors.base-content)]
+                  shadow-[4px_4px_0_0_theme(colors.black)]
+                  hover:shadow-[6px_6px_0_0_theme(colors.black)]
                   hover:translate-x-[-2px]
                   hover:translate-y-[-2px]
                   transition-all
@@ -88,8 +88,8 @@ return (
                   border-2 border-error
                   bg-error
                   text-error-content
-                  shadow-[4px_4px_0_0_theme(colors.error)]
-                  hover:shadow-[6px_6px_0_0_theme(colors.error)]
+                  shadow-[4px_4px_0_0_theme(colors.black)]
+                  hover:shadow-[6px_6px_0_0_theme(colors.black)]
                   hover:translate-x-[-2px]
                   hover:translate-y-[-2px]
                   transition-all

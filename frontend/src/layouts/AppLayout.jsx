@@ -4,8 +4,8 @@ import { Outlet } from "react-router";
 export default function AppLayout({children}) {
   
   return (
-    <div className="min-h-screen flex ">
-    <aside className="w-64 ">
+    <div className="min-h-screen flex  ">
+    <aside className="lg:w-64 md:w-60 sm:w-0">
       <Menubar />
     </aside>
 

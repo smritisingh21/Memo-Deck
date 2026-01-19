@@ -42,7 +42,7 @@ export default function ArchivePage() {
   const hasContent = (archive.folders?.length > 0) || (archive.notes?.length > 0);
 
   return (
-    <div className="p-6 space-y-8 animate-in fade-in duration-500">
+    <div className="p-6 space-y-8 animate-in fade-in duration-500 md:p-10 sm:p-5 bg-black/40 rounded-sm ">
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 sm:p-8 border border-base-300 rounded-[2rem] bg-base-100 shadow-sm gap-4">
         <div className="flex gap-4 items-center">
           <div className="p-4 bg-fuchsia-100 dark:bg-fuchsia-900/30 rounded-2xl">
