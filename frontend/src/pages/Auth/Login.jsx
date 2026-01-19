@@ -1,21 +1,32 @@
 import { useState } from "react";
-import axios from "../../lib/axios";
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
-  const navigate = useNavigate();
+  const [submitting, setSubmitting] = useState(false);
+  const { login, loading, isAuthenticated } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-base-200">
+        <div className="loading loading-spinner loading-lg"></div>
+      </div>
+    );
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
+    
+    if (!form.email || !form.password) {
+      return;
+    }
+
+    setSubmitting(true);
     try {
-      const res = await axios.post("/auth/login", form);
-      localStorage.setItem("token", res.data.token);
-      navigate("/");
-      toast.success("You are now logged in!");
-    } catch {
-      toast.error("Invalid credentials");
+      await login(form);
+    } catch (error) {
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -32,22 +43,22 @@ export default function Login() {
           space-y-6
         "
       >
-        {/* Header */}
         <div className="space-y-1">
           <h2 className="text-3xl font-bold tracking-tight">
-           MemoDeck
+            MemoDeck
           </h2>
           <p className="text-sm text-base-content/60">
-             Login to your existing account
+            Login to your existing account
           </p>
         </div>
 
-        {/* Email */}
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold">Email</label>
           <input
             type="email"
             placeholder="you@example.com"
+            value={form.email}
+            required
             className="
               input input-bordered
               border-2 border-base-content
@@ -60,12 +71,13 @@ export default function Login() {
           />
         </div>
 
-        {/* Password */}
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold">Password</label>
           <input
             type="password"
             placeholder="••••••••"
+            value={form.password}
+            required
             className="
               input input-bordered
               border-2 border-base-content
@@ -78,9 +90,9 @@ export default function Login() {
           />
         </div>
 
-        {/* Button */}
         <button
           type="submit"
+          disabled={submitting}
           className="
             w-full
             mt-4
@@ -92,14 +104,20 @@ export default function Login() {
             shadow-[4px_4px_0_0_theme(colors.primary)]
             hover:shadow-[6px_6px_0_0_theme(colors.primary)]
             transition-all
+            disabled:opacity-50
+            disabled:cursor-not-allowed
           "
         >
-          Login
+          {submitting ? "Logging in..." : "Login"}
         </button>
-            <p>Don't have an account ? <a href="/signup" className="underline"> Create new account</a></p>
-
+        
+        <p className="text-center text-sm">
+          Don't have an account?{" "}
+          <a href="/signup" className="underline text-primary">
+            Create new account
+          </a>
+        </p>
       </form>
-
     </div>
   );
 }

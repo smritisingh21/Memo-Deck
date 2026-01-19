@@ -3,10 +3,9 @@ import axiosInstance from "../lib/axios";
 import { LoaderIcon } from "lucide-react";
 import FolderCard from "../components/FolderCard";
 import Search from "../components/Search";
+import { useAuth } from "../context/AuthContext";
 
 export default function FoldersPage() {
-
-
   const [folders, setFolders] = useState([]);
   
   const [loading, setLoading] = useState(true);
