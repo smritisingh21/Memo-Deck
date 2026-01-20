@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Palette, X } from "lucide-react";
+import { GithubIcon, Palette, X } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import { Link } from "react-router";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
 
-  const themes = ["halloween", "forest", "dracula", "aqua"];
+  const themes = ["halloween", "forest", "dracula", "retro"];
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -30,13 +31,25 @@ export default function Navbar() {
         </h1>
 
         <div className="relative" ref={menuRef}>
+        <div className="flex justify-center items-center gap-3">
           <button
             onClick={() => setOpen(!open)}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-base-200 hover:bg-base-300 transition"
-          >
+            className="flex items-center gap-2 px-3 py-2 bg-base-200 rounded-sm border-2 hover:bg-secondary/40
+            shadow-[2px_2px_0_0_theme(colors.white)] hover:shadow-[2px_2px_0_0_theme(colors.white)] p-2
+            hover:-translate-x-[4px] hover:-translate-y-[4px] transition-all "
+            >
             <Palette size={18} />
             <span className="text-sm font-medium hidden sm:block">Theme</span>
           </button>
+
+          <a href={"https://github.com/smritisingh21/Memo-Deck"} target="_blank">
+            <button className="bg-base-200  hover:bg-secondary/40 rounded-sm border-2 shadow-[2px_2px_0_0_theme(colors.white)]
+             hover:shadow-[2px_2px_0_0_theme(colors.white)] p-2 hover:-translate-x-[4px] hover:-translate-y-[4px] transition-all ">
+            <GithubIcon/>
+          </button>
+          </a>
+          
+            </div>
 
 
           {open && (

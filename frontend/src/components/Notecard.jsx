@@ -60,8 +60,8 @@ export default function NoteCard({ note, id }) {
 
   return (
     <Link to={`/note/${id}`} className="">
-      <div className="relative bg-base-100 border-2 border-white/30 p-5 
-      shadow-[4px_4px_0_0_theme(colors.white)] hover:shadow-[6px_6px_0_0_theme(colors.accent-content)]
+      <div className="relative bg-base-100 border-2 border-white/20 p-5 
+      shadow-[6px_6px_0_0_theme(colors.white)] hover:shadow-[12px_12px_0_0_theme(colors.black)]
        hover:-translate-x-[4px] hover:-translate-y-[4px] transition-all cursor-pointer">
 
         <h3 className="text-lg h-10 font-bold tracking-tight text-base-content border-b-2 border-white/40 pb-2 mb-2 overflow-y-clip">
@@ -76,14 +76,14 @@ export default function NoteCard({ note, id }) {
           {formatDate(new Date(note.createdAt))}
         </div>
 
-        <div className="flex justify-center items-center gap-3 border-t-2 border-primary pt-3">
+        <div className="flex justify-end items-start gap-3 border-t-2 border-primary pt-3">
 
           <Tooltip content="Delete">
             <button
-              className="flex items-center gap-1 border-2 border-secondary bg-base-100 px-2 py-1 shadow-[2px_2px_0_0_theme(colors.secondary)] hover:shadow-[3px_3px_0_0_theme(colors.secondary)] transition-all hover:text-red-600"
+              className="flex items-center gap-1  transition-all hover:text-red-600 hover:-translate-y-2 hover:underline"
               onClick={(e) => handleDelete(e, id)}
             >
-              <Trash2Icon size={16} />
+              <Trash2Icon size={20} />
               <p className="text-xs sm:hidden">Delete</p>
             </button>
           </Tooltip>
@@ -91,7 +91,7 @@ export default function NoteCard({ note, id }) {
           {!archived ? (
             <Tooltip content="Archive">
               <button
-                className="flex items-center gap-1 border-2 border-secondary bg-base-100 px-2 py-1 shadow-[2px_2px_0_0_theme(colors.secondary)] hover:shadow-[3px_3px_0_0_theme(colors.secondary)] transition-all hover:text-accent"
+                className="flex items-center gap-1 transition-all  hover:text-accent hover:-translate-y-2 "
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
@@ -99,14 +99,14 @@ export default function NoteCard({ note, id }) {
                   ArchiveNote(id, true);
                 }}
               >
-                <Archive size={16} />
+                <Archive size={20} />
                 <p className="text-xs sm:hidden">Archive</p>
               </button>
             </Tooltip>
           ) : (
             <Tooltip content="Unarchive">
               <button
-                className="flex items-center gap-1 border-2 border-secondary bg-base-100 px-2 py-1 shadow-[2px_2px_0_0_theme(colors.secondary)] hover:shadow-[3px_3px_0_0_theme(colors.secondary)] transition-all hover:text-accent"
+                className="flex items-center gap-1  transition-all hover:text-accent hover:-translate-y-2 "
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
@@ -114,7 +114,7 @@ export default function NoteCard({ note, id }) {
                   ArchiveNote(id, false);
                 }}
               >
-                <ArchiveRestoreIcon size={16} />
+                <ArchiveRestoreIcon size={20} />
                 <p className="text-xs sm:hidden">Unarchive</p>
               </button>
             </Tooltip>
@@ -122,7 +122,7 @@ export default function NoteCard({ note, id }) {
 
           <Tooltip content={`${favourite ? "Remove from favourites" : "Add to favourites"}`}>
             <button
-              className="flex items-center gap-1 border-2 border-secondary bg-base-100 px-2 py-1 shadow-[2px_2px_0_0_theme(colors.secondary)] hover:shadow-[3px_3px_0_0_theme(colors.secondary)] transition-all hover:text-accent"
+              className="flex items-center gap-1  transition-all hover:text-accent hover:-translate-y-2 "
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
@@ -131,8 +131,8 @@ export default function NoteCard({ note, id }) {
                 AddToFav(id, val);
               }}
             >
-              <StarIcon size={18} className={`${favourite ? "fill-accent text-transparent" : "fill-none"} transition-all`} />
-              <p className="text-xs sm:hidden">
+              <StarIcon size={22} className={`${favourite ? "fill-accent text-transparent" : "fill-none"} transition-all`} />
+              <p className="text-xs sm:hidden hover:-translate-y-2 ">
                 {!favourite ? "Fav" : "Unfav"}
               </p>
             </button>

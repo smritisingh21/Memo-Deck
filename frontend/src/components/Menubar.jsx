@@ -21,7 +21,7 @@ export default function Menubar() {
 
       <aside
         className={`
-          fixed top-0 left-0 z-40 h-screen lg:w-64 md:w-54 bg-black/80 border-r-2 border-primary/10
+          fixed top-0 left-0 z-40 h-screen lg:w-64 md:w-54 bg-black/80 border-r-2 border-white/60
           transform transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0

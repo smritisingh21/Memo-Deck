@@ -43,16 +43,19 @@ export default function FavoritesPage() {
   const hasContent = (favourite.folders?.length > 0) || (favourite.notes?.length > 0);
 
   return (
-    <div className="p-6 space-y-8 animate-in fade-in duration-500 md:p-10 sm:p-5 bg-black/40 rounded-sm ">
-      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 sm:p-8 border border-base-300 rounded-[2rem] bg-base-100 shadow-sm gap-4">
+    <div className="h-screen p-6 space-y-8 animate-in fade-in duration-150 md:p-10 sm:p-5 bg-black/40 rounded-sm ">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 sm:p-8 border border-base-300 rounded-xs bg-none shadow-sm gap-4">
 
-        <div className="flex gap-4 items-center">
-          <div className="p-4 bg-fuchsia-100 dark:bg-fuchsia-900/30 rounded-2xl">
+        <div className="flex gap-4 items-center justify-between">
+
+          <div className="p-4 bg-fuchsia-100 dark:bg-fuchsia-900/30 rounded-full">
             <Star className="text-fuchsia-600 fill-fuchsia-600" size={32} /> 
           </div>
-          <div>
-            <h1 className="text-2xl font-black underline ">Favorites</h1>
-            <p className="text-xs font-medium opacity-50">All your starred items in one place</p>
+
+          <div className="flex items-center justify-center gap-3">
+            <h1 className="text-2xl font-black underline">Favorites
+            </h1>
+            <span className="text-md text-gray-500 tracking-tight "> All your starred items in one place</span>
           </div>
         </div>
         <div className="px-4 py-2 bg-base-200 rounded-full">

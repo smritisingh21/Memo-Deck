@@ -6,7 +6,7 @@ import PopUp from "../layouts/PopUp";
 import CreateFolder from "./CreateFolder";
 import FullScreenPopUp from "../layouts/FullScreenPopUp";
 import CreateNote from "./CreateNote";
-import { ArrowLeft, FolderClosed, NotebookIcon } from "lucide-react";
+import { ArrowLeft, FolderClosed, HomeIcon, NotebookIcon } from "lucide-react";
 import axiosInstance from "../lib/axios";
 import { LoaderIcon } from "lucide-react";
 import Search from "../components/Search";
@@ -68,14 +68,14 @@ export default function FolderPage() {
   const hasContent = subfolders?.length > 0 || notes?.length > 0;
 
   return (
-    <div className="md:p-10 sm:p-5 bg-black/40 rounded-sm animate-in fade-in duration-500 ">
+    <div className="h-screen md:p-10 sm:p-5 bg-black/40 rounded-sm animate-in fade-in duration-150 ">
       <header className="flex justify-between items-center sm:p-6 sticky top-4 z-20 transition-all">
         <h1 className="text-2xl md:text-md flex gap-2 font-bold text-base/80">
 
         {folder ? (
             <div className="text-xs flex-wrap">
               <button
-                className="flex justify-center items-center gap-2 hover:bg-secondary/40 rounded-xl p-1.5"
+                className="flex justify-evenly items-center gap-2 hover:bg-secondary/40 rounded-xl p-1.5"
                 onClick={() => navigate(-1)}
               >
                 <ArrowLeft /> Back
@@ -85,8 +85,12 @@ export default function FolderPage() {
             ""
           )}
 
-          <FolderClosed size={30} />
+        <div className="flex items-center justify-evenly gap-3">
+           <div className="bg-fuchsia-900/30 text-fuchsia-700 p-5 rounded-full">
+           {folder?.title?  <FolderClosed size={30} /> :<HomeIcon size={30}  />}
+         </div>
           <u>{folder ? folder.title : "Home"}</u>
+        </div>
         </h1>
 
         <div className="flex gap-3 justify-center items-center">
@@ -120,7 +124,7 @@ export default function FolderPage() {
         </h2>
         <div className="h-px flex-1 bg-base-content/5"></div>
       </div>
-          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7 h-100%">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 min-h-full">
             {(onSeeMore ? subfolders : subfolders.slice(0, 4)).map((f) => (
               <FolderCard
                 key={f._id}
@@ -132,8 +136,8 @@ export default function FolderPage() {
               />
             ))}
           </div>
-          <div className="flex items-center justify-end px-4 mt-3">
-            {subfolders.length > 8 && (
+          <div className="flex items-center justify-end px-4 mt-3 ">
+            {subfolders.length > 4 && (
               <button
                 className="text-xs font-bold text-secondary flex items-center gap-1 hover:gap-2 transition-transform translate-y-full duration-300 ease-in-out"
                 onClick={() => setOnSeeMore(!onSeeMore)}
@@ -150,7 +154,7 @@ export default function FolderPage() {
 
       {notes.length > 0 && (
         <section>
-              <div className="flex items-center justify-center gap-4 mb-10 ml-5 mt-15">
+        <div className="flex items-center justify-center gap-4 mb-10 ml-5 mt-20">
         <h2 className="text-xs font-black uppercase tracking-[0.2em] opacity-40">
           Notes
         </h2>
