@@ -2,9 +2,13 @@ import axios from "axios";
 
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.BASE_URL
+  // Ensure the baseURL is ALWAYS an absolute URL to the backend
+  baseURL:  "http://localhost:4040/api/v1",
+  timeout: 60000,
+  headers: {
+    "Content-Type": "application/json",
+  }
 });
-
 // Request interceptor - adds token to requests
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");

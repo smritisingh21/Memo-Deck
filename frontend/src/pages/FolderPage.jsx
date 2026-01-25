@@ -25,6 +25,7 @@ export default function FolderPage() {
   const [showCreateFolder, setShowCreateFolder] = useState(false);
   const [showCreateNote, setShowCreateNote] = useState(false);
 
+
    useAuth();
 
   const allSearchableItems = [
@@ -132,6 +133,10 @@ export default function FolderPage() {
                 title={f.title}
                 notes={f.notes || []}
                 itemsCount={f.itemsCount}
+                initialArchived={f.archived}
+                isArchivePage={f.archived}
+                initialFavourite={f.favourite}
+                onDeleted={(id) => setFolder(prev => prev.filter(f => f._id !== id))}
                 type="folder"
               />
             ))}

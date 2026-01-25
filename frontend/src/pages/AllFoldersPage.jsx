@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../lib/axios";
-import { LoaderIcon } from "lucide-react";
+import { FolderDotIcon, LoaderIcon } from "lucide-react";
 import FolderCard from "../components/FolderCard";
 import Search from "../components/Search";
 import { useAuth } from "../context/AuthContext";
@@ -38,9 +38,6 @@ export default function FoldersPage() {
       </div>
     );
   }
-  if (error) {
-    return <div className="p-6 text-error">{error}</div>;
-  }
 
   return (
     <div className= " h-screen p-6 space-y-8 shadow-lg animate-in fade-in duration-150 md:p-10 sm:p-5 bg-black/40 rounded-sm   ">
@@ -49,8 +46,11 @@ export default function FoldersPage() {
       <Search items={allSearchableItems}/>
       </header>
 
-      {!folders? (
-        <p className="text-base-content/60">-----No folders yet-----</p>
+      {folders.length === 0 ? (
+       <div className="flex flex-col items-center justify-center py-24 opacity-30 text-center">
+          <FolderDotIcon size={64} className="mb-6" />
+          <h2 className="text-xl font-bold">No folders added yet. </h2>
+        </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 hover:translate-x-1">
           {folders.slice(0,10).map((folder) => (

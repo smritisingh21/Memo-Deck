@@ -9,17 +9,18 @@ import {
   ArchiveIcon,
   HeartPlus,
   HeartIcon,
+  ArchiveRestoreIcon,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import axiosInstance from "../lib/axios";
 import EditBox from "../pages/EditBox";
 import Options from "../layouts/Options";
 
-function FolderCard({ id, title, itemsCount, onDeleted}) {
+function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initialFavourite, isArchivePage}) {
   const [editBox, setEditBox] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
-  const [archive , setArchive] = useState(false)
-  const [favourite , setFavourite] = useState(false)
+  const [archive , setArchive] = useState(initialArchived || false)
+  const [favourite , setFavourite] = useState(initialFavourite || false)
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -44,7 +45,7 @@ function FolderCard({ id, title, itemsCount, onDeleted}) {
     }
   }
 
-  const handleFavourites = async (id, favourite) => {
+  const handleFavourites = async (favourite) => {
     try {
       await axiosInstance.patch(`/folder/${id}`, { favourite });
       if (favourite === true) toast.success("Added to favourites");
@@ -54,10 +55,11 @@ function FolderCard({ id, title, itemsCount, onDeleted}) {
     }
   };
 
-  const handleArchive = async (id, archived) => {
+  const handleArchive = async (archived) => {
     try {
       await axiosInstance.patch(`/folder/${id}`, { archived });
-      toast.success("Added to archive");
+      if(archived == true) toast.success("Added to archive");
+      else toast.error("Removed from archive");
     } catch {
       toast.error("Could not archive");
     }
@@ -80,7 +82,24 @@ function FolderCard({ id, title, itemsCount, onDeleted}) {
                 {itemsCount} items
               </span>
 
-              {!openMenu ? (
+            {
+              isArchivePage ? (
+                 <button
+                  aria-label="Open menu"
+                  className="= p-1 bg-base-100   transition-all"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleArchive(false);
+                  }}
+                >
+
+                  <ArchiveRestoreIcon/>
+                </button>
+                  
+              ):
+              (
+                  !openMenu ? (
                 <button
                   aria-label="Open menu"
                   className="= p-1 bg-base-100   transition-all"
@@ -90,6 +109,7 @@ function FolderCard({ id, title, itemsCount, onDeleted}) {
                     setOpenMenu(true);
                   }}
                 >
+
                   <EllipsisVertical />
                 </button>
               ) : (
@@ -103,53 +123,37 @@ function FolderCard({ id, title, itemsCount, onDeleted}) {
                 >
                   <X size={18} />
                 </button>
-              )}
+              )
+              )
+            }
             </div>
           </div>
         </section>
       </Link>
 
-      {openMenu && (
+      {openMenu &&  (
         <div ref={menuRef} className="z-20 absolute -bottom-24 -right-10 bg-base-100 border-2 border-primary shadow-[6px_6px_0_0_theme(colors.primary)] px-3 py-3 text-sm">
           <div className="flex flex-col gap-2">
-            <Options functionality={(e) => {
-              handleDelete()
-              setOpenMenu(false);
-            }
-            }
-              icon={<Trash2Icon size={18} />} 
-              label={"Delete"} />
 
-            <Options functionality={(e) => {
-              setEditBox(true)
-              setOpenMenu(false);
-
-            } 
-            }
-              icon={<PenBoxIcon size={18} />
-              }
-              label={"Rename"} />
-
-            <Options 
-            functionality={(e) =>{
-              const newValue = !favourite
-              setFavourite(newValue)
-              handleFavourites(id, newValue)
-              setOpenMenu(false);
-            }}
-            icon={<HeartPlus size={18} />}
-            label={favourite? "Unfavourite" : "Favourite"} />
-
-            <Options
-             functionality={(e) =>{
-              const newArchive = !archive;
-              setArchive(newArchive)
-              handleArchive(id ,newArchive)
-              setOpenMenu(false);
-             }
-             }
-              icon={<ArchiveIcon size={18} />}
-              label={archive? "Unarchive":"Archive"} />
+            {isArchivePage ? (
+              <></>
+            ) : (
+              <>
+                <Options functionality={() => { handleDelete(); setOpenMenu(false); }} icon={<Trash2Icon size={16} />} label="Delete" />
+                <Options functionality={() => { setEditBox(true); setOpenMenu(false); }} icon={<PenBoxIcon size={16} />} label="Rename" />
+                <Options 
+                  functionality={() => { handleFavourites(!favourite); setOpenMenu(false); }} 
+                  icon={<HeartPlus size={16} className={favourite ? "fill-emerald-500 text-emerald-500" : ""} />} 
+                  label={favourite ? "Unfavourite" : "Favourite"} 
+                />
+                <Options 
+                  functionality={() => { handleArchive(!archive); setOpenMenu(false); }} 
+                  icon={<ArchiveIcon size={16} className={archive ? "text-emerald-500" : ""} />} 
+                  label={archive ? "Unarchive" : "Archive"} 
+                />
+              </>
+            )}
+        
           </div>
         </div>
       )}
