@@ -1,7 +1,8 @@
 import axios from "axios";
 
+
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:4040/api/v1"
+  baseURL: "https://memo-deck.onrender.com/api/v1"
 });
 
 // Request interceptor - adds token to requests
