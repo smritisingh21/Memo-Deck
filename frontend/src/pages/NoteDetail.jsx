@@ -44,7 +44,7 @@ export const NoteDetail = () => {
     try {
       await axiosInstance.delete(`/note/${id}`);
       toast.success("Note deleted");
-      navigate("/");
+      navigate(-1);
     } catch (error) {
       console.log("Error deleting the note:", error);
       toast.error("Failed to delete note");
@@ -61,7 +61,7 @@ export const NoteDetail = () => {
     try {
       await axiosInstance.patch(`/note/${id}`, note);
       toast.success("Note updated successfully");
-      navigate("/");
+      navigate(-1);
     } catch (error) {
       console.log("Error saving the note:", error);
       toast.error("Failed to update note");
@@ -84,7 +84,8 @@ export const NoteDetail = () => {
       {/* Top Utility Bar  */}
       <div className="sticky top-0 z-10 w-full bg-base-100/80 
       backdrop-blur-md border-b border-base-200">
-        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+
+        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between bg-black border-2 border-primary/20">
           <div className="flex items-center gap-2 text-sm text-base-content/60">
           
           <button onClick={() => navigate(-1)}>
@@ -130,7 +131,7 @@ export const NoteDetail = () => {
       </div>
 
       {/* Page Content */}
-      <div className="max-w-5xl mx-auto px-20 pt-12 pb-24 bg-transparent">
+      <div className="max-w-5xl mx-auto px-20 pt-12 pb-24 bg-black/40">
         {/* Meta Info */}
         <div className="flex items-center gap-2 text-xs text-base-content/40 mb-8">
           <ClockIcon className="size-3" />
@@ -148,11 +149,12 @@ export const NoteDetail = () => {
             onChange={(e) => setNote({ ...note, title: e.target.value })}
           />
 
-          {/* Content Area: No borders, ample line height */}
           <textarea
             placeholder="Start writing..."
-            className="w-full h-screen overflow-y-visible  bg-transparent text-sm md:text-md 
-            leading-relaxed  resize-none focus:outline-none placeholder:opacity-20"
+            className="w-full h-screen
+            bg-transparent text-md md:text-md 
+            leading-relaxed  resize-y
+            focus:outline-none placeholder:opacity-20"
             value={note.content}
             onChange={(e) => setNote({ ...note, content: e.target.value })}
           />

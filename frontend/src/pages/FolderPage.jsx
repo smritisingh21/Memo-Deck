@@ -124,7 +124,7 @@ export default function FolderPage() {
         </h2>
         <div className="h-px flex-1 bg-base-content/5"></div>
       </div>
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 min-h-full">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-10 min-h-full">
             {(onSeeMore ? subfolders : subfolders.slice(0, 4)).map((f) => (
               <FolderCard
                 key={f._id}

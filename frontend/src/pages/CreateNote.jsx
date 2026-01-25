@@ -49,20 +49,22 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
 
   return (
   
-    <div className="min-h-screen h-full bg-base-100 text-base-content pt-10 m-0">
+    <div className=" bg-base-100 text-base-content pt-10 m-0">
+
+      <div className="bg-primary fixed bottom-5 left-10 blur-xl z-10 opacity-80 h-50 w-50 rounded-full">hey</div>
 
       {/* Top Utility Bar  */}
-      <div className="sticky top-0 z-10 w-full bg-base-100/80 
+      <div className=" w-full bg-base-100/80 
       backdrop-blur-md border-b border-base-200">
-        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm text-base-content/60">
+
+        <div className="max-w-4xl mx-auto px-6 py-5 h-14 flex items-center justify-between bg-black border-2 border-primary/20 ">
+          <div className="flex items-center gap-2 text-sm text-base-content/60 ">
           
           <button onClick={() => onClose() }>
           <div className="flex items-center hover:bg-slate-800 p-1.5 rounded transition-colors cursor-pointer ">
           <ArrowLeftIcon className="size-4" />Go back
           </div>
           </button>
-          
 
           <ChevronRightIcon className="size-4" />
             <span className="text-base-content font-medium truncate max-w-[150px]">
@@ -72,13 +74,13 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
          </div>
 
           <div className="flex items-center gap-2">
-            <button 
+            {/* <button 
               onClick={() => onClose() } 
               className="btn btn-ghost btn-sm text-error hover:bg-error/10"
-              title="Delete note"
+              title=""
             >
               <XIcon className="size-4" />Cancel
-            </button>
+            </button> */}
 
             <div className="divider divider-horizontal mx-0"></div>
             <button 
@@ -97,7 +99,7 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
       </div>
 
       {/* Page Content */}
-      <div className="max-w-5xl mx-auto px-20 pt-12 pb-24 bg-transparent">
+      <div className="max-w-5xl mx-auto px-20 pt-12 pb-24 bg-black/40 ">
         {/* Meta Info */}
         <div className="flex items-center gap-2 text-xs text-base-content/40 mb-8">
           <ClockIcon className="size-3" />
@@ -118,7 +120,7 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
           {/* Content Area: No borders, ample line height */}
           <textarea
             placeholder="Start writing..."
-            className="w-full h-screen overflow-y-visible  bg-transparent text-sm md:text-md 
+            className="w-full h-screen overflow-y-visible  bg-transparent text-md md:text-md 
             leading-relaxed  resize-none focus:outline-none placeholder:opacity-20"
             value={content}
             onChange={(e) => setContent( e.target.value )}
