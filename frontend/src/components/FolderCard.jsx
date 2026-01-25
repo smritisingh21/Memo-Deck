@@ -8,7 +8,6 @@ import {
   PenBoxIcon,
   ArchiveIcon,
   HeartPlus,
-  HeartIcon,
   ArchiveRestoreIcon,
   HeartCrackIcon,
 } from "lucide-react";
@@ -125,11 +124,11 @@ function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initia
         </section>
       </Link>
 
-      {openMenu && !isArchivePage && !isFavouritePage (
+      {openMenu &&  (
         <div ref={menuRef} className="z-20 absolute -bottom-24 -right-10 bg-base-100 border-2 border-primary shadow-[6px_6px_0_0_theme(colors.primary)] px-3 py-3 text-sm">
           <div className="flex flex-col gap-2">
 
-            (
+            
               <>
                 <Options functionality={() => { handleDelete(); setOpenMenu(false); }} icon={<Trash2Icon size={16} />} label="Delete" />
                 <Options functionality={() => { setEditBox(true); setOpenMenu(false); }} icon={<PenBoxIcon size={16} />} label="Rename" />
@@ -144,7 +143,7 @@ function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initia
                   label={archive ? "Unarchive" : "Archive"} 
                 />
               </>
-            )
+            
         
           </div>
         </div>

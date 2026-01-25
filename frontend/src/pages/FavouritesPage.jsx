@@ -99,7 +99,7 @@ export default function FavoritesPage() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                 {favourite.notes.map(n => (
-                  <NoteCard key={n._id} id={n._id} note={n} />
+                  <NoteCard key={n._id} id={n._id} note={n} initialFavourite={true}  isFavouritePage={true} />
                 ))}
               </div>
             </section>

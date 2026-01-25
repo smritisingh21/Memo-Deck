@@ -4,7 +4,6 @@ const ThemeContext = createContext();
 
 
 export const ThemeProvider = ({ children }) => {
-  
    const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('memo-deck-theme');
     return savedTheme || 'dark'; 

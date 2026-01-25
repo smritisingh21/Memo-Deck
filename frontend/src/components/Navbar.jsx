@@ -8,7 +8,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
 
-  const themes = ["halloween", "forest", "dracula", "retro"];
+  const themes = ["halloween", "forest", "dracula", "aqua"];
 
   // Close menu when clicking outside
   useEffect(() => {
