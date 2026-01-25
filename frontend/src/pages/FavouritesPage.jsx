@@ -84,7 +84,7 @@ export default function FavoritesPage() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {favourite.folders.map(f => (
-                  <FolderCard key={f._id} id={f._id} title={f.title} />
+                  <FolderCard key={f._id} id={f._id} title={f.title} initialFavourite={true} isFavouritePage={true} />
                 ))}
               </div>
             </section>

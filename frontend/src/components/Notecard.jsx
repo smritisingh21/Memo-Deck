@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router";
 import { formatDate } from '../../utils/helper.js';
-import { Trash2Icon, PenSquareIcon } from 'lucide-react'
+import { Trash2Icon, PenSquareIcon, HeartPlusIcon } from 'lucide-react'
 import { StarIcon } from "lucide-react";
 import { Archive, ArchiveRestoreIcon } from "lucide-react";
 import axiosInstance from '../lib/axios';
@@ -131,7 +131,7 @@ export default function NoteCard({ note, id }) {
                 AddToFav(id, val);
               }}
             >
-              <StarIcon size={22} className={`${favourite ? "fill-accent text-transparent" : "fill-none"} transition-all`} />
+              <HeartPlusIcon size={22} className={`${favourite ? "fill-accent text-transparent" : "fill-none"} transition-all`} />
               <p className="text-xs sm:hidden hover:-translate-y-2 ">
                 {!favourite ? "Fav" : "Unfav"}
               </p>

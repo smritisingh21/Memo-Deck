@@ -10,13 +10,14 @@ import {
   HeartPlus,
   HeartIcon,
   ArchiveRestoreIcon,
+  HeartCrackIcon,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import axiosInstance from "../lib/axios";
 import EditBox from "../pages/EditBox";
 import Options from "../layouts/Options";
 
-function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initialFavourite, isArchivePage}) {
+function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initialFavourite, isArchivePage , isFavouritePage}) {
   const [editBox, setEditBox] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [archive , setArchive] = useState(initialArchived || false)
@@ -82,62 +83,53 @@ function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initia
                 {itemsCount} items
               </span>
 
-            {
-              isArchivePage ? (
-                 <button
-                  aria-label="Open menu"
-                  className="= p-1 bg-base-100   transition-all"
+           {isArchivePage ? (
+                <button
+                  aria-label="Restore from archive"
+                  className="p-1 hover:text-accent transition-all text-emerald-500"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     handleArchive(false);
                   }}
                 >
-
-                  <ArchiveRestoreIcon/>
+                  <ArchiveRestoreIcon size={20} />
                 </button>
-                  
-              ):
-              (
-                  !openMenu ? (
+              ) : isFavouritePage ? (
                 <button
-                  aria-label="Open menu"
-                  className="= p-1 bg-base-100   transition-all"
+                  aria-label="Remove from favourites"
+                  className="p-1 text-amber-500 hover:scale-110 transition-all"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    setOpenMenu(true);
+                    handleFavourites(false);
                   }}
                 >
-
-                  <EllipsisVertical />
+                  <HeartCrackIcon size={20} />
                 </button>
               ) : (
                 <button
-                  className="border-2 border-secondary p-1 bg-base-100 shadow-[2px_2px_0_0_theme(colors.secondary)] hover:shadow-[3px_3px_0_0_theme(colors.secondary)] transition-all"
+                  aria-label="Open menu"
+                  className="p-1 hover:bg-base-200 transition-all"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    setOpenMenu(false);
+                    setOpenMenu(!openMenu);
                   }}
                 >
-                  <X size={18} />
+                  {openMenu ? <X size={18} /> : <EllipsisVertical size={20} />}
                 </button>
-              )
-              )
-            }
+              )}
             </div>
           </div>
         </section>
       </Link>
 
-      {openMenu &&  (
+      {openMenu && !isArchivePage && !isFavouritePage (
         <div ref={menuRef} className="z-20 absolute -bottom-24 -right-10 bg-base-100 border-2 border-primary shadow-[6px_6px_0_0_theme(colors.primary)] px-3 py-3 text-sm">
           <div className="flex flex-col gap-2">
 
-            {isArchivePage ? (
-              <></>
-            ) : (
+            (
               <>
                 <Options functionality={() => { handleDelete(); setOpenMenu(false); }} icon={<Trash2Icon size={16} />} label="Delete" />
                 <Options functionality={() => { setEditBox(true); setOpenMenu(false); }} icon={<PenBoxIcon size={16} />} label="Rename" />
@@ -152,7 +144,7 @@ function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initia
                   label={archive ? "Unarchive" : "Archive"} 
                 />
               </>
-            )}
+            )
         
           </div>
         </div>
