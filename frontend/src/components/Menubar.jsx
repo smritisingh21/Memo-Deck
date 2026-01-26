@@ -21,17 +21,17 @@ export default function Menubar() {
 
       <aside
         className={`
-          fixed top-0 left-0 z-40 h-screen lg:w-64 md:w-54 bg-black/80 border-r-2 border-white/60
+          fixed top-0 left-0 z-40 h-screen lg:w-64 md:w-54 bg-base-100 border-r-2 border-secondary
           transform transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0
         `}
       >
         <div className="p-6 border-b-2 border-base-content/10">
-          <h1 className="text-2xl font-bold text-primary">
+          <h1 className="text-2xl font-bold text-secondary">
             MemoDeck
           </h1>
-          <span className="text-base-content/60 text-sm font-normal">
+          <span className="text-accent text-sm font-normal">
             — just note it
           </span>
         </div>
@@ -59,7 +59,7 @@ export default function Menubar() {
                     {user?.user.name }
                   </p>
                   {user.user.email && (
-                    <p className="text-xs text-base-content/60 truncate mt-1 px-2">
+                    <p className="text-xs text-secondary/60 truncate mt-1 px-2">
                       {user?.user.email}
                     </p>
                   )}
@@ -84,10 +84,11 @@ export default function Menubar() {
                 href={item.path}
                 className="
                   flex items-center gap-2 px-4 py-3
-                  border-2 border-transparent
+                  border border-transparent
                   hover:border-secondary
                   hover:bg-white/10
                   shadow-[2px_2px_0_0_transparent]
+
                   hover:shadow-[3px_3px_0_0_hsl(var(--s))]
                   transition-all
                   font-semibold
@@ -95,7 +96,7 @@ export default function Menubar() {
                 onClick={() => setOpen(false)}
               >
                 <Icon size={18} className="text-secondary" />
-                <span className="text-sm">{item.name}</span>
+                <span className="text-sm text-secondary/90">{item.name}</span>
               </a>
             );
           })}

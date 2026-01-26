@@ -8,48 +8,27 @@ export default function Logout() {
 
 return (
     <>
-        <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200" >
-          <div className="w-full max-w-sm bg-base-100 border-4 border-error shadow-[8px_8px_0_0_theme(colors.black)] p-6
+        <div className="fixed inset-0 z-50 bg-primary-content backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200" >
+          <div className="w-full max-w-sm bg-base-100 border-4 border-primary/10 shadow-[8px_8px_0_0_theme(colors.base-100)] p-6
               space-y-6 animate-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
             <div className="flex items-start justify-center">
               <div className="space-y-1">
-                <h3 className="text-2xl font-bold text-error flex items-center justify-center gap-2">
+                <h3 className="text-2xl font-bold text-red-500 flex items-center justify-center gap-2">
                   <LogOut size={24} />
                   Logout
                 </h3>
-                <p className="text-sm text-base-content/60">
+                <p className="text-md text-bold  text-secondary/60">
                   Are you sure you want to leave?
                 </p>
               </div>
               
             </div>
 
-          
-            {user?.name && (
-              <div className="
-                p-3
-                border-2 border-base-content/20
-                bg-base-200/50
-              ">
-                <p className="text-xs font-semibold uppercase tracking-wider opacity-50">
-                  Current User
-                </p>
-                <p className="text-sm font-bold mt-1">
-                  {user.name}
-                </p>
-                {user.email && (
-                  <p className="text-xs opacity-60 mt-0.5">
-                    {user.email}
-                  </p>
-                )}
-              </div>
-            )}
-
    
-            <p className="text-sm text-base-content/80">
+            <p className="text-sm text-secondary/60">
               You'll need to log in again to access your notes and folders.
             </p>
 
@@ -85,9 +64,9 @@ return (
                   flex-1
                   py-3
                   font-bold
-                  border-2 border-error
-                  bg-error
-                  text-error-content
+                  border-2 border-primary-content
+                  bg-red-500
+                  text-white
                   shadow-[4px_4px_0_0_theme(colors.black)]
                   hover:shadow-[6px_6px_0_0_theme(colors.black)]
                   hover:translate-x-[-2px]
@@ -95,7 +74,7 @@ return (
                   transition-all
                   active:translate-x-[1px]
                   active:translate-y-[1px]
-                  active:shadow-[2px_2px_0_0_theme(colors.error)]
+                  
                 "
               >
                 Yes, Logout

@@ -35,7 +35,7 @@ export default function Search({ items = [] }) {
         <div className="relative flex-1 group">
           <input
             type="text"
-            className="w-full h-11 pl-12 pr-10 bg-white dark:bg-zinc-900 border-2 border-zinc-200 dark:border-zinc-800 rounded-2xl focus:border-blue-500 outline-none transition-all shadow-sm"
+            className="w-full h-11 pl-12 pr-10 bg-primary-content border-2 border-secondary rounded-2xl focus:border-indigo-500 outline-none transition-all shadow-sm"
             placeholder="Search in this folder..."
             value={query}
             onChange={(e) => {

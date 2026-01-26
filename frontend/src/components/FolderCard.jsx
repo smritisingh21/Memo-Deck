@@ -10,6 +10,10 @@ import {
   HeartPlus,
   ArchiveRestoreIcon,
   HeartCrackIcon,
+  FolderGit,
+  LucideFolderRoot,
+  FolderKanbanIcon,
+  FoldersIcon,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import axiosInstance from "../lib/axios";
@@ -40,6 +44,8 @@ function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initia
       await axiosInstance.delete(`/folder/${id}`);
       toast.success("Folder deleted");
       onDeleted(id);
+      window.location.reload();
+
     } catch {
       toast.error("Failed to delete folder");
     }
@@ -50,6 +56,7 @@ function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initia
       await axiosInstance.patch(`/folder/${id}`, { favourite });
       if (favourite === true) toast.success("Added to favourites");
       else toast.success("Removed from favourites");
+
     } catch {
       toast.error("error adding to favorites");
     }
@@ -60,6 +67,7 @@ function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initia
       await axiosInstance.patch(`/folder/${id}`, { archived });
       if(archived == true) toast.success("Added to archive");
       else toast.error("Removed from archive");
+
     } catch {
       toast.error("Could not archive");
     }
@@ -68,10 +76,14 @@ function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initia
   return (
     <div className="relative w-full">
       <Link to={`/folder/${id}`}>
-        <section className="relative bg-base-100 border-2 border-primary/40 rounded-none p-6 h-full shadow-[4px_4px_0_0_theme(colors.primary)] hover:shadow-[6px_6px_0_0_theme(colors.accent-content)] hover:-translate-x-[2px] hover:-translate-y-[2px] transition-all cursor-pointer">
+        <section className="relative bg-base-100 border-2 border-primary/40
+         rounded-lg p-6 h-full shadow-[4px_4px_0_0_theme(colors.primary)]
+          hover:shadow-[6px_6px_0_0_theme(colors.primary)] hover:-translate-x-[2px] 
+          hover:-translate-y-[2px] transition-all cursor-pointer">
+
           <div ref={menuRef} className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <FolderCheck size={20} className="text-accent" />
+              <FoldersIcon size={20} className="text-secondary" />
               <h2 className="text-md font-bold tracking-tight text-base-content line-clamp-1">
                 {title}
               </h2>

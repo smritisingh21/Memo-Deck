@@ -10,6 +10,7 @@ import {
   ChevronRightIcon, 
   ClockIcon 
 } from "lucide-react";
+import Navbar from "../components/Navbar";
 export default function CreateNote({ parentId, onClose,onCreated}) {
 
   const [title, setTitle] = useState("");
@@ -49,19 +50,17 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
 
   return (
   
-    <div className=" bg-base-100 text-base-content pt-10 m-0">
-
-      <div className="bg-primary fixed bottom-5 left-10 blur-xl z-10 opacity-80 h-50 w-50 rounded-full">hey</div>
+    <div className=" bg-base-100 m-0">
+      <Navbar/>
 
       {/* Top Utility Bar  */}
-      <div className=" w-full bg-base-100/80 
-      backdrop-blur-md border-b border-base-200">
+      <div className=" w-full backdrop-blur-md ">
 
-        <div className="max-w-4xl mx-auto px-6 py-5 h-14 flex items-center justify-between bg-black border-2 border-primary/20 ">
+        <div className="max-w-4xl mx-auto px-6 py-5 h-14 flex items-center justify-between bg-accent/10 border-2 border-primary/20 rounded-md ">
           <div className="flex items-center gap-2 text-sm text-base-content/60 ">
           
           <button onClick={() => onClose() }>
-          <div className="flex items-center hover:bg-slate-800 p-1.5 rounded transition-colors cursor-pointer ">
+          <div className="flex items-center hover:bg-slate-100/10 p-1.5 rounded transition-colors cursor-pointer ">
           <ArrowLeftIcon className="size-4" />Go back
           </div>
           </button>
@@ -74,13 +73,6 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
          </div>
 
           <div className="flex items-center gap-2">
-            {/* <button 
-              onClick={() => onClose() } 
-              className="btn btn-ghost btn-sm text-error hover:bg-error/10"
-              title=""
-            >
-              <XIcon className="size-4" />Cancel
-            </button> */}
 
             <div className="divider divider-horizontal mx-0"></div>
             <button 
@@ -99,7 +91,7 @@ export default function CreateNote({ parentId, onClose,onCreated}) {
       </div>
 
       {/* Page Content */}
-      <div className="max-w-5xl mx-auto px-20 pt-12 pb-24 bg-black/40 ">
+      <div className="max-w-5xl mx-auto px-20 pt-12 pb-24 bg-accent/10 ">
         {/* Meta Info */}
         <div className="flex items-center gap-2 text-xs text-base-content/40 mb-8">
           <ClockIcon className="size-3" />

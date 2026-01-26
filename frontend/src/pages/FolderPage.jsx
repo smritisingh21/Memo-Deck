@@ -69,17 +69,17 @@ export default function FolderPage() {
   const hasContent = subfolders?.length > 0 || notes?.length > 0;
 
   return (
-    <div className="h-screen md:p-10 sm:p-5 bg-black/40 rounded-sm animate-in fade-in duration-150 ">
+    <div className="h-full md:p-10 sm:p-5 bg-transparent rounded-sm animate-in fade-in duration-150 ">
       <header className="flex justify-between items-center sm:p-6 sticky top-4 z-20 transition-all">
         <h1 className="text-2xl md:text-md flex gap-2 font-bold text-base/80">
 
         {folder ? (
-            <div className="text-xs flex-wrap">
+            <div className="text-xs">
               <button
-                className="flex justify-evenly items-center gap-2 hover:bg-secondary/40 rounded-xl p-1.5"
+                className="flex justify-center items-center gap-3 hover:bg-secondary/10 rounded-xl p-2"
                 onClick={() => navigate(-1)}
               >
-                <ArrowLeft /> Back
+                <ArrowLeft />
               </button>
             </div>
           ) : (
@@ -87,7 +87,7 @@ export default function FolderPage() {
           )}
 
         <div className="flex items-center justify-evenly gap-3">
-           <div className="bg-fuchsia-900/30 text-fuchsia-700 p-5 rounded-full">
+           <div className="bg-primary/30 text-primary p-5 rounded-full">
            {folder?.title?  <FolderClosed size={30} /> :<HomeIcon size={30}  />}
          </div>
           <u>{folder ? folder.title : "Home"}</u>
@@ -95,7 +95,7 @@ export default function FolderPage() {
         </h1>
 
         <div className="flex gap-3 justify-center items-center">
-          <Search items={allSearchableItems} />
+          <Search items={allSearchableItems} className="bg-primary text-secondary" />
 
           <button
             className="btn btn-sm btn-primary"
@@ -113,8 +113,6 @@ export default function FolderPage() {
         </div>
         
       </header>
-
-  
 
       {subfolders.length > 0 && (
         
@@ -136,7 +134,7 @@ export default function FolderPage() {
                 initialArchived={f.archived}
                 isArchivePage={f.archived}
                 initialFavourite={f.favourite}
-                onDeleted={(id) => setFolder(prev => prev.filter(f => f._id !== id))}
+                onDeleted={(id) => setSubfolders(prev => prev.filter(f => f._id !== id))}
                 type="folder"
               />
             ))}
@@ -165,7 +163,7 @@ export default function FolderPage() {
         </h2>
         <div className="h-px flex-1 bg-base-content/5"></div>
       </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-9">
             {notes.map((note) => (
               <NoteCard key={note._id} note={note} id={note._id} type="note" />
             ))}

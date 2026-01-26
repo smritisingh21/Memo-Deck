@@ -13,26 +13,35 @@ export async function getAllFolders(req, res) {
       return res.status(404).json({ message: "No folders found." });
     }
 
-    const foldersWithCounts = await Promise.all(
-    allFolders.map(async (f) => {
-    const folderCount = await Folder.countDocuments({
-      parent: f._id,
-      user: req.userId
+const rawSubfolders = await Folder.find({ 
+      parent: id ,
+      user: req.userId,
+      archived:false
     });
 
-    const noteCount = await Note.countDocuments({
-      parent: f._id,
-      user: req.userId
+    const notes = await Note.find({ 
+      parent: id ,
+      user: req.userId, 
+      archived:false 
     });
 
-    return {
-      ...f.toObject(),        
-      itemsCount: folderCount + noteCount
-    };
-  })
-);
+    const subfolders = await Promise.all(
+      rawSubfolders.map(async (f) => {
+        const folderCount = await Folder.countDocuments({ parent: f._id });
+        const noteCount = await Note.countDocuments({ parent: f._id });
 
-res.status(200).json(foldersWithCounts);
+        return {
+          ...f.toObject(),
+          itemsCount: folderCount + noteCount
+        };
+      })
+    );
+
+    return res.status(200).json({
+      folder,
+      subfolders,
+      notes
+    });
 
 
   } catch (err) {

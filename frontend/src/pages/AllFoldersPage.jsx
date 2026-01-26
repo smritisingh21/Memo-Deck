@@ -40,7 +40,7 @@ export default function FoldersPage() {
   }
 
   return (
-    <div className= " h-screen p-6 space-y-8 shadow-lg animate-in fade-in duration-150 md:p-10 sm:p-5 bg-black/40 rounded-sm   ">
+    <div className= " h-screen p-6 space-y-8 shadow-lg animate-in fade-in duration-150 md:p-10 sm:p-5 bg-tranparent rounded-sm   ">
       <header className="flex items-center justify-between mb-10 gap-3">
         <h3 className="text-2xl font-bold">All folders</h3>
       <Search items={allSearchableItems}/>

@@ -82,10 +82,10 @@ export const NoteDetail = () => {
     <div className="min-h-screen h-full bg-base-100 text-base-content">
 
       {/* Top Utility Bar  */}
-      <div className="sticky top-0 z-10 w-full bg-base-100/80 
+      <div className="sticky top-0 z-10 w-full 
       backdrop-blur-md border-b border-base-200">
 
-        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between bg-black border-2 border-primary/20">
+        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between bg-primary/10 border-2 border-primary/20">
           <div className="flex items-center gap-2 text-sm text-base-content/60">
           
           <button onClick={() => navigate(-1)}>
@@ -131,7 +131,7 @@ export const NoteDetail = () => {
       </div>
 
       {/* Page Content */}
-      <div className="max-w-5xl mx-auto px-20 pt-12 pb-24 bg-black/40">
+      <div className="max-w-5xl mx-auto px-20 pt-12 pb-24 bg-transparent">
         {/* Meta Info */}
         <div className="flex items-center gap-2 text-xs text-base-content/40 mb-8">
           <ClockIcon className="size-3" />

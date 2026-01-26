@@ -3,8 +3,7 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   // Ensure the baseURL is ALWAYS an absolute URL to the backend
-  baseURL:  import.meta.env.VITE_API_BASE_URL ||"http://localhost:4040/api/v1",
-  timeout: 60000,
+  baseURL:  import.meta.env.VITE_API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   }

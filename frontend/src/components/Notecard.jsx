@@ -60,8 +60,8 @@ export default function NoteCard({ note, id }) {
 
   return (
     <Link to={`/note/${id}`} className="">
-      <div className="relative bg-base-100 border-2 border-white/20 p-5 
-      shadow-[6px_6px_0_0_theme(colors.white)] hover:shadow-[12px_12px_0_0_theme(colors.black)]
+      <div className="relative bg-base-100 border-2 border-primary/20 p-5 opacity-80
+      shadow-[2px_2px_0_2px_theme(colors.secondary)] hover:shadow-[0_0_0_0_theme(colors.secondary)]
        hover:-translate-x-[4px] hover:-translate-y-[4px] transition-all cursor-pointer">
 
         <h3 className="text-lg h-10 font-bold tracking-tight text-base-content border-b-2 border-white/40 pb-2 mb-2 overflow-y-clip">

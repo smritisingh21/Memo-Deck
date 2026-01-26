@@ -2,35 +2,34 @@ import Folder from "../models/folderSchema.js";
 import Note from "../models/notesSchema.js";
 import User from "../models/UserSchema.js"
 
+// Helper function to attach counts to folders
+async function attachCountsToFolders(rawFolders) {
+  return await Promise.all(
+    rawFolders.map(async (f) => {
+      const folderCount = await Folder.countDocuments({ parent: f._id });
+      const noteCount = await Note.countDocuments({ parent: f._id });
+      
+      return {...f, itemsCount : folderCount + noteCount}
+    })
+  );
+}
+
 export async function getRoot(req, res) {
   try {
-    const rawFolders = await Folder.find({ 
-        parent: null ,
-        user: req.userId,
-        archived : false
-    });
+     const rawFolders = await Folder.find({ 
+      parent: null,
+      user: req.userId,
+      archived: false
+    }).lean();
     const notes = await Note.find({
-         parent: null ,
-         user: req.userId,
-         archived :false 
-        });
-
-    const folders = await Promise.all(
-      rawFolders.map(async (f) => {
-        const folderCount = await Folder.countDocuments({ parent: f._id });
-        const noteCount = await Note.countDocuments({ parent: f._id });
-
-        return {
-          ...f.toObject(),
-          itemsCount: folderCount + noteCount
-        };
-      })
-    );
-
-    res.status(200).json({
-      folders,
-      notes
+      parent: null,
+      user: req.userId,
+      archived: false 
     });
+
+    const folders = await attachCountsToFolders(rawFolders);
+
+    res.status(200).json({ folders, notes });
 
   } catch (err) {
     console.error("Could not fetch root\n\n", err);
@@ -89,26 +88,20 @@ export async function createNote(req , res) {
 
 export async function getFavourites(req , res ) { 
     try{
+    const rawFolders = await Folder.find({ 
+      user: req.userId,
+      archived: false,
+      favourite: true,
+    }).lean();
+    
+    const notes = await Note.find({
+      user: req.userId,
+      archived: false,
+      favourite: true,
+    }).lean();
 
-        const folders = await Folder.find({
-            favourite: true, 
-            archived:false,
-            user:req.userId
-        });
-        const notes = await Note.find({
-            user: req.userId,
-            favourite: true ,
-            archived:false ,
-        });
-
-        if(!folders && !notes) return res.status(404).json({message : "Favourites not found."})
-
-        else{
-            return res.status(200).json({
-             folders ,
-             notes
-            });
-        }
+    const folders = await attachCountsToFolders(rawFolders);
+    res.status(200).json({ folders, notes });
 
     }catch(err){
         console.error("Could not fetch folder.\n\n" , err);
@@ -119,24 +112,18 @@ export async function getFavourites(req , res ) {
 
 export async function getArchived(req , res ) { 
     try{
+  const rawFolders = await Folder.find({ 
+      user: req.userId,
+      archived: true,
+    }).lean(); //lean() tells Mongoose to return plain JavaScript objects (POJOs) instead of full Mongoose Document objects when querying the database. 
+    
+    const notes = await Note.find({
+      user: req.userId,
+      archived: true,
+    }).lean();
 
-        const folders = await Folder.find({
-        user: req.userId,
-            archived: true,
-        });
-        const notes = await Note.find({
-        user: req.userId,
-            archived: true,
-        });
-
-        if(!folders && !notes) return res.status(404).json({message : "Archived notes not found."})
-
-        else{
-            return res.status(200).json({
-             folders,
-             notes
-            });
-        }
+    const folders = await attachCountsToFolders(rawFolders);
+    res.status(200).json({ folders, notes });
 
     }catch(err){
         console.error("Could not fetch folder.\n\n" , err);

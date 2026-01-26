@@ -8,7 +8,12 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
 
-  const themes = ["halloween", "forest", "dracula", "aqua"];
+  const themes = ["forest",
+      "lofi", 
+      "night", 
+     "synthwave", 
+      "winter", 
+      ];
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -24,10 +29,9 @@ export default function Navbar() {
   return (
     <div>
       <header className="w-full ">
-      <div className="w-full px-2 py-3 flex items-center justify-between">
+      <div className="w-full py-5 px-3 flex items-center justify-between">
 
         <h1 className="text-2xl font-bold text-primary">
-          MemoDeck{" "}
         </h1>
 
         <div className="relative" ref={menuRef}>
@@ -77,7 +81,6 @@ export default function Navbar() {
         </div>
       </div>
     </header>
-    <div className="border border-gray-400 w-100"></div>
     </div>
     
   );

@@ -13,7 +13,7 @@
     @apply bg-lime-100
 }
 .btn-primary {
-    @apply bg-zinc-900 text-white px-4 py-2 rounded-lg hover:bg-zinc-800;
+    @apply  bg-primary-content text-secondary px-4 border-2 py-2 rounded-lg hover:bg-secondary hover:text-primary-content;
   }
 
 .card {

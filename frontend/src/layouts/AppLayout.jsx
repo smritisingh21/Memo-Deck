@@ -8,7 +8,6 @@ export default function AppLayout({children}) {
     <aside className="lg:w-64 md:w-60 sm:w-0">
       <Menubar />
     </aside>
-
     <div className="flex flex-col flex-1">
       <Navbar />
 
