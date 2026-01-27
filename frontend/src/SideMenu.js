@@ -24,7 +24,7 @@ export const SIDE_MENU_DATA = [
     id: "05",
     name: "Favourites",
     icon: Star,
-    path: "/favorites",
+    path: "/favourites",
   },
   {
     id: "06",
