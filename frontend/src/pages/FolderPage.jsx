@@ -165,7 +165,9 @@ export default function FolderPage() {
       </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-9">
             {notes.map((note) => (
-              <NoteCard key={note._id} note={note} id={note._id} type="note" />
+              <NoteCard key={note._id} note={note} id={note._id} type="note"
+                onDeleted={(id) => setNotes(prev => prev.filter(f => f._id !== id))}
+               />
             ))}
           </div>
         </section>

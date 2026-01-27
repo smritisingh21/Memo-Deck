@@ -34,7 +34,7 @@ function App() {
         <Route path='/folder/:id' element={<FolderPage />} />
         <Route  path= '/note/:id' element={<NoteDetail/>}/>
         <Route  path= '/folders' element={<AllFoldersPage/>}/> 
-        <Route  path= '/favorites' element={<FavouritesPage/>}/> 
+        <Route  path= '/favourites' element={<FavouritesPage/>}/> 
         <Route  path= '/archives' element={<ArchivePage/>}/> 
       </Route>
       </Routes>

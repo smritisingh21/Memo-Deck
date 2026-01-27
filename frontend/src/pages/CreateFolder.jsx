@@ -1,12 +1,14 @@
 import { useState } from "react";
 import axios from "../lib/axios";
+import toast from "react-hot-toast";
 
 export default function CreateFolder({ parentId, onClose, onCreated }) {
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function handleCreate() {
-    if (!title.trim()) return;
+    try{
+      if (!title.trim()) return;
 
     setLoading(true);
     if(parentId){
@@ -27,6 +29,12 @@ export default function CreateFolder({ parentId, onClose, onCreated }) {
     setLoading(false);
     onCreated(); 
     onClose();
+   }
+
+   toast.success("Folder created successfully")
+    }catch(err){
+      console.log(err);
+      toast.error("Could not create folder.")
 
     }
    

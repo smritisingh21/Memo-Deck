@@ -16,7 +16,7 @@ export default function FavoritesPage() {
   async function fetchFavorites() {
     setLoading(true);
     try {
-      const res = await axiosInstance.get("/favorites");
+      const res = await axiosInstance.get("/favourites");
       setFavorites({
         folders: res.data.folders || [],
         notes: res.data.notes || []

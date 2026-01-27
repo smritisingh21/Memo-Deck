@@ -8,7 +8,7 @@ import { Archive, ArchiveRestoreIcon } from "lucide-react";
 import axiosInstance from '../lib/axios';
 import toast from "react-hot-toast";
 
-export default function NoteCard({ note, id }) {
+export default function NoteCard({ note, id ,onDeleted}) {
 
   const [notes, setNotes] = useState([]);
   const [favourite, setFavourite] = useState(note.favourite || false);
@@ -22,7 +22,6 @@ export default function NoteCard({ note, id }) {
       await axiosInstance.delete(`/note/${id}`);
       setNotes((prev) => prev.filter((n) => n._id !== id));
       toast.success("Note deleted successfully");
-      window.location.reload();
     } catch (error) {
       toast.error("Failed to delete note");
     }
@@ -41,12 +40,13 @@ export default function NoteCard({ note, id }) {
   const ArchiveNote = async (id, archived) => {
     try {
       await axiosInstance.patch(`/note/${id}`, { archived });
-      toast.success("Added to archive");
+      onDeleted(id);
+      if(archived == true)toast.success("Added to archive");
+      else toast.success("Removed from archive")
+
     } catch {
       toast.error("Could not archive")
-    } finally {
-      window.location.reload();
-    }
+    } 
   };
 
   const Tooltip = ({ children, content, position = "top" }) => {

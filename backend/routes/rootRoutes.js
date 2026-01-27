@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/root" ,protect, getRoot)
 router.post("/note" ,protect, createNote)
 router.get("/user" ,protect, getUser)
-router.get("/favorites" ,protect, getFavourites );
+router.get("/favourites" ,protect, getFavourites );
 router.get("/archive" ,protect, getArchived );
 
 

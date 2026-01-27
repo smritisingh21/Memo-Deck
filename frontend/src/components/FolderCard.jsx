@@ -38,12 +38,10 @@ function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initia
   }, []);
 
   async function handleDelete(e) {
-    // e.stopPropagation();
     try {
       await axiosInstance.delete(`/folder/${id}`);
       toast.success("Folder deleted");
       onDeleted(id);
-s
     } catch {
       toast.error("Failed to delete folder");
     }
@@ -55,6 +53,7 @@ s
       if (favourite === true) toast.success("Added to favourites");
       else toast.success("Removed from favourites");
 
+
     } catch {
       toast.error("error adding to favorites");
     }
@@ -64,7 +63,8 @@ s
     try {
       await axiosInstance.patch(`/folder/${id}`, { archived });
       if(archived == true) toast.success("Added to archive");
-      else toast.error("Removed from archive");
+      else toast.success("Removed from archive");
+      onDeleted(id);
 
     } catch {
       toast.error("Could not archive");
@@ -140,8 +140,19 @@ s
 
             
               <>
-                <Options functionality={() => { handleDelete(); setOpenMenu(false); }} icon={<Trash2Icon size={16} />} label="Delete" />
-                <Options functionality={() => { setEditBox(true); setOpenMenu(false); }} icon={<PenBoxIcon size={16} />} label="Rename" />
+                <Options functionality={() => {
+                   handleDelete();
+                  setOpenMenu(false);
+                   }} 
+                   icon={<Trash2Icon size={16} />} 
+                   label="Delete" />
+                   
+                <Options functionality={() => 
+                  { setEditBox(true); 
+                  setOpenMenu(false); }}
+                   icon={<PenBoxIcon size={16} />} 
+                   label="Rename" />
+
                 <Options 
                   functionality={() => { handleFavourites(!favourite); setOpenMenu(false); }} 
                   icon={<HeartPlus size={16} className={favourite ? "fill-emerald-500 text-emerald-500" : ""} />} 

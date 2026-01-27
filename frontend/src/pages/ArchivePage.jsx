@@ -30,6 +30,12 @@ export default function ArchivePage() {
       folders: prev.folders.filter(f => f._id !== folderId)
     }));
   }
+   const handleRemoveNoteFromUI = (noteId) => {
+    setArchive(prev => ({
+      ...prev,
+      notes: prev.notes.filter(f => f._id !== noteId)
+    }));
+  }
 
   useEffect(() => {
     fetchArchived();
@@ -102,7 +108,8 @@ export default function ArchivePage() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-9">
                 {archive.notes.map(n => (
-                  <NoteCard key={n._id} id={n._id} note={n} />
+                  <NoteCard key={n._id} id={n._id} note={n} 
+                  onDeleted={handleRemoveNoteFromUI}/>
                 ))}
               </div>
             </section>

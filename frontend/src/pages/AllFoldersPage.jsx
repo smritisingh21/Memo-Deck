@@ -59,6 +59,7 @@ export default function FoldersPage() {
              id={folder._id}
              title={folder.title? folder.title :"Untitled"} 
              itemsCount={folder.itemsCount}
+             onDeleted={(id) => setFolders(prev => prev.filter(f => f._id !== id))}
              notes={folder.notes} />
           ))}
         </div>
