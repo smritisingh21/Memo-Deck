@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { 
@@ -18,6 +18,8 @@ export const NoteDetail = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
+  
+  const textareaRef = useRef(null);
 
   useEffect(() => {
     const fetchNote = async () => {
@@ -34,9 +36,18 @@ export const NoteDetail = () => {
     fetchNote();
   }, [id]);
 
-    useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Auto-resize logic: Runs whenever note.content changes or after initial load
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "0px";
+      const scrollHeight = textareaRef.current.scrollHeight;
+      textareaRef.current.style.height = scrollHeight + "px";
+    }
+  }, [note?.content, loading]);
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this note?")) return;
@@ -72,38 +83,31 @@ export const NoteDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-base-100 flex items-center justify-center">
-        <LoaderIcon className="animate-spin size-20 text-primary/20" />
+      <div className="bg-base-100 flex items-center gap-2 justify-center">
+        <LoaderIcon className="animate-spin size-10 text-primary/20" />
+        <p>Loading note...</p>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen h-full bg-base-100 text-base-content">
-
       {/* Top Utility Bar  */}
-      <div className="sticky top-0 z-10 w-full 
-      backdrop-blur-md border-b border-base-200">
-
+      <div className="sticky top-0 z-10 w-full backdrop-blur-md border-b border-base-200">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between bg-primary/10 border-2 border-primary/20">
           <div className="flex items-center gap-2 text-sm text-base-content/60">
-          
-          <button onClick={() => navigate(-1)}>
-          <div className="flex items-center hover:bg-slate-800 p-1.5 
-          rounded transition-colors cursor-pointer ">
-
-          <ArrowLeftIcon className="size-4" />
-              Go back
-          </div>
-          </button>
-          
-
-          <ChevronRightIcon className="size-4" />
+            <button onClick={() => navigate(-1)}>
+              <div className="flex items-center hover:bg-slate-800 p-1.5 rounded transition-colors cursor-pointer">
+                <ArrowLeftIcon className="size-4" />
+                Go back
+              </div>
+            </button>
+            
+            <ChevronRightIcon className="size-4" />
             <span className="text-base-content font-medium truncate max-w-[150px]">
               {note.title || "Untitled"}
             </span>
-
-         </div>
+          </div>
 
           <div className="flex items-center gap-2">
             <button 
@@ -115,14 +119,14 @@ export const NoteDetail = () => {
             </button>
             <div className="divider divider-horizontal mx-0"></div>
             <button 
-              className="btn btn-primary btn-sm gap-2" 
+              className="btn btn-primary btn-sm text-md" 
               disabled={saving} 
               onClick={handleSave}
             >
               {saving ? (
-                <LoaderIcon className="size-4 animate-spin" />
+                <LoaderIcon className="size-3 animate-spin" />
               ) : (
-                <SaveIcon className="size-4" />
+                <SaveIcon className="size-3" />
               )}
               {saving ? "Saving..." : "Save Changes"}
             </button>
@@ -131,30 +135,27 @@ export const NoteDetail = () => {
       </div>
 
       {/* Page Content */}
-      <div className="max-w-5xl mx-auto px-20 pt-12 pb-24 bg-transparent">
+      <div className="max-w-5xl mx-auto md:px-20 px-4 pt-12 pb-24 bg-transparent">
         {/* Meta Info */}
         <div className="flex items-center gap-2 text-xs text-base-content/40 mb-8">
           <ClockIcon className="size-3" />
           <span>Last edited {new Date().toLocaleDateString()}</span>
         </div>
 
-        <div className="space-y-6 h-full">
+        <div className="space-y-2 h-auto">
           {/* Notion-style Title: Borderless and Large */}
           <input
             type="text"
             placeholder="Untitled"
-            className="w-full bg-transparent mb-md text-4xl md:text-4xl 
-            font-bold focus:outline-none placeholder:opacity-20"
+            className="w-full bg-transparent mb-4 text-3xl md:text-4xl font-bold focus:outline-none placeholder:opacity-20"
             value={note.title}
             onChange={(e) => setNote({ ...note, title: e.target.value })}
           />
 
           <textarea
+            ref={textareaRef}
             placeholder="Start writing..."
-            className="w-full h-screen
-            bg-transparent text-md md:text-md 
-            leading-relaxed  resize-y
-            focus:outline-none placeholder:opacity-20"
+            className="w-full bg-transparent sm:text-sm md:text-lg leading-relaxed resize-none overflow-hidden focus:outline-none placeholder:opacity-20"
             value={note.content}
             onChange={(e) => setNote({ ...note, content: e.target.value })}
           />

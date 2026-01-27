@@ -38,14 +38,12 @@ function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initia
   }, []);
 
   async function handleDelete(e) {
-    e.preventDefault();
-    e.stopPropagation();
+    // e.stopPropagation();
     try {
       await axiosInstance.delete(`/folder/${id}`);
       toast.success("Folder deleted");
       onDeleted(id);
-      window.location.reload();
-
+s
     } catch {
       toast.error("Failed to delete folder");
     }
