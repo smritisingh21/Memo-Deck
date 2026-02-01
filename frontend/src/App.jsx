@@ -1,4 +1,5 @@
 import React from 'react'
+import { Suspense } from 'react'
 import './App.css'
 import {Routes, Route} from "react-router-dom"
 import NoteDetail from './pages/NoteDetail'
@@ -6,20 +7,19 @@ import FolderPage from './pages/FolderPage'
 import AppLayout from './layouts/AppLayout'
 import AllFoldersPage from './pages/AllFoldersPage'
 import ArchivePage from './pages/ArchivePage'
-import { ThemeProvider, useTheme } from './context/ThemeContext'
 import ProtectedRoute from './pages/Auth/ProtectedRoutes'
-import Login from './pages/Auth/Login'
 import FavouritesPage from './pages/FavouritesPage'
-import Signup from './pages/Auth/Signup'
+import LazyLayout from './pages/LazyLayout'
 import Logout from './pages/Auth/Logout'
 
-
 function App() {
+const Login = React.lazy(() => import('./pages/Auth/Login'));
+const Signup = React.lazy(() => import('./pages/Auth/Signup'));
 
-  const {theme}  = useTheme();
   return (
     <div  className="min-h-screen min-w-50vw" >
-      <Routes>
+     <Suspense fallback={<LazyLayout />}>
+       <Routes>
          <Route path= '/login' element={<Login/>}/>
         <Route path= '/signup' element={<Signup/>}/>
         <Route path= '/logout' element={<Logout/>}/>
@@ -38,6 +38,7 @@ function App() {
         <Route  path= '/archives' element={<ArchivePage/>}/> 
       </Route>
       </Routes>
+     </Suspense>
     </div>
     
   )
