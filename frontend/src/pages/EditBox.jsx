@@ -2,16 +2,16 @@ import { useState } from "react";
 import axios from "../lib/axios";
 import axiosInstance from "../lib/axios";
 
-export default function EditBox({ id , oldTitle, onClose}) {
+export default function EditBox({ id , oldTitle, onClose, onRenamed}) {
   console.log(id);
 
-  const [title, setTitle] = useState({oldTitle});
-
+  const [title, setTitle] = useState(oldTitle);
    const handleEdit = async (e, id) =>{
 
     try{
       if(id){
-      await axiosInstance.patch(`/folder/${id}`, { title })
+      await axiosInstance.patch(`/folder/${id}`, {title} )
+      if (onRenamed) onRenamed(id, title); // Update UI state
      toast.success("Folder name changed !");
 
     };
@@ -43,7 +43,6 @@ export default function EditBox({ id , oldTitle, onClose}) {
         value={title}
         onChange={(e) => {
           setTitle(e.target.value)
-          console.log(e.target.value);
 
         }}
         onKeyDown={(e) => {

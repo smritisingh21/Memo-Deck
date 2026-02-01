@@ -33,6 +33,11 @@ export default function FolderPage() {
     ...notes.map((n) => ({ ...n, type: "note" })),
   ];
 
+  const handleRenamed = (folderId, newTitle) => {
+    setSubfolders(prev => prev.map(item => 
+      item._id === folderId ? { ...item, title: newTitle } : item
+    ));
+  };
   async function fetchData() {
     setLoading(true);
     try {
@@ -135,6 +140,7 @@ export default function FolderPage() {
                 isArchivePage={f.archived}
                 initialFavourite={f.favourite}
                 onDeleted={(id) => setSubfolders(prev => prev.filter(f => f._id !== id))}
+                onRenamed={handleRenamed}
                 type="folder"
               />
             ))}

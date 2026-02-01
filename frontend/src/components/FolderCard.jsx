@@ -20,7 +20,7 @@ import axiosInstance from "../lib/axios";
 import EditBox from "../pages/EditBox";
 import Options from "../layouts/Options";
 
-function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initialFavourite, isArchivePage , isFavouritePage}) {
+function FolderCard({ id, title, itemsCount, onDeleted, onRenamed, initialArchived, initialFavourite, isArchivePage , isFavouritePage}) {
   const [editBox, setEditBox] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [archive , setArchive] = useState(initialArchived || false)
@@ -174,6 +174,7 @@ function FolderCard({ id, title, itemsCount, onDeleted,  initialArchived, initia
         <EditBox 
         id={id}
         oldTitle={title}
+        onRenamed={onRenamed}
         onClose={() => setEditBox(false)} />
       )}
     </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router";
 import { formatDate } from '../../utils/helper.js';
-import { Trash2Icon, PenSquareIcon, HeartPlusIcon } from 'lucide-react'
+import { Trash2Icon, PenSquareIcon, HeartPlusIcon, HeartIcon } from 'lucide-react'
 import { StarIcon } from "lucide-react";
 import { Archive, ArchiveRestoreIcon } from "lucide-react";
 import axiosInstance from '../lib/axios';
@@ -80,7 +80,7 @@ export default function NoteCard({ note, id ,onDeleted}) {
 
           <Tooltip content="Delete">
             <button
-              className="flex items-center gap-1  transition-all hover:text-red-600 hover:-translate-y-2 hover:underline"
+              className="flex items-center gap-1  transition-all hover:text-red-600 hover:underline"
               onClick={(e) => handleDelete(e, id)}
             >
               <Trash2Icon size={20} />
@@ -91,7 +91,7 @@ export default function NoteCard({ note, id ,onDeleted}) {
           {!archived ? (
             <Tooltip content="Archive">
               <button
-                className="flex items-center gap-1 transition-all  hover:text-accent hover:-translate-y-2 "
+                className="flex items-center gap-1 transition-all  hover:text-accent  "
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
@@ -122,7 +122,7 @@ export default function NoteCard({ note, id ,onDeleted}) {
 
           <Tooltip content={`${favourite ? "Remove from favourites" : "Add to favourites"}`}>
             <button
-              className="flex items-center gap-1  transition-all hover:text-accent hover:-translate-y-2 "
+              className="flex items-center gap-1  transition-all hover:text-accent  "
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
@@ -131,8 +131,8 @@ export default function NoteCard({ note, id ,onDeleted}) {
                 AddToFav(id, val);
               }}
             >
-              <HeartPlusIcon size={22} className={`${favourite ? "fill-accent text-transparent" : "fill-none"} transition-all`} />
-              <p className="text-xs sm:hidden hover:-translate-y-2 ">
+              <HeartIcon size={22} className={`hover:fill-accent ${favourite ? "fill-accent" : "fill-none "} transition-all `} />
+              <p className="text-xs sm:hidden ">
                 {!favourite ? "Fav" : "Unfav"}
               </p>
             </button>
