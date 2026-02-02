@@ -9,13 +9,17 @@ async function attachCountsToFolders(rawFolders) {
       const folderCount = await Folder.countDocuments({ parent: f._id });
       const noteCount = await Note.countDocuments({ parent: f._id });
       
-      return {...f, itemsCount : folderCount + noteCount}
+      return {
+        ...f,
+        itemsCount: folderCount + noteCount
+      };
     })
   );
 }
 
 export async function getRoot(req, res) {
   try {
+     if (!req.userId) return res.status(401).json({ message: "Unauthorized" });
      const rawFolders = await Folder.find({ 
       parent: null,
       user: req.userId,
@@ -37,6 +41,7 @@ export async function getRoot(req, res) {
   }
 }
 
+
 export async function getUser(req, res) {
   try {
     const userId = req.userId; 
@@ -56,6 +61,24 @@ export async function getUser(req, res) {
   } catch (err) {
     console.error("Error fetching user:", err);
     res.status(500).json({ message: "Failed to fetch user data" });
+  }
+}
+
+export async function getAllFolders(req, res) {
+  try {
+    if (!req.userId) return res.status(401).json({ message: "Unauthorized" });
+
+    const rawFolders = await Folder.find({ 
+      user: req.userId, 
+      archived: false 
+    }).lean();
+
+    const folders = await attachCountsToFolders(rawFolders);
+    
+    res.status(200).json({ folders });
+  } catch (err) {
+    console.error("Error in getAllFolders:", err);
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 
@@ -90,14 +113,15 @@ export async function getFavourites(req , res ) {
     try{
     const rawFolders = await Folder.find({ 
       user: req.userId,
-      archived: false,
+      archived:false,
       favourite: true,
     }).lean();
     
     const notes = await Note.find({
       user: req.userId,
-      archived: false,
       favourite: true,
+      archived:false,
+
     }).lean();
 
     const folders = await attachCountsToFolders(rawFolders);
@@ -115,7 +139,8 @@ export async function getArchived(req , res ) {
   const rawFolders = await Folder.find({ 
       user: req.userId,
       archived: true,
-    }).lean(); //lean() tells Mongoose to return plain JavaScript objects (POJOs) instead of full Mongoose Document objects when querying the database. 
+    }).lean(); 
+    //lean() tells Mongoose to return plain JavaScript objects (POJOs) instead of full Mongoose Document objects when querying the database. 
     
     const notes = await Note.find({
       user: req.userId,

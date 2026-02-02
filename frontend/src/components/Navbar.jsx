@@ -29,7 +29,7 @@ export default function Navbar() {
   return (
     <div>
       <header className="w-full ">
-      <div className="w-full py-5 px-3 flex items-center justify-between">
+      <div className="w-full py-3 m-0 px-3 flex items-center justify-between">
 
         <h1 className="text-2xl font-bold text-primary">
         </h1>

@@ -53,7 +53,7 @@ export default function FavoritesPage() {
           </div>
 
           <div className="flex items-center justify-center gap-3">
-            <h1 className="text-2xl font-black underline">Favorites
+            <h1 className="text-2xl font-black underline">Favourites
             </h1>
             <span className="text-md text-gray-500 tracking-tight "> 
               All your starred items in one place</span>
@@ -87,7 +87,9 @@ export default function FavoritesPage() {
                   <FolderCard 
                   key={f._id}
                   itemsCount={f.itemsCount}
-                  id={f._id} title={f.title} initialFavourite={true} isFavouritePage={true} />
+                  id={f._id} title={f.title} 
+                  initialFavourite={true} 
+                  isFavouritePage={true} />
                 ))}
               </div>
             </section>
@@ -102,7 +104,10 @@ export default function FavoritesPage() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10">
                 {favourite.notes.map(n => (
-                  <NoteCard key={n._id} id={n._id} note={n} initialFavourite={true}  isFavouritePage={true} />
+                  <NoteCard key={n._id}
+                   id={n._id}
+                  note={n}
+                  initialFavourite={true}  isFavouritePage={true} />
                 ))}
               </div>
             </section>

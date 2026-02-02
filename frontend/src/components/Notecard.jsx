@@ -106,7 +106,7 @@ export default function NoteCard({ note, id ,onDeleted}) {
           ) : (
             <Tooltip content="Unarchive">
               <button
-                className="flex items-center gap-1  transition-all hover:text-accent hover:-translate-y-2 "
+                className="flex items-center gap-1  transition-all hover:text-accent  "
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();

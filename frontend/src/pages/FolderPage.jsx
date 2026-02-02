@@ -74,7 +74,7 @@ export default function FolderPage() {
   const hasContent = subfolders?.length > 0 || notes?.length > 0;
 
   return (
-    <div className="h-full md:p-10 sm:p-5 bg-transparent rounded-sm animate-in fade-in duration-150 ">
+    <div className="h-full p-2  bg-transparent rounded-sm animate-in fade-in duration-150 ">
       <header className="flex justify-between items-center sm:p-6 sticky top-4 z-20 transition-all">
         <h1 className="text-2xl md:text-md flex gap-2 font-bold text-base/80">
 

@@ -1,55 +1,6 @@
 import Folder from "../models/folderSchema.js"
 import Note from "../models/notesSchema.js";
 
-export async function getAllFolders(req, res) {
-  try {
-
-    const allFolders = await Folder.find({ 
-      archived: false,
-      user: req.userId
-    });
-
-    if (!allFolders.length) {
-      return res.status(404).json({ message: "No folders found." });
-    }
-
-const rawSubfolders = await Folder.find({ 
-      parent: id ,
-      user: req.userId,
-      archived:false
-    });
-
-    const notes = await Note.find({ 
-      parent: id ,
-      user: req.userId, 
-      archived:false 
-    });
-
-    const subfolders = await Promise.all(
-      rawSubfolders.map(async (f) => {
-        const folderCount = await Folder.countDocuments({ parent: f._id });
-        const noteCount = await Note.countDocuments({ parent: f._id });
-
-        return {
-          ...f.toObject(),
-          itemsCount: folderCount + noteCount
-        };
-      })
-    );
-
-    return res.status(200).json({
-      folder,
-      subfolders,
-      notes
-    });
-
-
-  } catch (err) {
-    console.error("Could not fetch folders.\n", err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-}
-
 
 
 export async function getFolder(req, res) {
