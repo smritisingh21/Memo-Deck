@@ -16,6 +16,7 @@ export default function FoldersPage() {
       try {
         const folders = await axiosInstance.get("/folders");
         setFolders(folders.data);
+        console.log(folders.data);
 
       } catch (err) {
         setError("No folders yet");
