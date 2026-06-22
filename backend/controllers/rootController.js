@@ -74,7 +74,6 @@ export async function getAllFolders(req, res) {
     }).lean();
 
     const folders = await attachCountsToFolders(rawFolders);
-    console.log(folders);
     
     res.status(200).json( folders );
   } catch (err) {

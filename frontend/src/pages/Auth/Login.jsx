@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ email: "demo@gmail.com", password: "1234" });
   const [submitting, setSubmitting] = useState(false);
   const { login, loading } = useAuth();
 
